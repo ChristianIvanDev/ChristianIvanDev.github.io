@@ -89,6 +89,17 @@ describe('initReveal', () => {
     vi.useRealTimers();
   });
 
+  test('si varios entran a la vez, aparecen uno tras otro', () => {
+    const root = page();
+    let cb, obs;
+    class BatchIO { constructor(f) { cb = f; obs = this; } observe() {} unobserve() {} disconnect() {} }
+    initReveal(root, { reduced: false, IO: BatchIO });
+    const [a, b] = root.querySelectorAll('[data-reveal]');
+    cb([{ target: a, isIntersecting: true }, { target: b, isIntersecting: true }], obs);
+    expect(a.style.getPropertyValue('--batch')).toBe('0');
+    expect(b.style.getPropertyValue('--batch')).toBe('1');
+  });
+
   test('la limpieza deja todo visible', () => {
     const root = page();
     const cleanup = initReveal(root, { reduced: false, IO: fakeIO().IO });

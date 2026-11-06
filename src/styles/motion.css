@@ -11,6 +11,10 @@
   transition: opacity 420ms var(--ease-out), transform 420ms var(--ease-out);
 }
 
+[data-reveal].is-revealed:not(.reveal-done) {
+  transition-delay: calc(var(--batch, 0) * 70ms);
+}
+
 [data-reveal].is-revealed:not(.reveal-done) [data-reveal-item] {
   transition-delay: calc(var(--i, 0) * 55ms + 80ms);
 }

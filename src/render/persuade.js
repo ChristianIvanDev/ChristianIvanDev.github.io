@@ -112,11 +112,12 @@ export function renderFaq(lang, { booking }) {
     ['faq.start.q', t(lang, 'faq.start.a')],
     ['faq.how.q', t(lang, booking ? 'faq.how.booking' : 'faq.how.whatsapp')],
   ];
-  return h('section', { class: 'section', 'data-section': 'faq', 'data-reveal': '', 'aria-labelledby': 'faq-title' },
-    sectionHead(lang, { id: 'faq-title', titleKey: 'faq.title' }),
+  // Cada pregunta se revela por separado conforme entra en pantalla (no toda la sección a la vez).
+  return h('section', { class: 'section', 'data-section': 'faq', 'aria-labelledby': 'faq-title' },
+    h('div', { 'data-reveal': '' }, sectionHead(lang, { id: 'faq-title', titleKey: 'faq.title' })),
     h('div', { class: 'faq' },
       items.map(([q, a]) =>
-        h('details', { class: 'card faq__item', 'data-reveal-item': '' },
+        h('details', { class: 'card faq__item', 'data-reveal': '' },
           h('summary', { class: 'faq__q' }, h('span', {}, t(lang, q)), h('span', { class: 'faq__icon', 'aria-hidden': 'true' })),
           h('div', { class: 'faq__a' }, h('p', {}, a)),
         ),

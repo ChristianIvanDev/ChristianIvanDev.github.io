@@ -25,9 +25,12 @@ export function initReveal(root, { reduced = prefersReduced(), IO = window.Inter
 
   const io = new IO((entries, obs) => {
     clearTimeout(failsafe);
+    let batch = 0;
     for (const entry of entries) {
       if (!entry.isIntersecting) continue;
       const el = entry.target;
+      // Los que entran en el mismo momento se escalonan (p. ej., varias preguntas a la vez).
+      el.style.setProperty('--batch', String(Math.min(batch++, MAX_STAGGER)));
       el.classList.remove('is-pending');
       el.classList.add('is-revealed');
       obs.unobserve(el);

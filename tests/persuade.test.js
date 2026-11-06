@@ -82,6 +82,14 @@ describe('preguntas frecuentes', () => {
     expect(wa).not.toContain(es['faq.how.booking']);
   });
 
+  test('cada pregunta aparece por separado al hacer scroll', () => {
+    const items = renderFaq('es', { booking: true }).querySelectorAll('details');
+    for (const d of items) {
+      expect(d.hasAttribute('data-reveal')).toBe(true);
+      expect(d.hasAttribute('data-reveal-item')).toBe(false);
+    }
+  });
+
   test('abrir una pregunta no cierra otra', () => {
     const items = renderFaq('es', { booking: true }).querySelectorAll('details');
     items[0].open = true;
