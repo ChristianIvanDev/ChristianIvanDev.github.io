@@ -1,6 +1,6 @@
 [
-  { "from": "_material/capturas-sesiones/056.jpg", "to": "public/assets/projects/caza-de-monstruos/1.webp" },
-  { "from": "_material/capturas-sesiones/083.jpg", "to": "public/assets/projects/caza-de-monstruos/2.webp" },
+  { "from": "_material/capturas-sesiones/083.jpg", "to": "public/assets/projects/caza-de-monstruos/1.webp" },
+  { "from": "_material/capturas-sesiones/056.jpg", "to": "public/assets/projects/caza-de-monstruos/2.webp" },
   { "from": "_material/capturas-sesiones/032.jpg", "to": "public/assets/projects/caza-de-monstruos/3.webp", "crop": { "left": 110, "top": 40, "width": 1000, "height": 650 } },
   { "from": "_material/capturas-sesiones/148.jpg", "to": "public/assets/projects/caza-de-monstruos/4.webp", "crop": { "left": 56, "top": 232, "width": 722, "height": 466 } },
 

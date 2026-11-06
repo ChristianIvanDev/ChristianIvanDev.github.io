@@ -31,8 +31,8 @@ export const PROJECTS = [
       ],
     },
     images: [
-      img('caza-de-monstruos', 1, 'Zona de obbys vista desde arriba, con pistas de colores alrededor de un centro', 'Obby zone seen from above, with colorful tracks around a hub'),
-      img('caza-de-monstruos', 2, 'Cacería nocturna en el bosque nevado con escopeta mientras vigila el Pie Grande', 'Night hunt in the snowy forest with a shotgun while Bigfoot watches'),
+      img('caza-de-monstruos', 1, 'Cacería nocturna en el bosque nevado con escopeta mientras vigila el Pie Grande', 'Night hunt in the snowy forest with a shotgun while Bigfoot watches'),
+      img('caza-de-monstruos', 2, 'Zona de obbys vista desde arriba, con pistas de colores alrededor de un centro', 'Obby zone seen from above, with colorful tracks around a hub'),
       img('caza-de-monstruos', 3, 'Pantalla de la armería para elegir el equipo de partida', 'Armory screen to choose the match loadout'),
       img('caza-de-monstruos', 4, 'Pase de temporada con sus recompensas por nivel', 'Season pass with its rewards per level'),
     ],

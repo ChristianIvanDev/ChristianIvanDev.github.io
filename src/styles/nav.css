@@ -48,7 +48,6 @@
   transition: background-color 180ms var(--ease-out), color 180ms var(--ease-out), transform 120ms var(--ease-out);
 }
 
-.seg__tab:hover { color: var(--c-text); }
 .seg__tab:active { transform: scale(0.97); }
 
 .seg__tab[aria-selected="true"] {
@@ -71,7 +70,6 @@
   transition: transform 120ms var(--ease-out), background-color 160ms var(--ease-out);
 }
 
-.lang-btn:hover { background: var(--c-card-hover); }
 .lang-btn:active { transform: translateY(2px); box-shadow: 0 1px 0 var(--c-shadow); }
 
 @media (max-width: 560px) {
@@ -81,4 +79,9 @@
   }
   .seg { grid-column: 1 / -1; grid-row: 2; justify-self: stretch; }
   .seg__tab { flex: 1; padding: 8px 10px; }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .seg__tab:hover { color: var(--c-text); }
+  .lang-btn:hover { background: var(--c-card-hover); }
 }
