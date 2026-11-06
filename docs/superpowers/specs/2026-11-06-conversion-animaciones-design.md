@@ -94,7 +94,7 @@ Sin secciones nuevas y **sin botón de reserva** (mi decisión): su público son
 ### 4.7 Datos de configuración
 - La URL de la página de reservas vive en un solo lugar, junto a los datos de contacto.
 - Si la URL está vacía, se usa el respaldo de 4.1.
-- **Hasta que Christian la entregue: pendiente.**
+- **URL de reservas:** https://calendar.app.google/kydiVgoRNTarLdCv6
 - **Sin URL de reservas**, todo lo que depende de ella tiene su versión WhatsApp (mi decisión), para no afirmar nada falso en la web publicada:
   - el botón de la portada y el del contacto abren WhatsApp;
   - la barra fija dice "Agendar por WhatsApp";
@@ -145,5 +145,5 @@ Se siguen las reglas de la skill de Emil Kowalski: animar solo `transform` y `op
 
 ## 9. Lo que tiene que hacer Christian
 
-1. Crear la agenda de citas en Google Calendar, con Google Meet, el campo de teléfono y "Agenda Docente" como calendario revisado, y entregar el enlace.
+1. ~~Crear la agenda de citas~~ Hecho: https://calendar.app.google/kydiVgoRNTarLdCv6. Con la cuenta gratuita, Google solo revisa el calendario principal, no "Agenda Docente" (ver no objetivos).
 2. Revisar los textos propuestos de 4.2, 4.3 y 4.4.
