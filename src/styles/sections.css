@@ -209,3 +209,11 @@
 .scene-fallback__block--4 { width: 12%; aspect-ratio: 1; left: 72%; top: 58%; background: var(--c-pink-2); border-radius: 50%; box-shadow: 0 6px 0 var(--c-pink-shadow); }
 .scene-fallback__block--5 { width: 9%; aspect-ratio: 1; left: 14%; top: 62%; background: var(--c-border); transform: rotate(20deg); }
 .scene-fallback__block--6 { width: 64%; height: 9%; left: 18%; top: 76%; z-index: -1; background: var(--c-shadow); border-radius: 16px; box-shadow: none; }
+
+.guarantee {
+  margin-top: var(--space-3);
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--c-ink-soft);
+}
+.guarantee::before { content: "✓ "; color: #1f8a52; font-weight: 800; }

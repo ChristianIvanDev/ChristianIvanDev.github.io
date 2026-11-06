@@ -1,7 +1,7 @@
 import { h } from './dom.js';
 import { t, pick } from '../i18n.js';
 import { TEACHING } from '../content/experience.js';
-import { contactButtons, renderContact } from './contact.js';
+import { contactButtons, renderContact, guaranteeLine } from './contact.js';
 import { cvButton } from '../cv-render.js';
 import { sectionHead, photoCard, sceneCard, studentsNote, projectsGrid } from './shared.js';
 
@@ -27,7 +27,8 @@ export function renderTeacher(lang) {
         h('h1', { class: 'hero__title', tabindex: '-1' }, t(lang, 'hero.teacher.title')),
         h('p', { class: 'hero__lead' }, t(lang, 'hero.teacher.lead')),
         h('p', { class: 'chip chip--online' }, t(lang, 'hero.online')),
-        contactButtons(lang),
+        contactButtons(lang, { primary: true }),
+        guaranteeLine(lang),
       ),
       photoCard(lang),
       sceneCard(lang, 'teacher', 'span-4'),
