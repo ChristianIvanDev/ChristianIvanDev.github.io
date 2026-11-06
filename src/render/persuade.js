@@ -2,6 +2,7 @@ import { h } from './dom.js';
 import { t, pick } from '../i18n.js';
 import { STAGES } from '../content/learning.js';
 import { sectionHead } from './shared.js';
+import { prefersReduced } from '../motion.js';
 
 /** "¿Es realmente necesario?" */
 export function renderNeed(lang) {
@@ -48,11 +49,11 @@ export function renderPath(lang) {
       'aria-controls': 'path-panel',
       'aria-selected': 'false',
       tabindex: '-1',
-      onclick: () => select(i),
+      onclick: () => select(i, { animate: true }),
     }, h('span', { class: 'path__num', 'aria-hidden': 'true' }, String(i + 1)), pick(stage.title, lang)),
   );
 
-  function select(i, { focus = false } = {}) {
+  function select(i, { focus = false, animate = false } = {}) {
     current = i;
     tabs.forEach((tab, j) => {
       tab.setAttribute('aria-selected', String(j === i));
@@ -63,6 +64,12 @@ export function renderPath(lang) {
     panel.replaceChildren(...stagePanel(STAGES[i], lang));
     progress.style.transform = `scaleX(${(i + 1) / STAGES.length})`;
     if (focus) tabs[i].focus();
+    if (animate && !prefersReduced() && typeof panel.animate === 'function') {
+      panel.animate(
+        [{ opacity: 0, transform: 'translateY(6px)' }, { opacity: 1, transform: 'none' }],
+        { duration: 220, easing: 'cubic-bezier(0.23, 1, 0.32, 1)' },
+      );
+    }
   }
 
   const tablist = h('div', { class: 'path__tabs', role: 'tablist', 'aria-label': t(lang, 'path.tabs.label') }, tabs);

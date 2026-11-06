@@ -100,7 +100,6 @@
   gap: 18px;
   align-items: center;
   border-radius: 12px;
-  animation: panel-in 220ms var(--ease-out);
 }
 .path__learns { font-size: 19px; margin-top: 4px; }
 .path__builds { font-size: 19px; font-weight: 800; color: var(--c-pink); margin-top: 4px; }
@@ -112,11 +111,6 @@
 .path__art span:nth-child(1) { width: 34%; aspect-ratio: 1; left: 33%; top: 26%; background: var(--c-card); border: 3px solid var(--c-border); transform: rotate(-8deg); }
 .path__art span:nth-child(2) { width: 16%; aspect-ratio: 1; left: 14%; top: 18%; background: var(--c-pink); transform: rotate(12deg); }
 .path__art span:nth-child(3) { width: 14%; aspect-ratio: 1; left: 72%; top: 56%; background: #fff; border-radius: 50%; }
-
-@keyframes panel-in {
-  from { opacity: 0; transform: translateY(6px); }
-  to { opacity: 1; transform: none; }
-}
 
 .class-card { margin-top: 14px; }
 .class-card__lead { margin-top: 4px; }

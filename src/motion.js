@@ -27,9 +27,12 @@ export function initReveal(root, { reduced = prefersReduced(), IO = window.Inter
     clearTimeout(failsafe);
     for (const entry of entries) {
       if (!entry.isIntersecting) continue;
-      entry.target.classList.remove('is-pending');
-      entry.target.classList.add('is-revealed');
-      obs.unobserve(entry.target);
+      const el = entry.target;
+      el.classList.remove('is-pending');
+      el.classList.add('is-revealed');
+      obs.unobserve(el);
+      // Al terminar, soltamos la transición escalonada para que no frene el hover ni otros efectos.
+      setTimeout(() => el.classList.add('reveal-done'), 1000);
     }
   }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
 

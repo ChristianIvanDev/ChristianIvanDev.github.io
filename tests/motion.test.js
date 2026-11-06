@@ -76,6 +76,19 @@ describe('initReveal', () => {
     expect(root.querySelectorAll('.is-pending').length).toBe(0);
   });
 
+  test('tras revelarse, el elemento suelta la transición escalonada (para no bloquear el hover)', () => {
+    vi.useFakeTimers();
+    const root = page();
+    const { IO, fire } = fakeIO();
+    initReveal(root, { reduced: false, IO });
+    const a = root.querySelector('#a');
+    fire(a);
+    expect(a.classList.contains('reveal-done')).toBe(false);
+    vi.advanceTimersByTime(1100);
+    expect(a.classList.contains('reveal-done')).toBe(true);
+    vi.useRealTimers();
+  });
+
   test('la limpieza deja todo visible', () => {
     const root = page();
     const cleanup = initReveal(root, { reduced: false, IO: fakeIO().IO });

@@ -1,4 +1,4 @@
-import { describe, test, expect } from 'vitest';
+import { describe, test, expect, vi } from 'vitest';
 import { renderNeed, renderPath, renderFaq } from '../src/render/persuade.js';
 import { STAGES } from '../src/content/learning.js';
 import { renderTeacher } from '../src/render/teacher.js';
@@ -42,6 +42,23 @@ describe('recorrido de aprendizaje', () => {
     tabs[1].dispatchEvent(new KeyboardEvent('keydown', { key: 'End', bubbles: true }));
     expect(tabs[3].getAttribute('aria-selected')).toBe('true');
     el.remove();
+  });
+
+  test('cambiar de etapa con clic anima el panel; con teclado no', () => {
+    const original = HTMLElement.prototype.animate;
+    HTMLElement.prototype.animate = vi.fn();
+    const el = renderPath('es');
+    document.body.append(el);
+    const panel = el.querySelector('[role="tabpanel"]');
+    const tabs = el.querySelectorAll('[role="tab"]');
+    HTMLElement.prototype.animate.mockClear();
+    tabs[2].click();
+    expect(HTMLElement.prototype.animate).toHaveBeenCalledTimes(1);
+    expect(HTMLElement.prototype.animate.mock.contexts[0]).toBe(panel);
+    tabs[2].dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowRight', bubbles: true }));
+    expect(HTMLElement.prototype.animate).toHaveBeenCalledTimes(1);
+    el.remove();
+    HTMLElement.prototype.animate = original;
   });
 
   test('incluye cómo es una clase en 4 pasos', () => {

@@ -5,14 +5,13 @@
   transform: translateY(14px);
 }
 
-[data-reveal].is-revealed,
-[data-reveal].is-revealed [data-reveal-item] {
-  opacity: 1;
-  transform: none;
+/* Solo mientras se revela: después (.reveal-done) no queda ninguna regla que pise el hover. */
+[data-reveal].is-revealed:not(.reveal-done),
+[data-reveal].is-revealed:not(.reveal-done) [data-reveal-item] {
   transition: opacity 420ms var(--ease-out), transform 420ms var(--ease-out);
 }
 
-[data-reveal].is-revealed [data-reveal-item] {
+[data-reveal].is-revealed:not(.reveal-done) [data-reveal-item] {
   transition-delay: calc(var(--i, 0) * 55ms + 80ms);
 }
 

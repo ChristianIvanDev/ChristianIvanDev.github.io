@@ -40,6 +40,19 @@ describe('initSticky', () => {
     expect(document.querySelector('.sticky-cta').textContent).toContain(en['sticky.text']);
   });
 
+  test('mientras está oculta no se puede enfocar; al mostrarse sí', () => {
+    const root = app();
+    let cb;
+    class CaptureIO { constructor(f) { cb = f; } observe() {} unobserve() {} disconnect() {} }
+    initSticky(root, 'es', { IO: CaptureIO, matchMedia: mq(true) });
+    const bar = document.querySelector('.sticky-cta');
+    expect(bar.hasAttribute('inert')).toBe(true);
+    const hero = root.querySelector('[data-view="teacher"] .hero');
+    cb([{ target: hero, isIntersecting: false }]);
+    expect(bar.classList.contains('is-visible')).toBe(true);
+    expect(bar.hasAttribute('inert')).toBe(false);
+  });
+
   test('en escritorio no se monta', () => {
     initSticky(app(), 'es', { IO, matchMedia: mq(false) });
     expect(document.querySelector('.sticky-cta')).toBeNull();

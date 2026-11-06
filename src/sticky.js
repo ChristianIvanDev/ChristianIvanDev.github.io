@@ -15,6 +15,7 @@ export function initSticky(root, lang, { IO = window.IntersectionObserver, match
 
   document.querySelectorAll('.sticky-cta').forEach((el) => el.remove());
   const bar = renderStickyBar(lang);
+  bar.setAttribute('inert', '');
   document.body.append(bar);
   document.body.classList.add('has-sticky');
 
@@ -26,7 +27,10 @@ export function initSticky(root, lang, { IO = window.IntersectionObserver, match
       if (e.target === hero) seen.heroVisible = e.isIntersecting;
       if (e.target === contact) seen.contactVisible = e.isIntersecting;
     }
-    bar.classList.toggle('is-visible', stickyVisible(seen));
+    const visible = stickyVisible(seen);
+    bar.classList.toggle('is-visible', visible);
+    // Oculta = fuera del orden de tabulación y de los lectores de pantalla.
+    bar.toggleAttribute('inert', !visible);
   });
   if (hero) io.observe(hero);
   if (contact) io.observe(contact);
