@@ -50,3 +50,28 @@
   .need__card, .faq__item, .path__area { transition: transform 180ms var(--ease-out), box-shadow 180ms var(--ease-out); }
   .need__card:hover { transform: translateY(-3px); box-shadow: 0 8px 0 var(--c-shadow); }
 }
+
+/* Barra fija de reserva (móvil, vista Profesor) */
+.sticky-cta {
+  position: fixed;
+  left: 0; right: 0; bottom: 0;
+  z-index: 30;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 16px calc(10px + env(safe-area-inset-bottom));
+  background: var(--c-shadow);
+  border-top: var(--border-w) solid var(--c-border);
+  transform: translateY(110%);
+  transition: transform 220ms var(--ease-out);
+}
+.sticky-cta.is-visible { transform: none; }
+.sticky-cta__text { font-weight: 800; font-size: 16px; }
+.sticky-cta__btn { flex: none; min-height: 44px; padding: 10px 16px; }
+body.has-sticky { padding-bottom: 76px; }
+
+@media (min-width: 641px) {
+  .sticky-cta { display: none; }
+  body.has-sticky { padding-bottom: 0; }
+}

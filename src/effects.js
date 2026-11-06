@@ -1,6 +1,7 @@
 import { canUse3D, renderSceneFallback } from './three/canUse3D.js';
 import { enableTilt } from './tilt.js';
 import { initReveal, animateCounter, fadeView } from './motion.js';
+import { initSticky } from './sticky.js';
 
 function defaultIdle(fn) {
   if ('requestIdleCallback' in window) window.requestIdleCallback(fn, { timeout: 1200 });
@@ -16,6 +17,12 @@ export function createEffects({ use3D = canUse3D(window), idle = defaultIdle, lo
   let scenes = [];
   let generation = 0;
   let cleanupReveal = () => {};
+  let cleanupSticky = () => {};
+
+  function remountSticky(root, state) {
+    cleanupSticky();
+    cleanupSticky = state ? initSticky(root, state.lang) : () => {};
+  }
 
   async function mountScene(container, gen) {
     if (gen !== generation || !container.isConnected || container.dataset.mounted) return;
@@ -44,7 +51,7 @@ export function createEffects({ use3D = canUse3D(window), idle = defaultIdle, lo
 
   return {
     /** Tras cada render completo (p. ej., cambio de idioma). */
-    onRender(root) {
+    onRender(root, state) {
       generation += 1;
       scenes.forEach((s) => s.dispose());
       scenes = [];
@@ -53,11 +60,13 @@ export function createEffects({ use3D = canUse3D(window), idle = defaultIdle, lo
       root.querySelectorAll('[data-count-to]').forEach((el) => animateCounter(el));
       enableTilt(root);
       mountVisible(root);
+      remountSticky(root, state);
     },
     /** Tras cambiar de vista. */
     onViewChange(root, state, { fromKeyboard = false } = {}) {
       fadeView(root.querySelector('[data-view]:not([hidden])'), { fromKeyboard });
       mountVisible(root);
+      remountSticky(root, state);
     },
   };
 }
