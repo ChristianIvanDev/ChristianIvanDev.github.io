@@ -1,0 +1,84 @@
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: color-mix(in srgb, var(--c-bg) 88%, transparent);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: var(--border-w) solid var(--c-shadow);
+}
+
+.topbar__inner {
+  max-width: var(--page-max);
+  margin: 0 auto;
+  padding: 10px var(--gutter);
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.topbar__brand {
+  font-family: var(--font-display);
+  font-size: 22px;
+  text-decoration: none;
+  letter-spacing: 0.02em;
+  justify-self: start;
+  white-space: nowrap;
+}
+
+.seg {
+  display: inline-flex;
+  gap: 4px;
+  padding: 4px;
+  background: var(--c-shadow);
+  border-radius: var(--radius-pill);
+}
+
+.seg__tab {
+  border: 0;
+  background: transparent;
+  color: var(--c-text-soft);
+  font-weight: 800;
+  font-size: 16px;
+  padding: 9px 18px;
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  min-height: 44px;
+  transition: background-color 180ms var(--ease-out), color 180ms var(--ease-out), transform 120ms var(--ease-out);
+}
+
+.seg__tab:hover { color: var(--c-text); }
+.seg__tab:active { transform: scale(0.97); }
+
+.seg__tab[aria-selected="true"] {
+  background: var(--c-pink);
+  color: var(--c-ink);
+  box-shadow: 0 3px 0 var(--c-pink-shadow);
+}
+
+.lang-btn {
+  justify-self: end;
+  min-width: 52px;
+  min-height: 44px;
+  padding: 8px 14px;
+  border-radius: var(--radius-pill);
+  border: var(--border-w) solid var(--c-border);
+  background: var(--c-card);
+  box-shadow: 0 3px 0 var(--c-shadow);
+  font-weight: 800;
+  cursor: pointer;
+  transition: transform 120ms var(--ease-out), background-color 160ms var(--ease-out);
+}
+
+.lang-btn:hover { background: var(--c-card-hover); }
+.lang-btn:active { transform: translateY(2px); box-shadow: 0 1px 0 var(--c-shadow); }
+
+@media (max-width: 560px) {
+  .topbar__inner {
+    grid-template-columns: 1fr auto;
+    row-gap: 8px;
+  }
+  .seg { grid-column: 1 / -1; grid-row: 2; justify-self: stretch; }
+  .seg__tab { flex: 1; padding: 8px 10px; }
+}
