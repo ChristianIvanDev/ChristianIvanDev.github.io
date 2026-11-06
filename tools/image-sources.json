@@ -1,0 +1,25 @@
+[
+  { "from": "_material/capturas-sesiones/056.jpg", "to": "public/assets/projects/caza-de-monstruos/1.webp" },
+  { "from": "_material/capturas-sesiones/083.jpg", "to": "public/assets/projects/caza-de-monstruos/2.webp" },
+  { "from": "_material/capturas-sesiones/032.jpg", "to": "public/assets/projects/caza-de-monstruos/3.webp", "crop": { "left": 110, "top": 40, "width": 1000, "height": 650 } },
+  { "from": "_material/capturas-sesiones/148.jpg", "to": "public/assets/projects/caza-de-monstruos/4.webp", "crop": { "left": 56, "top": 232, "width": 722, "height": 466 } },
+
+  { "from": "_material/build-a-pipe/thumbnail-principal.png", "to": "public/assets/projects/build-a-pipe/1.webp" },
+  { "from": "_material/build-a-pipe/capturas/2-realista.png", "to": "public/assets/projects/build-a-pipe/2.webp" },
+  { "from": "_material/build-a-pipe/capturas/1-presion.png", "to": "public/assets/projects/build-a-pipe/3.webp" },
+
+  { "from": "_material/haunted-obby/icono-juego.png", "to": "public/assets/projects/haunted-obby/1.webp" },
+  { "from": "_material/capturas-sesiones/053.jpg", "to": "public/assets/projects/haunted-obby/2.webp" },
+
+  { "from": "_material/capturas-sesiones/044.png", "to": "public/assets/projects/mecha-apex/1.webp" },
+  { "from": "_material/capturas-sesiones/046.png", "to": "public/assets/projects/mecha-apex/2.webp" },
+
+  { "from": "_material/culto-del-juicio/poster.png", "to": "public/assets/projects/culto-del-juicio/1.webp" },
+  { "from": "_material/culto-del-juicio/workshop_features.png", "to": "public/assets/projects/culto-del-juicio/2.webp" },
+
+  { "from": "_material/armero-blender/task-11-modding-ui-with-rotation-fix.png", "to": "public/assets/projects/armero-blender/1.webp", "crop": { "left": 560, "top": 260, "width": 840, "height": 560 } },
+
+  { "from": "_material/capturas-sesiones/041.jpg", "to": "public/assets/projects/agenda-docente/1.webp", "crop": { "left": 120, "top": 28, "width": 945, "height": 352 } },
+
+  { "from": "_material/foto/christian.jpg", "to": "public/assets/photo/christian.webp", "crop": { "left": 540, "top": 125, "width": 1100, "height": 1375 }, "width": 900 }
+]
