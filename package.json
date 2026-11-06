@@ -9,6 +9,7 @@
     "preview": "vite preview",
     "test": "vitest run",
     "images": "node tools/optimize-images.mjs",
+    "og": "node tools/make-og.mjs",
     "cv": "node tools/build-cv.mjs",
     "release": "vite build && node tools/build-cv.mjs && vite build"
   },
