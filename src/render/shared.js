@@ -1,4 +1,5 @@
 import { h } from './dom.js';
+import { asset } from '../paths.js';
 import { t } from '../i18n.js';
 import { PROJECTS } from '../content/projects.js';
 import { renderProjectCard } from './projectCard.js';
@@ -13,7 +14,7 @@ export function sectionHead(lang, { id, titleKey, leadKey }) {
 export function photoCard(lang) {
   return h('figure', { class: 'card card--flush photo span-2 row-2' },
     h('img', {
-      src: '/assets/photo/christian.webp',
+      src: asset('assets/photo/christian.webp'),
       alt: t(lang, 'hero.photo.alt'),
       width: 900,
       height: 1125,

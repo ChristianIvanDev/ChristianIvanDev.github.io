@@ -41,6 +41,8 @@ export function mountApp(root, { search, storage, history, renderers, onRender, 
     persistLang(storage, lang);
     syncUrl();
     render();
+    // El render sustituye el botón: devolvemos el foco para teclado y lectores de pantalla.
+    root.querySelector('[data-action="toggle-lang"]')?.focus();
   }
 
   function render() {

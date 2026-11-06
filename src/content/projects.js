@@ -1,4 +1,6 @@
-const img = (id, n, es, en) => ({ src: `/assets/projects/${id}/${n}.webp`, alt: { es, en } });
+import { asset } from '../paths.js';
+
+const img = (id, n, es, en) => ({ src: asset(`assets/projects/${id}/${n}.webp`), alt: { es, en } });
 
 export const PROJECTS = [
   {
@@ -9,8 +11,8 @@ export const PROJECTS = [
     stack: ['Luau', 'Roblox Studio', 'DataStore'],
     title: { es: 'Caza de Monstruos', en: 'Caza de Monstruos (Monster Hunt)' },
     summary: {
-      es: 'Juego de cacería de criaturas legendarias en equipo, con cuatro modos, zona de obbys y progresión completa.',
-      en: 'A team game about hunting legendary creatures, with four modes, an obby zone and full progression.',
+      es: 'Juego de cacería de criaturas legendarias con tres modos, zona de obbys y progresión completa.',
+      en: 'A game about hunting legendary creatures, with three modes, an obby zone and full progression.',
     },
     features: {
       es: [
@@ -45,18 +47,18 @@ export const PROJECTS = [
     stack: ['Luau', 'Roblox Studio'],
     title: { es: 'Build a Pipe! [Plumbing Simulator]', en: 'Build a Pipe! [Plumbing Simulator]' },
     summary: {
-      es: 'Simulador de fontanería: conecta tuberías, controla la presión y resuelve averías en dos modos de juego.',
-      en: 'A plumbing simulator: connect pipes, manage pressure and fix breakdowns across two game modes.',
+      es: 'Simulador de fontanería: conecta tuberías y controla la presión del agua en dos modos de juego.',
+      en: 'A plumbing simulator: connect pipes and manage water pressure across two game modes.',
     },
     features: {
       es: [
-        'Modo Arcade con niveles por casillas',
+        'Modo Arcade',
         'Modo Realista: recorres el escenario y consultas el plano de la tubería en una tablet',
         'Niveles tutoriales guiados que presentan cada pieza nueva',
         'Tienda de objetos que ayudan a resolver los niveles',
       ],
       en: [
-        'Arcade mode with grid-based levels',
+        'Arcade mode',
         'Realistic mode: walk the scene and check the pipe blueprint on a tablet',
         'Guided tutorial levels that introduce each new piece',
         'Item shop with tools that help solve levels',
@@ -79,8 +81,8 @@ export const PROJECTS = [
       en: 'A Halloween obby with a haunted setting and in-game paid products.',
     },
     features: {
-      es: ['Tema, música y decoración de Halloween', 'Productos Skip Stage, Speed Boost y Stage Pack', 'Ícono y arte del juego'],
-      en: ['Halloween theme, music and decoration', 'Skip Stage, Speed Boost and Stage Pack products', 'Game icon and art'],
+      es: ['Tema y decoración de Halloween', 'Productos Skip Stage, Speed Boost y Stage Pack', 'Ícono y arte del juego'],
+      en: ['Halloween theme and decoration', 'Skip Stage, Speed Boost and Stage Pack products', 'Game icon and art'],
     },
     images: [
       img('haunted-obby', 1, 'Ícono de Haunted Obby con un castillo embrujado y una calabaza', 'Haunted Obby icon with a haunted castle and a pumpkin'),
@@ -95,8 +97,8 @@ export const PROJECTS = [
     stack: ['Luau', 'Roblox Studio'],
     title: { es: 'Mecha: Apex Protocols', en: 'Mecha: Apex Protocols' },
     summary: {
-      es: 'Juego de acción de mechas PvPvE en un mundo semiabierto, centrado en un combate fluido y con peso.',
-      en: 'A PvPvE mecha action game in a semi-open world, built around fluid, weighty combat.',
+      es: 'Juego de acción de mechas PvPvE en un mundo semiabierto.',
+      en: 'A PvPvE mecha action game in a semi-open world.',
     },
     features: {
       es: ['Modelos de mecha y drones enemigos', 'Comportamiento de los drones enemigos', 'Sistema de combate con efectos de impacto'],
@@ -167,7 +169,7 @@ export const PROJECTS = [
       es: ['Lee el horario de cada plataforma de clases', 'Vista unificada de la semana y de la próxima clase', 'Sincronización con Google Calendar'],
       en: ["Reads each teaching platform's schedule", 'Unified view of the week and the next lesson', 'Sync with Google Calendar'],
     },
-    images: [img('agenda-docente', 1, 'Calendario semanal de Agenda Docente con las clases por plataforma', 'Agenda Docente weekly calendar with lessons by platform')],
+    images: [img('agenda-docente', 1, 'Semana en Google Calendar con las clases que sincroniza Agenda Docente', 'A week in Google Calendar with the lessons Agenda Docente syncs')],
   },
   {
     id: 'plataforma-aduanera',

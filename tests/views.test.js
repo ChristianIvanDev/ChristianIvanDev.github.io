@@ -34,7 +34,7 @@ describe('vista Profesor', () => {
   });
 
   test('incluye la foto, los 8 proyectos y la nota de alumnos', () => {
-    expect(el.querySelector('img[src="/assets/photo/christian.webp"]')).not.toBeNull();
+    expect(el.querySelector('img[src="./assets/photo/christian.webp"]')).not.toBeNull();
     expect(el.querySelectorAll('[data-project]').length).toBe(8);
     expect(el.textContent).toContain(es['students.note']);
   });
@@ -47,7 +47,7 @@ describe('vista Profesor', () => {
   test('todas las imágenes tienen alt y solo la foto carga sin lazy', () => {
     for (const img of el.querySelectorAll('img')) {
       expect(img.getAttribute('alt')).toBeTruthy();
-      if (img.getAttribute('src') !== '/assets/photo/christian.webp') expect(img.getAttribute('loading')).toBe('lazy');
+      if (img.getAttribute('src') !== './assets/photo/christian.webp') expect(img.getAttribute('loading')).toBe('lazy');
     }
   });
 });

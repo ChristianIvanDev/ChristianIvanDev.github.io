@@ -9,7 +9,7 @@ describe('CV', () => {
   const el = renderCV('es');
 
   test('incluye foto y datos de contacto', () => {
-    expect(el.querySelector('img[src="/assets/photo/christian.webp"]')).not.toBeNull();
+    expect(el.querySelector('img[src="./assets/photo/christian.webp"]')).not.toBeNull();
     expect(el.textContent).toContain('christianespinozagaytan@gmail.com');
     expect(el.textContent).toContain('+52 753 150 1861');
     expect(el.textContent).toContain('linkedin.com/in/christianieg');
@@ -32,8 +32,8 @@ describe('CV', () => {
   });
 
   test('cvHref apunta al PDF de cada idioma', () => {
-    expect(cvHref('es')).toBe('/cv/CV-Christian-Espinoza-ES.pdf');
-    expect(cvHref('en')).toBe('/cv/CV-Christian-Espinoza-EN.pdf');
+    expect(cvHref('es')).toBe('./cv/CV-Christian-Espinoza-ES.pdf');
+    expect(cvHref('en')).toBe('./cv/CV-Christian-Espinoza-EN.pdf');
   });
 });
 

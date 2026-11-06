@@ -3,7 +3,7 @@ import { existsSync, statSync } from 'node:fs';
 import { join } from 'node:path';
 import { PROJECTS } from '../src/content/projects.js';
 
-const pub = (src) => join(process.cwd(), 'public', src);
+const pub = (src) => join(process.cwd(), 'public', src.replace(/^\.?\/+/, ''));
 
 test('cada imagen de proyecto existe y pesa menos de 400 KB', () => {
   for (const p of PROJECTS) {

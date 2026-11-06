@@ -19,7 +19,7 @@
 
   { "from": "_material/armero-blender/task-11-modding-ui-with-rotation-fix.png", "to": "public/assets/projects/armero-blender/1.webp", "crop": { "left": 560, "top": 260, "width": 840, "height": 560 } },
 
-  { "from": "_material/capturas-sesiones/041.jpg", "to": "public/assets/projects/agenda-docente/1.webp", "crop": { "left": 120, "top": 28, "width": 945, "height": 352 } },
+  { "from": "_material/capturas-sesiones/041.jpg", "to": "public/assets/projects/agenda-docente/1.webp", "crop": { "left": 120, "top": 28, "width": 945, "height": 352 }, "blur": 2.2 },
 
   { "from": "_material/foto/christian.jpg", "to": "public/assets/photo/christian.webp", "crop": { "left": 540, "top": 125, "width": 1100, "height": 1375 }, "width": 900 }
 ]

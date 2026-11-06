@@ -54,6 +54,13 @@ describe('mountApp', () => {
     expect(history.replaceState).toHaveBeenLastCalledWith(null, '', '?lang=en');
   });
 
+  test('el foco vuelve al botón de idioma tras cambiar de idioma', () => {
+    setup('');
+    document.querySelector('[data-action="toggle-lang"]').focus();
+    document.querySelector('[data-action="toggle-lang"]').click();
+    expect(document.activeElement?.dataset.action).toBe('toggle-lang');
+  });
+
   test('respeta la vista y el idioma de la URL', () => {
     setup('?view=developer&lang=en');
     expect(document.documentElement.lang).toBe('en');

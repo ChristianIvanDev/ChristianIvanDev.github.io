@@ -1,47 +1,57 @@
 import { canUse3D, renderSceneFallback } from './three/canUse3D.js';
 import { enableTilt } from './tilt.js';
 
-const use3D = canUse3D(window);
-let scenes = [];
-let sceneModule = null;
-
-function idle(fn) {
+function defaultIdle(fn) {
   if ('requestIdleCallback' in window) window.requestIdleCallback(fn, { timeout: 1200 });
   else setTimeout(fn, 300);
 }
 
-async function mountScene(container) {
-  if (container.dataset.mounted) return;
-  container.dataset.mounted = '1';
-  if (!use3D) {
-    container.append(renderSceneFallback());
-    return;
+/**
+ * Efectos que dependen del DOM ya montado: escena 3D (o su respaldo) e inclinación de tarjetas.
+ * Cada render nuevo invalida el trabajo diferido del anterior (token `generation`), para que
+ * un cambio de idioma rápido nunca deje escenas montadas en contenedores ya retirados.
+ */
+export function createEffects({ use3D = canUse3D(window), idle = defaultIdle, loadScene = () => import('./three/scene.js') } = {}) {
+  let scenes = [];
+  let generation = 0;
+
+  async function mountScene(container, gen) {
+    if (gen !== generation || !container.isConnected || container.dataset.mounted) return;
+    container.dataset.mounted = '1';
+    if (!use3D) {
+      container.append(renderSceneFallback());
+      return;
+    }
+    try {
+      const mod = await loadScene();
+      if (gen !== generation || !container.isConnected) return;
+      const variant = container.id.endsWith('developer') ? 'developer' : 'teacher';
+      scenes.push(mod.initScene(container, { variant }));
+    } catch (err) {
+      console.warn('[3d] no se pudo iniciar la escena', err);
+      container.append(renderSceneFallback());
+    }
   }
-  try {
-    sceneModule ??= await import('./three/scene.js');
-    const variant = container.id.endsWith('developer') ? 'developer' : 'teacher';
-    scenes.push(sceneModule.initScene(container, { variant }));
-  } catch (err) {
-    console.warn('[3d] no se pudo iniciar la escena', err);
-    container.append(renderSceneFallback());
+
+  function mountVisible(root) {
+    const container = root.querySelector('[data-view]:not([hidden]) .hero-3d');
+    const gen = generation;
+    if (container) idle(() => mountScene(container, gen));
+    scenes.forEach((s) => s.update());
   }
-}
 
-function mountVisible(root) {
-  const container = root.querySelector('[data-view]:not([hidden]) .hero-3d');
-  if (container) idle(() => mountScene(container));
-  scenes.forEach((s) => s.update());
-}
-
-/** Tras cada render completo (p. ej., cambio de idioma). */
-export function onRender(root) {
-  scenes.forEach((s) => s.dispose());
-  scenes = [];
-  enableTilt(root);
-  mountVisible(root);
-}
-
-/** Tras cambiar de vista. */
-export function onViewChange(root) {
-  mountVisible(root);
+  return {
+    /** Tras cada render completo (p. ej., cambio de idioma). */
+    onRender(root) {
+      generation += 1;
+      scenes.forEach((s) => s.dispose());
+      scenes = [];
+      enableTilt(root);
+      mountVisible(root);
+    },
+    /** Tras cambiar de vista. */
+    onViewChange(root) {
+      mountVisible(root);
+    },
+  };
 }

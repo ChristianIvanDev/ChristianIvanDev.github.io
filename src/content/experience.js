@@ -29,8 +29,8 @@ export const TEACHING = [
     role: { es: 'Coordinador académico y profesor', en: 'Academic coordinator and teacher' },
     period: { es: 'jun 2024 – oct 2025', en: 'Jun 2024 – Oct 2025' },
     detail: {
-      es: 'Impartí clases de programación a niños y adolescentes y coordiné al equipo docente: estrategias pedagógicas, relación con las familias e inscripciones.',
-      en: 'Taught programming to kids and teenagers and coordinated the teaching team: teaching strategies, relationships with families and enrollment.',
+      es: 'Impartí clases de programación a niños y adolescentes y coordiné al equipo docente: estrategias pedagógicas, relación con los clientes e inscripciones.',
+      en: 'Taught programming to kids and teenagers and coordinated the teaching team: teaching strategies, client relationships and enrollment.',
     },
   },
   {

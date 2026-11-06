@@ -88,7 +88,7 @@ describe('proyectos', () => {
   test('cada imagen tiene ruta optimizada y alt en los dos idiomas', () => {
     for (const p of PROJECTS) {
       for (const img of p.images) {
-        expect(img.src).toMatch(new RegExp(`^/assets/projects/${p.id}/\\d+\\.webp$`));
+        expect(img.src).toMatch(new RegExp(`^\./assets/projects/${p.id}/\\d+\\.webp$`));
         expect(img.alt.es).toBeTruthy();
         expect(img.alt.en).toBeTruthy();
       }
@@ -100,6 +100,28 @@ describe('proyectos', () => {
     expect(PROJECTS.find((p) => p.id === 'mecha-apex').status).toBe('in-dev');
   });
 });
+
+describe('sin datos inventados', () => {
+  test('Caza de Monstruos tiene los tres modos del spec y no dice "en equipo"', () => {
+    const p = byIdTop('caza-de-monstruos');
+    expect(p.summary.es).toMatch(/tres modos/);
+    expect(p.summary.en).toMatch(/three modes/);
+    expect(JSON.stringify(p)).not.toMatch(/cuatro modos|four modes|en equipo|team game/i);
+  });
+
+  test('las demás descripciones no añaden datos fuera del spec', () => {
+    const all = JSON.stringify(PROJECTS);
+    expect(all).not.toMatch(/averías|breakdowns|por casillas|grid-based|música|music|fluido y con peso|fluid, weighty/i);
+  });
+
+  test('Algorithmics usa las palabras del perfil (clientes), no "familias"', () => {
+    const a = TEACHING.find((j) => j.org.includes('Algorithmics'));
+    expect(a.detail.es).toMatch(/clientes/);
+    expect(a.detail.es).not.toMatch(/familias/);
+  });
+});
+
+const byIdTop = (id) => PROJECTS.find((p) => p.id === id);
 
 describe('experiencia', () => {
   test('ISELAC está destacado como profesor presencial de bachillerato', () => {

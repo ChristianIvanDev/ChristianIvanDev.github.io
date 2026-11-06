@@ -3,11 +3,12 @@ import { t, pick } from './i18n.js';
 import { TEACHING, DEV_JOBS, EDUCATION, CERTIFICATIONS, STACK } from './content/experience.js';
 import { PROJECTS } from './content/projects.js';
 import { CONTACT } from './render/contact.js';
+import { asset } from './paths.js';
 
 const CV_PROJECTS = ['caza-de-monstruos', 'build-a-pipe', 'haunted-obby', 'culto-del-juicio', 'agenda-docente', 'plataforma-aduanera'];
 
 export function cvHref(lang) {
-  return `/cv/CV-Christian-Espinoza-${lang.toUpperCase()}.pdf`;
+  return asset(`cv/CV-Christian-Espinoza-${lang.toUpperCase()}.pdf`);
 }
 
 /** Botón "Descargar CV" para las vistas. */
@@ -34,7 +35,7 @@ export function renderCV(lang) {
   const projects = CV_PROJECTS.map((id) => PROJECTS.find((p) => p.id === id));
   return h('article', { class: 'cv' },
     h('header', { class: 'cv-head' },
-      h('img', { src: '/assets/photo/christian.webp', alt: t(lang, 'hero.photo.alt'), width: 900, height: 1125 }),
+      h('img', { src: asset('assets/photo/christian.webp'), alt: t(lang, 'hero.photo.alt'), width: 900, height: 1125 }),
       h('div', {},
         h('h1', {}, t(lang, 'cv.title')),
         h('p', { class: 'cv-role' }, t(lang, 'cv.role')),

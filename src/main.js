@@ -7,7 +7,9 @@ import './styles/sections.css';
 import { mountApp } from './app.js';
 import { renderTeacher } from './render/teacher.js';
 import { renderDeveloper } from './render/developer.js';
-import { onRender, onViewChange } from './effects.js';
+import { createEffects } from './effects.js';
+
+const { onRender, onViewChange } = createEffects();
 
 function safeStorage() {
   try {
