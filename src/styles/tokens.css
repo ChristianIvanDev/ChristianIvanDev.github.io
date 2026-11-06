@@ -1,0 +1,40 @@
+:root {
+  /* Dirección C · Juguetón en bloques */
+  --c-bg: #5b21b6;
+  --c-bg-deep: #4c1d95;
+  --c-card: #6d28d9;
+  --c-card-hover: #7537e0;
+  --c-border: #8b5cf6;
+  --c-shadow: #3b0f80;
+  --c-pink: #fbe1ea;
+  --c-pink-2: #f9c9da;
+  --c-pink-shadow: #c98aa3;
+  --c-ink: #3b0f80;
+  --c-text: #ffffff;
+  --c-text-soft: #e6dcff;
+  --c-ink-soft: #5a2d9c;
+
+  --font-display: "Lilita One", "Trebuchet MS", system-ui, sans-serif;
+  --font-body: "Nunito", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  --radius-card: 18px;
+  --radius-pill: 999px;
+  --border-w: 2px;
+  --shadow-block: 0 5px 0 var(--c-shadow);
+  --shadow-block-pink: 0 5px 0 var(--c-pink-shadow);
+
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 40px;
+
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --page-max: 1200px;
+  --gutter: 16px;
+}
+
+@media (min-width: 768px) {
+  :root { --gutter: 24px; }
+}
