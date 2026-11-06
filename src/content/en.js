@@ -32,15 +32,12 @@ export default {
   'teach.lessons.detail': 'In person and online, at schools and coding academies.',
   'teach.highlight.label': 'In-person teacher',
 
-  'offer.title': 'What I teach',
   'offer.programming.title': 'Programming',
   'offer.programming.text': 'Python, JavaScript and Luau, from basic logic to object-oriented programming.',
   'offer.design.title': 'Design',
   'offer.design.text': 'Interfaces, game UI and simple 3D models.',
   'offer.dev.title': 'Development',
   'offer.dev.text': 'Roblox games, websites and APIs, from the idea to something you can publish.',
-  'offer.how.title': 'What lessons are like',
-  'offer.how.text': 'Online, hands-on and tailored sessions: every student moves forward with a project of their own that excites them.',
 
   'projects.teacher.title': 'What your child can learn to build',
   'projects.teacher.lead': 'Real projects I have made. This is what the goal looks like.',

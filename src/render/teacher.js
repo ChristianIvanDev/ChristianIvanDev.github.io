@@ -1,7 +1,8 @@
 import { h } from './dom.js';
 import { t, pick } from '../i18n.js';
 import { TEACHING } from '../content/experience.js';
-import { contactButtons, renderContact, guaranteeLine } from './contact.js';
+import { contactButtons, renderContact, guaranteeLine, CONTACT } from './contact.js';
+import { renderNeed, renderPath, renderFaq } from './persuade.js';
 import { cvButton } from '../cv-render.js';
 import { sectionHead, photoCard, sceneCard, studentsNote, projectsGrid } from './shared.js';
 
@@ -39,8 +40,10 @@ export function renderTeacher(lang) {
       ),
     ),
 
+    renderNeed(lang),
+
     // Experiencia docente
-    h('section', { class: 'section', 'aria-labelledby': 'teach-title' },
+    h('section', { class: 'section', 'data-section': 'teach', 'data-reveal': '', 'aria-labelledby': 'teach-title' },
       sectionHead(lang, { id: 'teach-title', titleKey: 'teach.title', leadKey: 'teach.lead' }),
       h('p', { class: 'section__action' }, cvButton(lang, 'text-link')),
       h('div', { class: 'bento' },
@@ -49,30 +52,16 @@ export function renderTeacher(lang) {
       ),
     ),
 
-    // Qué enseño
-    h('section', { class: 'section', 'aria-labelledby': 'offer-title' },
-      sectionHead(lang, { id: 'offer-title', titleKey: 'offer.title' }),
-      h('div', { class: 'bento' },
-        ['programming', 'design', 'dev'].map((k) =>
-          h('article', { class: `card span-2 offer offer--${k}` },
-            h('span', { class: 'offer__cube', 'aria-hidden': 'true' }),
-            h('h3', { class: 'card__title' }, t(lang, `offer.${k}.title`)),
-            h('p', {}, t(lang, `offer.${k}.text`)),
-          ),
-        ),
-        h('article', { class: 'card card--pink span-6 offer-how' },
-          h('h3', { class: 'card__title' }, t(lang, 'offer.how.title')),
-          h('p', {}, t(lang, 'offer.how.text')),
-        ),
-      ),
-    ),
+    renderPath(lang),
 
     // Proyectos
-    h('section', { class: 'section', id: 'projects-teacher', 'aria-labelledby': 'projects-teacher-title' },
+    h('section', { class: 'section', id: 'projects-teacher', 'data-section': 'projects', 'data-reveal': '', 'aria-labelledby': 'projects-teacher-title' },
       sectionHead(lang, { id: 'projects-teacher-title', titleKey: 'projects.teacher.title', leadKey: 'projects.teacher.lead' }),
       projectsGrid(lang, { detailed: false }),
       h('div', { class: 'bento note-row' }, studentsNote(lang, 'teacher')),
     ),
+
+    renderFaq(lang, { booking: Boolean(CONTACT.booking) }),
 
     renderContact(lang, 'teacher'),
   );

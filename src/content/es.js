@@ -32,15 +32,12 @@ export default {
   'teach.lessons.detail': 'Presenciales y en línea, en escuelas y academias de programación.',
   'teach.highlight.label': 'Profesor presencial',
 
-  'offer.title': 'Qué enseño',
   'offer.programming.title': 'Programación',
   'offer.programming.text': 'Python, JavaScript y Luau, desde la lógica básica hasta programación orientada a objetos.',
   'offer.design.title': 'Diseño',
   'offer.design.text': 'Interfaces, UI para videojuegos y modelos 3D sencillos.',
   'offer.dev.title': 'Desarrollo',
   'offer.dev.text': 'Juegos en Roblox, páginas web y APIs, de la idea a algo que se puede publicar.',
-  'offer.how.title': 'Cómo son las clases',
-  'offer.how.text': 'Sesiones en línea, prácticas y a la medida: cada alumno avanza con un proyecto propio que le emociona.',
 
   'projects.teacher.title': 'Lo que tu hijo puede aprender a construir',
   'projects.teacher.lead': 'Proyectos reales que he hecho yo. Así se ve la meta.',

@@ -3,6 +3,7 @@ import './styles/base.css';
 import './styles/nav.css';
 import './styles/bento.css';
 import './styles/sections.css';
+import './styles/persuade.css';
 
 import { mountApp } from './app.js';
 import { renderTeacher } from './render/teacher.js';
