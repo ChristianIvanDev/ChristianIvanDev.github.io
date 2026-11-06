@@ -60,6 +60,12 @@ describe('vista Desarrollador', () => {
     expect(el.querySelector('h1').textContent).toBe(en['hero.developer.title']);
   });
 
+  test('los proyectos van antes que la experiencia, como dice el spec', () => {
+    const projects = el.querySelector('#projects-developer');
+    const exp = [...el.querySelectorAll('section')].find((s) => s.querySelector('#devexp-title'));
+    expect(projects.compareDocumentPosition(exp) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+  });
+
   test('muestra el stack', () => {
     for (const s of ['FastAPI', 'Django', 'Luau', 'Blender']) expect(el.textContent).toContain(s);
   });

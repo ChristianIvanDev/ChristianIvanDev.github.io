@@ -26,17 +26,17 @@ export function renderDeveloper(lang) {
       sceneCard(lang, 'developer', 'span-2'),
     ),
 
+    h('section', { class: 'section', id: 'projects-developer', 'aria-labelledby': 'projects-developer-title' },
+      sectionHead(lang, { id: 'projects-developer-title', titleKey: 'projects.developer.title', leadKey: 'projects.developer.lead' }),
+      projectsGrid(lang, { detailed: true }),
+      h('div', { class: 'bento note-row' }, studentsNote(lang, 'developer')),
+    ),
+
     h('section', { class: 'section', 'aria-labelledby': 'devexp-title' },
       sectionHead(lang, { id: 'devexp-title', titleKey: 'dev.experience.title' }),
       h('div', { class: 'bento' },
         h('div', { class: 'card span-6' }, renderTimeline(DEV_JOBS, lang)),
       ),
-    ),
-
-    h('section', { class: 'section', id: 'projects-developer', 'aria-labelledby': 'projects-developer-title' },
-      sectionHead(lang, { id: 'projects-developer-title', titleKey: 'projects.developer.title', leadKey: 'projects.developer.lead' }),
-      projectsGrid(lang, { detailed: true }),
-      h('div', { class: 'bento note-row' }, studentsNote(lang, 'developer')),
     ),
 
     h('section', { class: 'section', 'aria-labelledby': 'edu-title' },
