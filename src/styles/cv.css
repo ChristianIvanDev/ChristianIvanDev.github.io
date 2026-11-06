@@ -1,0 +1,71 @@
+@page { size: A4; margin: 14mm; }
+
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: #fff;
+  color: #24113f;
+  font-family: var(--font-body);
+  font-size: 10.5pt;
+  line-height: 1.45;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+.cv { max-width: 182mm; margin: 0 auto; padding: 10mm 0; }
+
+@media print { .cv { padding: 0; } }
+
+.cv h1, .cv h2 { font-family: var(--font-display); font-weight: 400; margin: 0; letter-spacing: 0.01em; }
+
+.cv-head {
+  display: grid;
+  grid-template-columns: 30mm 1fr;
+  gap: 6mm;
+  align-items: center;
+  padding: 5mm;
+  border-radius: 5mm;
+  background: var(--c-pink);
+  border: 1.5px solid #ecc3d3;
+}
+
+.cv-head img { width: 30mm; height: 37.5mm; object-fit: cover; border-radius: 3mm; }
+.cv-head h1 { font-size: 24pt; color: var(--c-ink); line-height: 1; }
+.cv-role { font-weight: 800; color: var(--c-bg); margin: 1mm 0 2mm; }
+.cv-summary { margin: 0; }
+
+.cv-contact {
+  list-style: none;
+  padding: 0;
+  margin: 2.5mm 0 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1mm 5mm;
+  font-weight: 700;
+  font-size: 9.5pt;
+}
+
+.cv section { margin-top: 5mm; break-inside: avoid-page; }
+
+.cv h2 {
+  font-size: 13pt;
+  color: var(--c-bg);
+  text-transform: uppercase;
+  border-bottom: 2px solid var(--c-border);
+  padding-bottom: 1mm;
+  margin-bottom: 2.5mm;
+}
+
+.cv-jobs { list-style: none; padding: 0; margin: 0; display: grid; gap: 2.5mm; }
+.cv-jobs li { break-inside: avoid; }
+.cv-jobs p { margin: 0; }
+.cv-jobs__head { display: flex; justify-content: space-between; gap: 4mm; }
+.cv-jobs__head span { white-space: nowrap; color: #5a4a78; font-size: 9.5pt; }
+.cv-jobs__org { font-weight: 700; color: var(--c-ink-soft); font-size: 9.5pt; }
+
+.cv-projects, .cv-list { margin: 0; padding-left: 5mm; display: grid; gap: 1.2mm; }
+
+.cv-cols { display: grid; grid-template-columns: 1.4fr 1fr; gap: 6mm; }
+.cv-cols p { margin: 0; }
+.cv-gap { margin-top: 4mm; }

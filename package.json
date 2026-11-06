@@ -9,7 +9,8 @@
     "preview": "vite preview",
     "test": "vitest run",
     "images": "node tools/optimize-images.mjs",
-    "cv": "node tools/build-cv.mjs"
+    "cv": "node tools/build-cv.mjs",
+    "release": "vite build && node tools/build-cv.mjs && vite build"
   },
   "dependencies": {
     "three": "0.170.0"

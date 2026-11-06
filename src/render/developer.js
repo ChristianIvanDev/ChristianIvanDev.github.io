@@ -2,6 +2,7 @@ import { h } from './dom.js';
 import { t } from '../i18n.js';
 import { DEV_JOBS, EDUCATION, CERTIFICATIONS, STACK } from '../content/experience.js';
 import { renderContact } from './contact.js';
+import { cvButton } from '../cv-render.js';
 import { renderTimeline } from './timeline.js';
 import { sectionHead, photoCard, sceneCard, studentsNote, projectsGrid } from './shared.js';
 
@@ -14,6 +15,7 @@ export function renderDeveloper(lang) {
         h('p', { class: 'hero__lead' }, t(lang, 'hero.developer.lead')),
         h('div', { class: 'cta-row cta-row--lg', 'data-slot': 'developer-cta' },
           h('a', { class: 'btn btn--primary', href: '#projects-developer' }, t(lang, 'cta.projects')),
+          cvButton(lang),
         ),
       ),
       photoCard(lang),

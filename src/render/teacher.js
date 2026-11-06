@@ -2,6 +2,7 @@ import { h } from './dom.js';
 import { t, pick } from '../i18n.js';
 import { TEACHING } from '../content/experience.js';
 import { contactButtons, renderContact } from './contact.js';
+import { cvButton } from '../cv-render.js';
 import { sectionHead, photoCard, sceneCard, studentsNote, projectsGrid } from './shared.js';
 
 function teachingCard(job, lang, size) {
@@ -40,6 +41,7 @@ export function renderTeacher(lang) {
     // Experiencia docente
     h('section', { class: 'section', 'aria-labelledby': 'teach-title' },
       sectionHead(lang, { id: 'teach-title', titleKey: 'teach.title', leadKey: 'teach.lead' }),
+      h('p', { class: 'section__action' }, cvButton(lang, 'text-link')),
       h('div', { class: 'bento' },
         teachingCard(highlight, lang, 'span-4 row-2'),
         others.map((job, i) => teachingCard(job, lang, otherSizes[i])),
