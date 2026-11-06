@@ -6,7 +6,7 @@ import { t } from './i18n.js';
  * Monta la página. `renderers` = { teacher(lang) → HTMLElement, developer(lang) → HTMLElement }.
  * `onRender(root, state)` se llama después de cada render completo (3D, inclinación…).
  */
-export function mountApp(root, { search, storage, history, renderers, onRender } = {}) {
+export function mountApp(root, { search, storage, history, renderers, onRender, onViewChange } = {}) {
   const state = resolveState(search, storage);
 
   function syncUrl() {
@@ -32,6 +32,7 @@ export function mountApp(root, { search, storage, history, renderers, onRender }
     state.view = view;
     syncUrl();
     showView({ focus: !opts.focusTab, focusTab: opts.focusTab });
+    onViewChange?.(root, state);
     if (window.scrollY > 0) window.scrollTo({ top: 0 });
   }
 

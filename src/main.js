@@ -7,6 +7,7 @@ import './styles/sections.css';
 import { mountApp } from './app.js';
 import { renderTeacher } from './render/teacher.js';
 import { renderDeveloper } from './render/developer.js';
+import { onRender, onViewChange } from './effects.js';
 
 function safeStorage() {
   try {
@@ -21,4 +22,6 @@ mountApp(document.getElementById('app'), {
   storage: safeStorage(),
   history: window.history,
   renderers: { teacher: renderTeacher, developer: renderDeveloper },
+  onRender,
+  onViewChange,
 });
