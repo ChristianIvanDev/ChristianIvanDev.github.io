@@ -1,0 +1,52 @@
+/* Aparición al hacer scroll (el estado oculto solo lo pone motion.js) */
+[data-reveal].is-pending,
+[data-reveal].is-pending [data-reveal-item] {
+  opacity: 0;
+  transform: translateY(14px);
+}
+
+[data-reveal].is-revealed,
+[data-reveal].is-revealed [data-reveal-item] {
+  opacity: 1;
+  transform: none;
+  transition: opacity 420ms var(--ease-out), transform 420ms var(--ease-out);
+}
+
+[data-reveal].is-revealed [data-reveal-item] {
+  transition-delay: calc(var(--i, 0) * 55ms + 80ms);
+}
+
+/* Entrada de la portada al cargar */
+@media (prefers-reduced-motion: no-preference) {
+  [data-enter] > * {
+    animation: enter-up 520ms var(--ease-out) both;
+  }
+  [data-enter] > :nth-child(2) { animation-delay: 50ms; }
+  [data-enter] > :nth-child(3) { animation-delay: 100ms; }
+  [data-enter] > :nth-child(4) { animation-delay: 150ms; }
+  [data-enter] > :nth-child(5) { animation-delay: 200ms; }
+  [data-enter] > :nth-child(6) { animation-delay: 250ms; }
+
+  .hero > .photo, .hero > .scene, .hero > .stat {
+    animation: enter-fade 600ms var(--ease-out) both;
+    animation-delay: 160ms;
+  }
+}
+
+@keyframes enter-up {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes enter-fade {
+  from { opacity: 0; transform: scale(0.97); }
+  to { opacity: 1; transform: none; }
+}
+
+/* Elevación leve de tarjetas con ratón (se combina con la inclinación 3D) */
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .card[data-tilt] { will-change: transform; }
+  .card[data-tilt]:hover { box-shadow: 0 8px 0 var(--c-shadow); }
+  .need__card, .faq__item, .path__area { transition: transform 180ms var(--ease-out), box-shadow 180ms var(--ease-out); }
+  .need__card:hover { transform: translateY(-3px); box-shadow: 0 8px 0 var(--c-shadow); }
+}

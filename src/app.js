@@ -32,7 +32,7 @@ export function mountApp(root, { search, storage, history, renderers, onRender, 
     state.view = view;
     syncUrl();
     showView({ focus: !opts.focusTab, focusTab: opts.focusTab });
-    onViewChange?.(root, state);
+    onViewChange?.(root, state, { fromKeyboard: Boolean(opts.focusTab) });
     if (window.scrollY > 0) window.scrollTo({ top: 0 });
   }
 

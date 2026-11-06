@@ -1,5 +1,6 @@
 import { canUse3D, renderSceneFallback } from './three/canUse3D.js';
 import { enableTilt } from './tilt.js';
+import { initReveal, animateCounter, fadeView } from './motion.js';
 
 function defaultIdle(fn) {
   if ('requestIdleCallback' in window) window.requestIdleCallback(fn, { timeout: 1200 });
@@ -14,6 +15,7 @@ function defaultIdle(fn) {
 export function createEffects({ use3D = canUse3D(window), idle = defaultIdle, loadScene = () => import('./three/scene.js') } = {}) {
   let scenes = [];
   let generation = 0;
+  let cleanupReveal = () => {};
 
   async function mountScene(container, gen) {
     if (gen !== generation || !container.isConnected || container.dataset.mounted) return;
@@ -46,11 +48,15 @@ export function createEffects({ use3D = canUse3D(window), idle = defaultIdle, lo
       generation += 1;
       scenes.forEach((s) => s.dispose());
       scenes = [];
+      cleanupReveal();
+      cleanupReveal = initReveal(root);
+      root.querySelectorAll('[data-count-to]').forEach((el) => animateCounter(el));
       enableTilt(root);
       mountVisible(root);
     },
     /** Tras cambiar de vista. */
-    onViewChange(root) {
+    onViewChange(root, state, { fromKeyboard = false } = {}) {
+      fadeView(root.querySelector('[data-view]:not([hidden])'), { fromKeyboard });
       mountVisible(root);
     },
   };
