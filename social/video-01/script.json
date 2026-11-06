@@ -1,0 +1,14 @@
+{
+  "title": "¿Tu hijo vive en Roblox? Que aprenda a crearlo",
+  "voice": "es-MX-JorgeNeural",
+  "rate": "+6%",
+  "gapMs": 180,
+  "scenes": [
+    { "id": "hook", "say": "¿Tu hijo pasa horas en Roblox?", "pitch": "+4Hz" },
+    { "id": "turn", "say": "No se lo quites… enséñale a crearlo." },
+    { "id": "proof", "say": "Estos juegos los hice yo, con código." },
+    { "id": "method", "say": "Lógica, Python, Roblox y webs. Paso a paso, en clases en línea." },
+    { "id": "trust", "say": "Más de dos mil clases dadas. Y si la primera no te convence… no te la cobro." },
+    { "id": "cta", "say": "Agenda su primera clase en el enlace de mi perfil." }
+  ]
+}

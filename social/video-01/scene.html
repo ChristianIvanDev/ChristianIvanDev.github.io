@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<title>Video 01 · Roblox</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Nunito:wght@700;800;900&display=block" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #5b21b6; --deep: #3b0f80; --card: #6d28d9; --border: #8b5cf6;
+    --pink: #fbe1ea; --pink2: #f9c9da; --pinkShadow: #c98aa3; --ink: #3b0f80;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; width: 1080px; height: 1920px; overflow: hidden; background: var(--bg); }
+  body { font-family: 'Nunito', sans-serif; color: #fff; }
+  .abs { position: absolute; }
+  .display { font-family: 'Lilita One', sans-serif; text-transform: uppercase; line-height: 0.95; letter-spacing: 0.01em; }
+  #stage { position: absolute; inset: 0; overflow: hidden; }
+  .blk { position: absolute; border-radius: 26px; box-shadow: 0 12px 0 var(--deep); }
+  .scene { position: absolute; inset: 0; }
+  .card { position: absolute; background: var(--card); border: 5px solid var(--border); border-radius: 44px; box-shadow: 0 16px 0 var(--deep); overflow: hidden; }
+  .card img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .pinkcard { background: var(--pink); border-color: #fff; box-shadow: 0 16px 0 var(--pinkShadow); color: var(--ink); }
+  .chip { position: absolute; left: 140px; width: 800px; height: 150px; display: flex; align-items: center; gap: 34px; padding: 0 40px; border-radius: 40px;
+          background: var(--card); border: 5px solid var(--border); box-shadow: 0 14px 0 var(--deep); font-family: 'Lilita One'; font-size: 82px; text-transform: uppercase; }
+  .chip .n { width: 96px; height: 96px; border-radius: 50%; display: grid; place-items: center; background: var(--pink); color: var(--ink); font-size: 60px; flex: none; }
+  .code { position: absolute; left: 110px; top: 1010px; width: 860px; height: 250px; border-radius: 34px; background: #1b0a3d; border: 4px solid var(--border);
+          font: 800 33px/1.55 ui-monospace, Consolas, monospace; padding: 30px 34px; color: #f3eaff; white-space: pre; overflow: hidden; }
+  .code .k { color: #f9c9da; } .code .f { color: #c4b5fd; }
+  #caption { position: absolute; left: 70px; right: 170px; top: 1360px; text-align: center; font-weight: 900; font-size: 76px; line-height: 1.18; text-shadow: 0 6px 0 rgba(59,15,128,.9); }
+  #caption span { display: inline-block; padding: 0 10px; margin: 2px 0; border-radius: 16px; }
+  #caption span.on { background: var(--pink); color: var(--ink); text-shadow: none; }
+  #caption span.past { color: #fff; }
+  #caption span.next { color: rgba(255,255,255,.55); }
+  .stamp { position: absolute; left: 160px; top: 980px; width: 760px; padding: 36px 40px; border: 10px solid #fff; border-radius: 36px; background: #1f8a52;
+           text-align: center; font-family: 'Lilita One'; font-size: 66px; line-height: 1.02; text-transform: uppercase; box-shadow: 0 16px 0 #0d4f2c; }
+  .btn { position: absolute; left: 190px; top: 1080px; width: 700px; height: 160px; border-radius: 90px; background: var(--pink); color: var(--ink); display: grid; place-items: center;
+         font-family: 'Lilita One'; font-size: 78px; text-transform: uppercase; box-shadow: 0 14px 0 var(--pinkShadow); }
+  .brand { position: absolute; left: 0; right: 0; top: 110px; text-align: center; font-family: 'Lilita One'; font-size: 44px; letter-spacing: .04em; opacity: .92; }
+</style>
+</head>
+<body>
+<div id="stage">
+  <div id="blocks"></div>
+  <div class="brand display" id="brand">Christian E. · Tutor en línea</div>
+
+  <!-- 1 · Hook -->
+  <div class="scene" id="s-hook">
+    <div class="card" id="hook-shot" style="left:90px; top:300px; width:900px; height:640px;"><img src="../../public/assets/projects/caza-de-monstruos/1.webp" /></div>
+    <div class="abs display" id="hook-text" style="left:60px; right:60px; top:930px; text-align:center; font-size:150px; text-shadow:0 12px 0 var(--deep);">¿Horas en<br>Roblox?</div>
+  </div>
+
+  <!-- 2 · Giro -->
+  <div class="scene" id="s-turn">
+    <div class="abs display" id="turn-play" style="left:0; right:0; top:420px; text-align:center; font-size:220px;">Jugar</div>
+    <div class="abs" id="turn-strike" style="left:150px; top:520px; width:780px; height:34px; background:#ff4d7d; border-radius:20px; transform-origin:left center;"></div>
+    <div class="card pinkcard display" id="turn-create" style="left:120px; top:760px; width:840px; height:330px; display:grid; place-items:center; font-size:220px;">Crear</div>
+  </div>
+
+  <!-- 3 · Prueba -->
+  <div class="scene" id="s-proof">
+    <div class="card" id="proof-a" style="left:70px; top:260px; width:560px; height:400px;"><img src="../../public/assets/projects/caza-de-monstruos/1.webp" /></div>
+    <div class="card" id="proof-b" style="left:450px; top:560px; width:560px; height:400px;"><img src="../../public/assets/projects/build-a-pipe/1.webp" /></div>
+    <div class="code" id="proof-code"></div>
+  </div>
+
+  <!-- 4 · Método -->
+  <div class="scene" id="s-method">
+    <div class="chip" id="m0" style="top:300px;"><span class="n">1</span>Lógica</div>
+    <div class="chip" id="m1" style="top:490px;"><span class="n">2</span>Python</div>
+    <div class="chip" id="m2" style="top:680px;"><span class="n">3</span>Roblox</div>
+    <div class="chip" id="m3" style="top:870px;"><span class="n">4</span>Webs</div>
+    <div class="abs display" id="m-online" style="left:260px; top:1075px; width:560px; height:110px; border-radius:60px; background:#1f8a52; display:grid; place-items:center; font-size:64px; box-shadow:0 10px 0 #0d4f2c;">100 % en línea</div>
+  </div>
+
+  <!-- 5 · Confianza -->
+  <div class="scene" id="s-trust">
+    <div class="abs display" id="t-num" style="left:0; right:0; top:360px; text-align:center; font-size:300px; color:var(--pink); text-shadow:0 16px 0 var(--deep);">+0</div>
+    <div class="abs display" id="t-label" style="left:0; right:0; top:690px; text-align:center; font-size:96px;">clases dadas</div>
+    <div class="stamp" id="t-stamp">Si no te convence,<br>no te la cobro</div>
+  </div>
+
+  <!-- 6 · Llamada -->
+  <div class="scene" id="s-cta">
+    <div class="card" id="c-photo" style="left:290px; top:260px; width:500px; height:620px;"><img src="../../public/assets/photo/christian.webp" /></div>
+    <div class="abs display" id="c-title" style="left:0; right:0; top:930px; text-align:center; font-size:84px;">Primera clase</div>
+    <div class="btn" id="c-btn">Agendar clase</div>
+    <div class="abs" id="c-link" style="left:0; right:0; top:1270px; text-align:center; font-weight:900; font-size:44px; color:var(--pink);">👆 Enlace en mi perfil</div>
+  </div>
+
+  <div id="caption"></div>
+</div>
+
+<script type="module">
+  import { cues } from './cues.js';
+
+  const $ = (id) => document.getElementById(id);
+  const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+  const prog = (t, a, d) => clamp((t - a) / d);
+  const easeOut = (x) => 1 - Math.pow(1 - x, 3);
+  const easeBack = (x) => { const c1 = 1.9, c3 = c1 + 1; return 1 + c3 * Math.pow(x - 1, 3) + c1 * Math.pow(x - 1, 2); };
+  const set = (el, { o = 1, x = 0, y = 0, s = 1, r = 0 } = {}) => {
+    el.style.opacity = o;
+    el.style.transform = `translate(${x}px, ${y}px) scale(${s}) rotate(${r}deg)`;
+  };
+  // Entra con rebote en `a` (dur d) y sale suave en `b`.
+  const popIn = (t, a, d = 0.32) => { const p = prog(t, a, d); return { o: clamp(p * 3), s: 0.6 + 0.4 * easeBack(p) }; };
+
+  // Bloques decorativos de fondo
+  const BLOCKS = [
+    [40, 1180, 90, '#f9c9da', 12], [930, 1220, 70, '#8b5cf6', -8], [930, 180, 110, '#fbe1ea', 16],
+    [60, 160, 80, '#7c3aed', -14], [120, 1800, 70, '#ffffff', 22], [880, 1790, 60, '#c4b5fd', 0],
+  ];
+  const blocksEl = $('blocks');
+  BLOCKS.forEach(([x, y, s, c, r], i) => {
+    const b = document.createElement('div');
+    b.className = 'blk';
+    Object.assign(b.style, { left: `${x}px`, top: `${y}px`, width: `${s}px`, height: `${s}px`, background: c, borderRadius: i % 3 === 1 ? '50%' : '26px' });
+    b.dataset.r = r;
+    blocksEl.append(b);
+  });
+
+  const CODE = [
+    ['<span class="k">local</span> jugador = <span class="f">game</span>.Players.LocalPlayer'],
+    ['<span class="k">if</span> monstruo.Vida <= 0 <span class="k">then</span>'],
+    ['    <span class="f">darRecompensa</span>(jugador, 50)'],
+  ];
+  const codeText = CODE.map((l) => l[0]);
+  const stripLen = (html) => html.replace(/<[^>]+>/g, '').length;
+
+  function typed(html, n) {
+    // Devuelve el HTML recortado a n caracteres visibles, sin romper las etiquetas.
+    let out = '', count = 0;
+    for (let i = 0; i < html.length && count < n; i++) {
+      if (html[i] === '<') { const j = html.indexOf('>', i); out += html.slice(i, j + 1); i = j; continue; }
+      out += html[i]; count++;
+    }
+    const opens = (out.match(/<span/g) || []).length - (out.match(/<\/span>/g) || []).length;
+    return out + '</span>'.repeat(Math.max(0, opens));
+  }
+
+  let C, TL;
+
+  function sceneAlpha(t, a, b, fade = 0.18) {
+    return clamp(Math.min((t - a) / fade + 1, (b - t) / fade));
+  }
+
+  window.renderAt = function renderAt(t) {
+    // Fondo
+    [...blocksEl.children].forEach((b, i) => {
+      const r = +b.dataset.r;
+      b.style.transform = `translateY(${Math.sin(t * 1.3 + i) * 14}px) rotate(${r + Math.sin(t * 0.7 + i) * 6}deg)`;
+    });
+    $('brand').style.opacity = t > C.cta.start ? 0 : 0.92;
+
+    // 1 · Hook
+    const hook = $('s-hook');
+    hook.style.opacity = sceneAlpha(t, C.hook.start, C.hook.end);
+    const hz = prog(t, 0, 0.5);
+    const shake = t > C.hook.hit && t < C.hook.hit + 0.25 ? Math.sin(t * 90) * 14 * (1 - (t - C.hook.hit) / 0.25) : 0;
+    set($('hook-shot'), { s: 1.25 - 0.25 * easeOut(hz), x: shake, r: -2 + 2 * easeOut(hz), o: clamp(hz * 4) });
+    const ht = popIn(t, 0.04, 0.32);
+    set($('hook-text'), { ...ht, y: shake * 0.4 });
+
+    // 2 · Giro
+    $('s-turn').style.opacity = sceneAlpha(t, C.turn.start, C.turn.end);
+    set($('turn-play'), { ...popIn(t, C.turn.start, 0.3), o: t > C.turn.create ? 0.35 : clamp((t - C.turn.start) * 6) });
+    $('turn-strike').style.transform = `scaleX(${easeOut(prog(t, C.turn.strike, 0.22))}) rotate(-4deg)`;
+    $('turn-strike').style.opacity = t > C.turn.strike ? 1 : 0;
+    set($('turn-create'), { ...popIn(t, C.turn.create, 0.36), r: -3 + 3 * easeOut(prog(t, C.turn.create, 0.4)) });
+
+    // 3 · Prueba
+    $('s-proof').style.opacity = sceneAlpha(t, C.proof.start, C.proof.end);
+    const pa = easeOut(prog(t, C.proof.cardA - 0.1, 0.4));
+    const pb = easeOut(prog(t, C.proof.cardB - 0.1, 0.4));
+    set($('proof-a'), { o: pa, x: -700 * (1 - pa), r: -5 * pa });
+    set($('proof-b'), { o: pb, x: 700 * (1 - pb), r: 4 * pb });
+    const totalChars = codeText.reduce((n, l) => n + stripLen(l), 0);
+    const n = Math.floor(totalChars * prog(t, C.proof.code, 1.3));
+    let left = n;
+    const lines = codeText.map((l) => { const len = stripLen(l); const take = Math.min(len, Math.max(0, left)); left -= len; return typed(l, take); });
+    const caret = Math.floor(t * 3) % 2 ? '▌' : ' ';
+    $('proof-code').innerHTML = lines.join('\n') + caret;
+    set($('proof-code'), { o: clamp((t - C.proof.code + 0.2) * 6), y: 30 * (1 - easeOut(prog(t, C.proof.code - 0.2, 0.3))) });
+
+    // 4 · Método
+    $('s-method').style.opacity = sceneAlpha(t, C.method.start, C.method.end);
+    C.method.steps.forEach((st, i) => {
+      const p = easeBack(prog(t, st - 0.05, 0.34));
+      set($(`m${i}`), { o: clamp(prog(t, st - 0.05, 0.12)), x: -500 * (1 - clamp(p, 0, 1.2)), s: 0.9 + 0.1 * clamp(p, 0, 1) });
+    });
+    set($('m-online'), popIn(t, C.method.online - 0.05, 0.34));
+
+    // 5 · Confianza
+    $('s-trust').style.opacity = sceneAlpha(t, C.trust.start, C.trust.end);
+    const cp = easeOut(prog(t, C.trust.count, C.trust.countEnd - C.trust.count));
+    $('t-num').textContent = '+' + Math.round(2000 * cp).toLocaleString('en-US');
+    set($('t-num'), { ...popIn(t, C.trust.start, 0.3), s: (0.6 + 0.4 * easeBack(prog(t, C.trust.start, 0.3))) * (t > C.trust.countEnd && t < C.trust.countEnd + 0.2 ? 1.06 : 1) });
+    set($('t-label'), { o: clamp(prog(t, C.trust.count, 0.25)), y: 40 * (1 - easeOut(prog(t, C.trust.count, 0.35))) });
+    const sp = prog(t, C.trust.stamp - 0.08, 0.22);
+    set($('t-stamp'), { o: clamp(sp * 4), s: 1.8 - 0.8 * easeOut(sp), r: -6 });
+
+    // 6 · Llamada
+    $('s-cta').style.opacity = sceneAlpha(t, C.cta.start, C.total + 1);
+    set($('c-photo'), { ...popIn(t, C.cta.start, 0.4), r: 3 });
+    set($('c-title'), { o: clamp(prog(t, C.cta.start + 0.25, 0.2)), y: 30 * (1 - easeOut(prog(t, C.cta.start + 0.25, 0.3))) });
+    const beat = t > C.cta.button ? 1 + 0.05 * Math.max(0, Math.sin((t - C.cta.button) * 7)) : 1;
+    const bp = popIn(t, C.cta.button - 0.1, 0.36);
+    set($('c-btn'), { o: bp.o, s: bp.s * beat });
+    set($('c-link'), { o: clamp(prog(t, C.cta.button + 0.3, 0.25)), y: 20 * Math.sin(t * 6) });
+
+    // Subtítulos palabra a palabra
+    const sc = TL.scenes.find((s) => t >= s.start - 0.05 && t < s.start + s.duration + 0.15);
+    const cap = $('caption');
+    if (!sc) { cap.innerHTML = ''; return; }
+    // Grupos cortos (máx. 4 palabras o hasta una pausa): se muestra el grupo que se está diciendo.
+    const groups = [];
+    let g = [];
+    sc.words.forEach((w) => { g.push(w); if (g.length >= 4 || /[.,?!…]$/.test(w.w)) { groups.push(g); g = []; } });
+    if (g.length) groups.push(g);
+    const current = [...groups].reverse().find((gr) => t >= gr[0].t - 0.08) || groups[0];
+    cap.innerHTML = current.map((w) => {
+      const cls = t >= w.t && t < w.t + Math.max(w.d, 0.18) ? 'on' : t >= w.t ? 'past' : 'next';
+      return `<span class="${cls}">${w.w}</span>`;
+    }).join(' ');
+    cap.style.opacity = clamp((t - sc.start + 0.05) * 8);
+  };
+
+  window.setup = async function setup(timeline) {
+    TL = timeline;
+    C = cues(timeline);
+    await document.fonts.ready;
+    await Promise.all([...document.images].map((img) => (img.complete ? null : new Promise((r) => { img.onload = img.onerror = r; }))));
+    window.renderAt(0);
+    return { total: C.total, sfx: C.sfx };
+  };
+  window.__ready = true;
+</script>
+</body>
+</html>

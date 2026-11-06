@@ -4,3 +4,8 @@ dist/
 _material/
 .impeccable/config.local.json
 .impeccable/hook.cache.json
+
+# Redes sociales
+social/out/
+social/**/build/
+.venv-social/
