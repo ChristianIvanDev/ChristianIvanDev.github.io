@@ -3,25 +3,36 @@
   "gapMs": 180,
   "scenes": [
     {
-      "id": "hook", "type": "hook",
+      "id": "hook",
+      "type": "hook",
       "say": "¿Tu hijo pasa horas en Roblox?",
       "tone": "con intriga, pregunta directa",
       "image": "assets/projects/caza-de-monstruos/1.webp",
       "text": "¿Horas en<br>Roblox?"
     },
     {
-      "id": "turn", "type": "turn",
+      "id": "turn",
+      "type": "turn",
       "say": "No se lo quites… enséñale a crearlo.",
       "tone": "con una pausa pequeña en los puntos suspensivos, y énfasis en \"crearlo\"",
-      "from": "Jugar", "to": "Crear",
-      "strikeAt": "quites", "toAt": "crearlo"
+      "from": "Jugar",
+      "to": "Crear",
+      "strikeAt": "quites",
+      "toAt": "crearlo"
     },
     {
-      "id": "proof", "type": "proof",
+      "id": "proof",
+      "type": "proof",
       "say": "Estos juegos los hice yo, con código.",
       "tone": "con orgullo",
-      "images": ["assets/projects/caza-de-monstruos/1.webp", "assets/projects/build-a-pipe/1.webp"],
-      "at": ["juegos", "hice"],
+      "images": [
+        "assets/projects/caza-de-monstruos/1.webp",
+        "assets/projects/build-a-pipe/1.webp"
+      ],
+      "at": [
+        "juegos",
+        "hice"
+      ],
       "code": [
         "<span class=\"k\">local</span> jugador = <span class=\"f\">game</span>.Players.LocalPlayer",
         "<span class=\"k\">if</span> monstruo.Vida <= 0 <span class=\"k\">then</span>",
@@ -30,26 +41,63 @@
       "codeAt": "hice"
     },
     {
-      "id": "method", "type": "list",
+      "id": "method",
+      "type": "list",
       "say": "Lógica, Python, Roblox y webs. Paso a paso, en clases en línea.",
       "tone": "enumerando, una palabra tras otra",
-      "items": ["Lógica", "Python", "Roblox", "Webs"],
-      "at": ["logica", "python", "roblox", "webs"],
-      "badge": "100 % en línea", "badgeAt": "linea"
+      "items": [
+        "Lógica",
+        "Python",
+        "Roblox",
+        "Webs"
+      ],
+      "at": [
+        "logica",
+        "python",
+        "roblox",
+        "webs"
+      ],
+      "badge": "100 % en línea",
+      "badgeAt": "linea"
     },
     {
-      "id": "trust", "type": "counter",
+      "id": "trust",
+      "type": "counter",
       "say": "Más de dos mil clases dadas. Y si la primera no te convence… no te la cobro.",
       "tone": "con calma y confianza, bajando la voz en lo último",
-      "to": 2000, "label": "clases dadas",
-      "countAt": "mas", "countEndAt": "dadas",
-      "stamp": "Si no te convence,<br>no te la cobro", "stampAt": "cobro"
+      "to": 2000,
+      "label": "clases dadas",
+      "countAt": "mas",
+      "countEndAt": "dadas",
+      "stamp": "Si no te convence,<br>no te la cobro",
+      "stampAt": "cobro"
     },
     {
-      "id": "cta", "type": "cta",
+      "id": "cta",
+      "type": "cta",
       "say": "Agenda su primera clase en el enlace de mi perfil.",
       "tone": "invitando, con una sonrisa",
-      "title": "Primera clase", "button": "Agendar clase", "buttonAt": "enlace"
+      "title": "Primera clase",
+      "button": "Agendar clase",
+      "buttonAt": "enlace"
     }
-  ]
+  ],
+  "post": {
+    "hook": "¿Tu hijo pasa horas en Roblox? 🎮",
+    "body": "No se lo quites: enséñale a CREAR sus propios juegos. Doy clases en línea de programación, diseño y desarrollo: lógica, Python, Roblox y páginas web, paso a paso y a su ritmo. Más de 2,000 clases dadas.",
+    "youtubeTitle": "¿Tu hijo pasa horas en Roblox? Enséñale a crear sus propios juegos",
+    "hashtags": [
+      "programacionparaniños",
+      "roblox",
+      "robloxstudio",
+      "aprenderaprogramar",
+      "clasesenlinea",
+      "python",
+      "tutorprivado",
+      "educaciondigital",
+      "padresytecnologia"
+    ],
+    "comment": "¿Qué juego de Roblox le gusta más a tu hijo? 👇",
+    "coverAt": 1.0
+  }
 }

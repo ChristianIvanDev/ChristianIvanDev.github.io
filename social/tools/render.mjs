@@ -1,7 +1,8 @@
 // Renderiza un video vertical con el motor estándar (social/lib) a partir de script.json + la voz en off.
 // Uso:
 //   node social/tools/render.mjs social/video-01 --stills 0.8,4,7.5,12,19,21.6,25   (capturas sueltas para revisar)
-//   node social/tools/render.mjs social/video-01                                     (video completo → social/out/<video>.mp4)
+//   node social/tools/render.mjs social/video-01 --cover                             (solo portada + post.md)
+//   node social/tools/render.mjs social/video-01                                     (video completo + portada + post.md)
 import http from 'node:http';
 import { readFile, mkdir, rm, writeFile } from 'node:fs/promises';
 import { existsSync } from 'node:fs';
@@ -11,12 +12,14 @@ import { execFileSync } from 'node:child_process';
 import puppeteer from 'puppeteer-core';
 import ffmpeg from 'ffmpeg-static';
 import { buildSfx } from './sfx.mjs';
+import { buildPost } from './post.mjs';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '../..');
 const videoDir = resolve(root, process.argv[2] || 'social/video-01');
 const name = basename(videoDir);
 const stillsArg = process.argv.indexOf('--stills');
 const stills = stillsArg > 0 ? process.argv[stillsArg + 1].split(',').map(Number) : null;
+const coverOnly = process.argv.includes('--cover');
 const FPS = 30;
 const W = 1080;
 const H = 1920;
@@ -57,7 +60,15 @@ try {
   await page.waitForFunction('window.__ready === true');
   const { total, sfx } = await page.evaluate((sp, tl) => window.setup(sp, tl), spec, timeline);
 
-  if (stills) {
+  if (coverOnly) {
+    const coverAt = spec.post?.coverAt ?? 1.0;
+    await page.evaluate((x) => { window.renderAt(x); document.getElementById('caption').style.visibility = 'hidden'; }, coverAt);
+    await mkdir(join(root, 'social/out'), { recursive: true });
+    const cover = join(root, 'social/out', `${name}-portada.jpg`);
+    await page.screenshot({ path: cover, type: 'jpeg', quality: 92 });
+    if (spec.post) await writeFile(join(videoDir, 'post.md'), buildPost(spec, name));
+    console.log(`portada: ${cover}`);
+  } else if (stills) {
     const outDir = join(build, 'stills');
     await mkdir(outDir, { recursive: true });
     for (const t of stills) {
@@ -106,6 +117,17 @@ try {
       '-t', String(total), '-movflags', '+faststart', out,
     ], { stdio: ['ignore', 'ignore', 'inherit'] });
     console.log(`video: ${out}`);
+
+    // Portada (para Instagram/YouTube) y textos por red
+    const coverAt = spec.post?.coverAt ?? 1.0;
+    await page.evaluate((x) => { window.renderAt(x); document.getElementById('caption').style.visibility = 'hidden'; }, coverAt);
+    const cover = join(root, 'social/out', `${name}-portada.jpg`);
+    await page.screenshot({ path: cover, type: 'jpeg', quality: 92 });
+    console.log(`portada: ${cover}`);
+    if (spec.post) {
+      await writeFile(join(videoDir, 'post.md'), buildPost(spec, name));
+      console.log(`textos: ${join(videoDir, 'post.md')}`);
+    }
   }
 } finally {
   await browser.close();

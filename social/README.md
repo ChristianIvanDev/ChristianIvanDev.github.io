@@ -5,8 +5,12 @@ El estilo estándar lo define el motor `social/lib/` (estilo, fondo de bloques, 
 ## script.json
 
 ```json
-{ "title": "…", "gapMs": 180, "scenes": [ { "id": "hook", "type": "hook", "say": "…", "tone": "…", …campos del tipo… } ] }
+{ "title": "…", "gapMs": 180,
+  "scenes": [ { "id": "hook", "type": "hook", "say": "…", "tone": "…", …campos del tipo… } ],
+  "post": { "hook": "…", "body": "…", "youtubeTitle": "…", "hashtags": ["…"], "comment": "…", "coverAt": 1.0 } }
 ```
+
+El bloque **`post`** genera `post.md` con el texto adaptado a cada red, y **`coverAt`** indica el segundo que se usa como portada.
 
 - **`say`:** lo que dice la voz; se usa para localizar cada toma en la grabación.
 - **`tone`:** indicación de tono para el guion de grabación.
@@ -34,8 +38,22 @@ npm run video:new -- video-02                                   # carpeta nueva 
 node social/tools/new-video.mjs --guion social/video-02         # regenera guion-para-grabar.md desde script.json
 .venv-voice/Scripts/python social/tools/voice_recorded.py social/video-02 social/voz/video-02-raw.wav
 node social/tools/render.mjs social/video-02 --stills 0.5,3,6   # capturas sueltas para revisar
-node social/tools/render.mjs social/video-02                    # MP4 final → social/out/video-02.mp4
+node social/tools/render.mjs social/video-02                    # MP4 + portada + post.md
+node social/tools/render.mjs social/video-02 --cover            # solo portada + post.md (tras editar "post")
 ```
+
+## Publicación (Facebook, Instagram, TikTok y YouTube)
+
+- **Una subida para todo:** en **Metricool** (o Buffer), con el mismo MP4 y la misma portada, se programa a la vez en la **Página de Facebook (Reel), Instagram (Reel), TikTok y YouTube (Short)**.
+- **Alternativa oficial:** **Meta Business Suite** publica en Facebook + Instagram, y **TikTok Studio** programa TikTok.
+- **Requisitos de las cuentas:** Instagram **profesional y vinculado a la Página**; TikTok como **cuenta de empresa**; el enlace de la web en la biografía de cada red.
+- **Texto por red:** cada una tiene su sección en `post.md`.
+  - TikTok: texto corto y sin enlace.
+  - Instagram: hashtags completos.
+  - Facebook: enlace directo a la reserva, porque ahí sí es clicable.
+  - YouTube: título que un padre buscaría.
+  - WhatsApp: texto breve.
+- **Extras:** estados y canal de WhatsApp, video de presentación en Superprof (enlace de YouTube) y grupos de Facebook de padres.
 
 ## Lo que no se ve en la configuración
 
