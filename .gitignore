@@ -9,3 +9,6 @@ _material/
 social/out/
 social/**/build/
 .venv-social/
+.venv-voice/
+social/vendor/
+social/voz/

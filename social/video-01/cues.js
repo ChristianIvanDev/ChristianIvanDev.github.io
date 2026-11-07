@@ -17,7 +17,7 @@ export function cues(timeline) {
     total: timeline.total,
     hook: { start: 0, hit: scene.hook.start + 0.02, end: scene.turn.start - 0.05 },
     turn: { start: scene.turn.start - 0.05, strike: word('turn', 'quites'), create: word('turn', 'crearlo'), end: scene.proof.start - 0.05 },
-    proof: { start: scene.proof.start - 0.05, cardA: word('proof', 'juegos'), cardB: word('proof', 'hice'), code: word('proof', 'codigo'), end: scene.method.start - 0.05 },
+    proof: { start: scene.proof.start - 0.05, cardA: word('proof', 'juegos'), cardB: word('proof', 'hice'), code: word('proof', 'hice'), end: scene.method.start - 0.05 },
     method: {
       start: scene.method.start - 0.05,
       steps: [word('method', 'logica'), word('method', 'python'), word('method', 'roblox'), word('method', 'webs')],
