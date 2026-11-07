@@ -97,8 +97,9 @@ describe('tarjeta de proyecto', () => {
     expect(a.textContent).toContain(en['project.view.steam']);
   });
 
-  test('Haunted Obby no tiene enlace y Mecha muestra "En desarrollo"', () => {
-    expect(renderProjectCard(byId('haunted-obby'), 'es', {}).querySelector('a.project__link')).toBeNull();
+  test('Haunted Obby enlaza a Roblox, Agenda Docente no tiene enlace y Mecha muestra "En desarrollo"', () => {
+    expect(renderProjectCard(byId('haunted-obby'), 'es', {}).querySelector('a.project__link').getAttribute('href')).toBe('https://www.roblox.com/es/games/90518449117709/Escape-the-Haunted-Obby-HALLOWEEN');
+    expect(renderProjectCard(byId('agenda-docente'), 'es', {}).querySelector('a.project__link')).toBeNull();
     expect(renderProjectCard(byId('mecha-apex'), 'es', {}).textContent).toContain(es['project.status.indev']);
   });
 

@@ -5,7 +5,7 @@ description: Videos verticales que anuncian las clases de Christian en su Págin
 
 # Video para redes
 
-Cada video sigue el **mismo molde**: 6 escenas (hook → giro → prueba → método → confianza → CTA), unos 25 s, 1080×1920 y la **voz grabada de Christian**. La referencia de los tipos de escena, los campos y los comandos está en [`social/README.md`](../../../social/README.md). Léela antes de editar un `script.json`.
+Cada video sigue el **mismo molde**: 6 escenas (hook → giro → prueba → método → confianza → CTA), unos 25 s, 1080×1920 y la **voz grabada de Christian**. Si pide un video **sin voz**, haz la variante con efectos, música sintetizada y texto en pantalla. Se omiten los pasos 2 y 3 y los tiempos salen de `timeline_silent.mjs`. Para chicos que juegan Roblox, el CTA es "pídele a tus papás". La referencia de los tipos de escena, los campos y los comandos está en [`social/README.md`](../../../social/README.md). Léela antes de editar un `script.json`.
 
 ## Pasos
 

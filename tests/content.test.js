@@ -64,11 +64,12 @@ describe('proyectos', () => {
     expect(PROJECTS.map((p) => p.id)).toEqual(ids);
   });
 
-  test('solo 3 tienen enlace público, con las URL del spec', () => {
+  test('4 tienen enlace público, con sus URL', () => {
     const links = PROJECTS.filter((p) => p.link).map((p) => [p.id, p.link.href, p.link.kind]);
     expect(links).toEqual([
       ['caza-de-monstruos', 'https://www.roblox.com/es/games/134450784529527/Caza-de-mounstruos', 'roblox'],
       ['build-a-pipe', 'https://www.roblox.com/es/games/70899491861878/Build-a-Pipe', 'roblox'],
+      ['haunted-obby', 'https://www.roblox.com/es/games/90518449117709/Escape-the-Haunted-Obby-HALLOWEEN', 'roblox'],
       ['culto-del-juicio', 'https://steamcommunity.com/sharedfiles/filedetails/?id=3826352482', 'steam'],
     ]);
   });

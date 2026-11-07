@@ -74,8 +74,9 @@ export const PROJECTS = [
     id: 'haunted-obby',
     group: 'roblox',
     featured: false,
+    link: { href: 'https://www.roblox.com/es/games/90518449117709/Escape-the-Haunted-Obby-HALLOWEEN', kind: 'roblox' },
     stack: ['Luau', 'Roblox Studio'],
-    title: { es: 'Haunted Obby', en: 'Haunted Obby' },
+    title: { es: 'Escape the Haunted Obby', en: 'Escape the Haunted Obby' },
     summary: {
       es: 'Obby de Halloween con ambientación embrujada y productos de pago dentro del juego.',
       en: 'A Halloween obby with a haunted setting and in-game paid products.',

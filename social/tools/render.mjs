@@ -11,7 +11,7 @@ import { fileURLToPath } from 'node:url';
 import { execFileSync } from 'node:child_process';
 import puppeteer from 'puppeteer-core';
 import ffmpeg from 'ffmpeg-static';
-import { buildSfx } from './sfx.mjs';
+import { buildSfx, buildMusic } from './sfx.mjs';
 import { buildPost } from './post.mjs';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '../..');
@@ -91,20 +91,31 @@ try {
     const sfxWav = join(build, 'sfx.wav');
     await writeFile(sfxWav, buildSfx(sfx, total));
 
-    // Voz: cada escena en su instante
     const inputs = ['-framerate', String(FPS), '-i', join(frames, '%05d.jpg'), '-i', sfxWav];
     const filters = [];
-    timeline.scenes.forEach((s, i) => {
-      inputs.push('-i', join(build, s.audio));
-      const ms = Math.round(s.start * 1000);
-      filters.push(`[${i + 2}:a]adelay=${ms}|${ms},volume=1.0[v${i}]`);
-    });
-    const vo = timeline.scenes.map((_, i) => `[v${i}]`).join('');
-    filters.push(`${vo}amix=inputs=${timeline.scenes.length}:normalize=0,asplit=2[vo][vokey]`);
-    // Voz al frente; los efectos bajan un poco mientras habla (sidechain).
-    filters.push('[1:a]volume=0.55[fx]');
-    filters.push('[fx][vokey]sidechaincompress=threshold=0.05:ratio=4:attack=5:release=180[fxd]');
-    filters.push('[vo][fxd]amix=inputs=2:normalize=0,loudnorm=I=-14:TP=-1.0:LRA=9[aout]');
+    if (timeline.silent) {
+      // Sin voz: efectos + música de fondo (la música baja un poco cuando suena un efecto).
+      const musicWav = join(build, 'music.wav');
+      await writeFile(musicWav, buildMusic(total, spec.musicOptions || {}));
+      inputs.push('-i', musicWav);
+      filters.push('[1:a]volume=0.9,asplit=2[fx][fxkey]');
+      filters.push('[2:a]volume=0.6[mu]');
+      filters.push('[mu][fxkey]sidechaincompress=threshold=0.08:ratio=3:attack=4:release=200[mud]');
+      filters.push('[fx][mud]amix=inputs=2:normalize=0,loudnorm=I=-14:TP=-1.0:LRA=9[aout]');
+    } else {
+      // Voz: cada escena en su instante
+      timeline.scenes.forEach((s, i) => {
+        inputs.push('-i', join(build, s.audio));
+        const ms = Math.round(s.start * 1000);
+        filters.push(`[${i + 2}:a]adelay=${ms}|${ms},volume=1.0[v${i}]`);
+      });
+      const vo = timeline.scenes.map((_, i) => `[v${i}]`).join('');
+      filters.push(`${vo}amix=inputs=${timeline.scenes.length}:normalize=0,asplit=2[vo][vokey]`);
+      // Voz al frente; los efectos bajan un poco mientras habla (sidechain).
+      filters.push('[1:a]volume=0.55[fx]');
+      filters.push('[fx][vokey]sidechaincompress=threshold=0.05:ratio=4:attack=5:release=180[fxd]');
+      filters.push('[vo][fxd]amix=inputs=2:normalize=0,loudnorm=I=-14:TP=-1.0:LRA=9[aout]');
+    }
 
     await mkdir(join(root, 'social/out'), { recursive: true });
     const out = join(root, 'social/out', `${name}.mp4`);

@@ -18,6 +18,10 @@ El bloque **`post`** genera `post.md` con el texto adaptado a cada red, y **`cov
 - **Imágenes:** rutas dentro de `public/` (por ejemplo `assets/projects/build-a-pipe/1.webp`).
 - **Texto en pantalla:** admite `<br>` para partir líneas.
 
+## Videos sin voz (solo efectos y música)
+
+Pon `"voice": false` en `script.json` y una `"duration"` (en segundos) en cada escena. Los campos `…At` pasan a ser **segundos desde el inicio de la escena**. En lugar de `voice_recorded.py`, genera los tiempos con `node social/tools/timeline_silent.mjs social/video-NN`. El render añade solo una **música de fondo sintetizada** (`buildMusic` en `sfx.mjs`, ajustable con `"musicOptions": { "bpm": 124 }`). No hay subtítulos: el texto va en pantalla.
+
 ## Tipos de escena
 
 | type | Para qué | Campos |
@@ -28,6 +32,9 @@ El bloque **`post`** genera `post.md` con el texto adaptado a cada red, y **`cov
 | `list` | Etapas numeradas (hasta 4) + insignia opcional | `items[]`, `at[]` (una palabra por ítem), `badge`, `badgeAt` |
 | `counter` | Número que sube + sello opcional | `to`, `label`, `prefix` (por defecto `+`), `countAt`, `countEndAt`, `stamp`, `stampAt` |
 | `cta` | Cierre: foto + botón que late + "Enlace en mi perfil" | `title`, `button`, `buttonAt`, `photo`, `link` |
+| `world` | **Escena 3D** (`social/lib/world3d.js`): personaje de bloques, obby y lava/trampolín. Las demás escenas lo muestran de fondo con `worldIdle` | `action` (`fall` cae en la lava · `freeze` la lava se vuelve trampolín · `launch` sale disparado y aterriza · `orbit`/`wave` saluda en la plataforma), `headline`, `headlineAt`, `sub`, `subAt`, `code[]`, `codeAt` |
+
+En `proof`, `caption` + `captionAt` añade un texto grande bajo las imágenes.
 
 Los efectos de sonido salen solos de cada tipo: transición suave al entrar en cada escena, golpe en el hook, tachado, pops, tecleo, notas por etapa, tics del contador, sello y campanita. Se definen en `social/tools/sfx.mjs`, sintetizados por programa y sin derechos de terceros.
 

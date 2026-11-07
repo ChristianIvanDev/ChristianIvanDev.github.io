@@ -31,6 +31,38 @@ function typed(html, n) {
 /* ---------- Tipos de escena: build(spec) → nodos; cues(spec, word) → tiempos; render(t, c, nodes); sfx(c) ---------- */
 
 const TYPES = {
+  // Escena 3D: el mundo de fondo hace `action` (fall · freeze · launch · orbit · wave); encima, textos grandes y código.
+  world: {
+    build(s) {
+      const headline = s.headline ? el('div', 'abs display world-headline', s.headline) : null;
+      const sub = s.sub ? el('div', 'abs display world-sub', s.sub) : null;
+      const code = s.code ? el('div', 'code world-code') : null;
+      return { root: [headline, sub, code].filter(Boolean), headline, sub, code, lines: s.code || [] };
+    },
+    cues: (s, w) => ({ action: s.action, headline: w(s.headlineAt ?? 0), sub: s.sub ? w(s.subAt ?? 0) : null, code: s.code ? w(s.codeAt ?? 0) : null }),
+    render(t, c, n) {
+      if (n.headline) { const p = popIn(t, c.headline, 0.32); set(n.headline, { ...p, r: Math.sin(t * 3) * 1.5 }); }
+      if (n.sub) set(n.sub, popIn(t, c.sub, 0.34));
+      if (n.code) {
+        const total = n.lines.reduce((k, l) => k + stripLen(l), 0);
+        let left = Math.floor(total * prog(t, c.code, 1.4));
+        const shown = n.lines.map((l) => { const len = stripLen(l); const take = Math.min(len, Math.max(0, left)); left -= len; return typed(l, take); });
+        n.code.innerHTML = shown.join('\n') + (Math.floor(t * 3) % 2 ? '▌' : ' ');
+        set(n.code, { o: clamp((t - c.code + 0.2) * 6), y: 40 * (1 - easeOut(prog(t, c.code - 0.2, 0.3))) });
+      }
+    },
+    sfx(c) {
+      const at = (dt, type, extra = {}) => ({ t: c.start + dt, type, ...extra });
+      const base = { fall: [at(0, 'whoosh'), at(1.1, 'jump'), at(2.05, 'splash'), at(2.1, 'hit')],
+        freeze: [at(0.1, 'rewind'), at(2.8, 'pop')],
+        launch: [at(0.3, 'boing'), at(0.45, 'whoosh'), at(2.95, 'stamp'), at(3.0, 'fanfare')],
+        orbit: [at(0, 'whoosh')], wave: [at(0, 'whoosh')] }[c.action] || [];
+      const typing = c.code == null ? [] : Array.from({ length: 16 }, (_, i) => ({ t: c.code + i * 0.085, type: 'type' }));
+      const head = c.headline == null ? [] : [{ t: c.headline, type: 'pop' }];
+      return [...base, ...typing, ...head];
+    },
+  },
+
   hook: {
     build(s) {
       const shot = el('div', 'card hook-shot', `<img src="${ASSET(s.image)}">`);
@@ -69,14 +101,16 @@ const TYPES = {
       const a = el('div', 'card proof-a', `<img src="${ASSET(s.images[0])}">`);
       const b = el('div', 'card proof-b', `<img src="${ASSET(s.images[1])}">`);
       const code = el('div', 'code');
-      return { root: s.code ? [a, b, code] : [a, b], a, b, code, lines: s.code || [] };
+      const caption = s.caption ? el('div', 'abs display world-sub proof-caption', s.caption) : null;
+      return { root: [a, b, s.code ? code : null, caption].filter(Boolean), a, b, code, caption, lines: s.code || [] };
     },
-    cues: (s, w) => ({ a: w(s.at[0]), b: w(s.at[1]), code: s.codeAt ? w(s.codeAt) : null }),
+    cues: (s, w) => ({ a: w(s.at[0]), b: w(s.at[1]), code: s.codeAt != null ? w(s.codeAt) : null, caption: s.caption ? w(s.captionAt ?? 0) : null }),
     render(t, c, n) {
       const pa = easeOut(prog(t, c.a - 0.1, 0.4));
       const pb = easeOut(prog(t, c.b - 0.1, 0.4));
       set(n.a, { o: pa, x: -700 * (1 - pa), r: -5 * pa });
       set(n.b, { o: pb, x: 700 * (1 - pb), r: 4 * pb });
+      if (n.caption) set(n.caption, popIn(t, c.caption, 0.34));
       if (!n.lines.length) return;
       const total = n.lines.reduce((k, l) => k + stripLen(l), 0);
       let left = Math.floor(total * prog(t, c.code, 1.3));
@@ -177,6 +211,14 @@ function captionHtml(sc, t) {
 
 export async function mount(stage, spec, timeline) {
   const byId = Object.fromEntries(timeline.scenes.map((s) => [s.id, s]));
+  let world = null, worldCanvas = null;
+  if (spec.scenes.some((s) => s.type === 'world')) {
+    const { createWorld } = await import('./world3d.js');
+    worldCanvas = el('canvas', 'world-canvas');
+    worldCanvas.width = 1080; worldCanvas.height = 1920;
+    stage.append(worldCanvas);
+    world = createWorld(worldCanvas);
+  }
   const blocks = BLOCKS.map(([x, y, s, c, r], i) => {
     const b = el('div', 'blk');
     Object.assign(b.style, { left: `${x}px`, top: `${y}px`, width: `${s}px`, height: `${s}px`, background: c, borderRadius: i % 3 === 1 ? '50%' : '26px' });
@@ -193,7 +235,9 @@ export async function mount(stage, spec, timeline) {
     const sc = byId[s.id];
     if (!sc) throw new Error(`la escena ${s.id} no está en timeline.json (¿falta grabar o generar la voz?)`);
     const word = (text) => {
-      if (!text) return null;
+      if (text == null || text === '') return null;
+      // En videos sin voz, los disparadores son segundos desde el inicio de la escena.
+      if (typeof text === 'number') return sc.start + text;
       const hit = sc.words.find((w) => norm(w.w).startsWith(norm(text)));
       if (!hit) throw new Error(`palabra "${text}" no encontrada en la escena ${s.id}: ${sc.words.map((w) => w.w).join(' ')}`);
       return hit.t;
@@ -220,14 +264,21 @@ export async function mount(stage, spec, timeline) {
       b.style.transform = `translateY(${Math.sin(t * 1.3 + i) * 14}px) rotate(${+b.dataset.r + Math.sin(t * 0.7 + i) * 6}deg)`;
     });
     brand.style.opacity = t > ctaStart ? 0 : 0.92;
+    if (world) {
+      const active = scenes.find((x) => t >= x.c.start && t < x.c.end) || scenes[scenes.length - 1];
+      const isWorld = active.s.type === 'world';
+      world.update(t, isWorld ? active.c.action : (spec.worldIdle || 'orbit'), t - active.c.start);
+      worldCanvas.style.opacity = isWorld ? 1 : 0.5;
+    }
     for (const x of scenes) {
       const alpha = clamp(Math.min((t - x.c.start) / 0.18 + 1, (x.c.end - t) / 0.18));
       x.root.style.opacity = alpha;
       if (alpha > 0) x.type.render(t, x.c, x.nodes);
     }
     const sc = timeline.scenes.find((s) => t >= s.start - 0.05 && t < s.start + s.duration + 0.15);
-    caption.innerHTML = sc ? captionHtml(sc, t) : '';
-    caption.style.opacity = sc ? clamp((t - sc.start + 0.05) * 8) : 0;
+    const hasWords = sc && sc.words.length > 0;
+    caption.innerHTML = hasWords ? captionHtml(sc, t) : '';
+    caption.style.opacity = hasWords ? clamp((t - sc.start + 0.05) * 8) : 0;
   }
 
   await document.fonts.ready;

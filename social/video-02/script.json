@@ -1,0 +1,52 @@
+{
+  "title": "¿Y si la lava te hiciera volar?",
+  "voice": false,
+  "worldIdle": "orbit",
+  "musicOptions": { "bpm": 124 },
+  "scenes": [
+    {
+      "id": "hook", "type": "world", "action": "fall", "duration": 3.0,
+      "headline": "¿OTRA<br>VEZ?", "headlineAt": 2.15
+    },
+    {
+      "id": "turn", "type": "world", "action": "freeze", "duration": 4.4,
+      "headline": "¿Y si la lava<br>te hiciera volar?", "headlineAt": 0.15,
+      "code": [
+        "lava.<span class=\"f\">Touched</span>:<span class=\"f\">Connect</span>(<span class=\"k\">function</span>(p)",
+        "  <span class=\"k\">local</span> r = p.Parent.HumanoidRootPart",
+        "  r.Velocity = Vector3.<span class=\"f\">new</span>(0, 120, 0)",
+        "<span class=\"k\">end</span>)"
+      ],
+      "codeAt": 0.9
+    },
+    {
+      "id": "launch", "type": "world", "action": "launch", "duration": 3.6,
+      "headline": "¡TÚ PONES<br>LAS REGLAS!", "headlineAt": 1.1
+    },
+    {
+      "id": "learn", "type": "list", "duration": 4.2,
+      "items": ["Obbys", "Trampas", "Monstruos", "Tu juego"],
+      "at": [0.3, 1.05, 1.8, 2.55],
+      "badge": "En Roblox Studio", "badgeAt": 3.2
+    },
+    {
+      "id": "proof", "type": "proof", "duration": 3.6,
+      "images": ["assets/projects/haunted-obby/2.webp", "assets/projects/caza-de-monstruos/1.webp"],
+      "at": [0.2, 0.75],
+      "caption": "Juegos hechos<br>por mí 👇", "captionAt": 1.3
+    },
+    {
+      "id": "cta", "type": "cta", "duration": 4.4,
+      "title": "Pídele a tus papás", "button": "1ª clase gratis", "buttonAt": 0.9,
+      "link": "👆 Link en mi perfil"
+    }
+  ],
+  "post": {
+    "hook": "¿Odias caer en la lava… otra vez? 🌋",
+    "body": "En Roblox Studio tú pones las reglas: con unas líneas de código la lava puede lanzarte al cielo. Aprende a crear obbys, trampas, monstruos y tu propio juego, paso a paso y en línea.",
+    "youtubeTitle": "¿Y si la lava te hiciera volar? Programa tu propio obby en Roblox Studio",
+    "hashtags": ["roblox", "robloxstudio", "obby", "programacion", "aprenderaprogramar", "gamedev", "luau", "clasesenlinea"],
+    "comment": "¿Qué trampa le pondrías a tu obby? 👇 La mejor la programo en el próximo video",
+    "coverAt": 2.6
+  }
+}
