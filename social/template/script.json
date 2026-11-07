@@ -1,0 +1,51 @@
+{
+  "title": "TÍTULO DEL VIDEO",
+  "gapMs": 180,
+  "scenes": [
+    {
+      "id": "hook", "type": "hook",
+      "say": "PREGUNTA QUE ENGANCHE AL PADRE EN 2 SEGUNDOS",
+      "tone": "con intriga, pregunta directa",
+      "image": "assets/projects/caza-de-monstruos/1.webp",
+      "text": "FRASE<br>GIGANTE"
+    },
+    {
+      "id": "turn", "type": "turn",
+      "say": "FRASE DEL GIRO… CON LA PALABRA NUEVA AL FINAL.",
+      "tone": "con una pausa pequeña antes de la palabra clave",
+      "from": "ANTES", "to": "DESPUÉS",
+      "strikeAt": "PALABRA_QUE_TACHA", "toAt": "PALABRA_QUE_REVELA"
+    },
+    {
+      "id": "proof", "type": "proof",
+      "say": "FRASE QUE MUESTRA UN TRABAJO REAL.",
+      "tone": "con orgullo",
+      "images": ["assets/projects/caza-de-monstruos/1.webp", "assets/projects/build-a-pipe/1.webp"],
+      "at": ["PALABRA_IMAGEN_1", "PALABRA_IMAGEN_2"],
+      "code": ["<span class=\"k\">local</span> ejemplo = <span class=\"f\">true</span>"],
+      "codeAt": "PALABRA_CODIGO"
+    },
+    {
+      "id": "method", "type": "list",
+      "say": "UNO, DOS, TRES Y CUATRO. FRASE DE CIERRE.",
+      "tone": "enumerando, una palabra tras otra",
+      "items": ["Uno", "Dos", "Tres", "Cuatro"],
+      "at": ["uno", "dos", "tres", "cuatro"],
+      "badge": "100 % en línea", "badgeAt": "PALABRA_INSIGNIA"
+    },
+    {
+      "id": "trust", "type": "counter",
+      "say": "Más de dos mil clases dadas. Y si la primera no te convence… no te la cobro.",
+      "tone": "con calma y confianza, bajando la voz en lo último",
+      "to": 2000, "label": "clases dadas",
+      "countAt": "mas", "countEndAt": "dadas",
+      "stamp": "Si no te convence,<br>no te la cobro", "stampAt": "cobro"
+    },
+    {
+      "id": "cta", "type": "cta",
+      "say": "Agenda su primera clase en el enlace de mi perfil.",
+      "tone": "invitando, con una sonrisa",
+      "title": "Primera clase", "button": "Agendar clase", "buttonAt": "enlace"
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+---
+name: video-redes
+description: Videos verticales para TikTok/Instagram/Reels que anuncian las clases de Christian, con su estilo estándar (bloques morado/rosa, hook, subtítulos palabra a palabra, efectos sintetizados, su voz grabada). Usar al crear, cambiar o re-renderizar un video para redes.
+---
+
+# Video para redes
+
+Cada video sigue el **mismo molde**: 6 escenas (hook → giro → prueba → método → confianza → CTA), unos 25 s, 1080×1920 y la **voz grabada de Christian**. La referencia de los tipos de escena, los campos y los comandos está en [`social/README.md`](../../../social/README.md). Léela antes de editar un `script.json`.
+
+## Pasos
+
+1. **Guion.** Crea la carpeta con `npm run video:new -- video-NN` y escribe su `script.json`.
+   - **Hook:** una pregunta o afirmación que un padre entienda en menos de 2 s, con la imagen más llamativa.
+   - **Contenido:** solo hechos reales del portafolio (`docs/superpowers/specs/`). Sin precios, edades ni cifras nuevas, y sin mencionar IA.
+   - **Cierre:** siempre con la garantía ("Si la primera clase no te convence… no te la cobro") y "el enlace de mi perfil".
+   - **Hecho cuando:** Christian aprueba el guion en el chat.
+2. **Grabación.** Regenera `guion-para-grabar.md` (`new-video.mjs --guion`), pásaselo y espera su audio. Cópialo a `social/voz/video-NN-raw.<ext>`.
+3. **Voz.** Ejecuta `voice_recorded.py`. **Hecho cuando** cada escena aparece con la toma correcta y su texto real. Si Whisper oyó mal una palabra, corrígela en `FIXES`. Si una palabra `…At` no coincide con lo que dijo, ajústala en `script.json`.
+4. **Revisión visual.** Usa `render.mjs --stills` en 6–8 momentos y júntalos en una hoja. **Hecho cuando** ningún texto se corta ni se tapa, los subtítulos están en la zona segura y cada efecto cae en su palabra.
+5. **Render.** Ejecuta `render.mjs` sin `--stills`.
+   - **Hecho cuando:** existe `social/out/video-NN.mp4` y el audio mide cerca de -14 LUFS (`ebur128` con el ffmpeg de `node_modules/ffmpeg-static`).
+   - **Entrega:** envíaselo a Christian con `post.md`, que contiene el texto de la publicación, los hashtags, la portada sugerida y el horario.
+
+Los comandos que bajan modelos o usan la red (`pip`, Whisper la primera vez, Google Fonts al renderizar) necesitan salir del sandbox.

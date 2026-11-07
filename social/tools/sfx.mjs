@@ -11,8 +11,7 @@ const env = (t, a, d) => (t < a ? t / a : Math.exp(-(t - a) / d));
 const VOICES = {
   // Golpe grave con chasquido: el "impacto" del hook.
   hit: (t, r) => (Math.sin(2 * Math.PI * (55 + 90 * Math.exp(-t * 30)) * t) * 0.9 + r() * 0.35 * Math.exp(-t * 60)) * env(t, 0.003, 0.18),
-  // Whoosh: ruido filtrado que sube y baja.
-  whoosh: (() => { let lp = 0; return (t, r) => { const k = 0.02 + 0.25 * Math.sin(Math.PI * Math.min(1, t / 0.38)); lp += k * (r() - lp); return lp * 1.6 * Math.sin(Math.PI * Math.min(1, t / 0.38)); }; })(),
+
   // Pop corto y brillante.
   pop: (t) => Math.sin(2 * Math.PI * (520 + 700 * Math.min(1, t * 25)) * t) * env(t, 0.002, 0.05) * 0.7,
   // Raspado (tachar "jugar").
@@ -27,22 +26,41 @@ const VOICES = {
   chime: (t) => (Math.sin(2 * Math.PI * 1318.5 * t) * env(t, 0.004, 0.45) + Math.sin(2 * Math.PI * 1975.5 * Math.max(0, t - 0.12)) * (t > 0.12 ? env(t - 0.12, 0.004, 0.5) : 0)) * 0.35,
 };
 
+/**
+ * Transición suave ("swoosh"): aire filtrado oscuro con entrada y salida redondeadas
+ * + una nota grave que baja de tono. Más cómoda de escuchar que un whoosh brillante.
+ */
+function softSwoosh(r) {
+  const D = 0.5;
+  let a = 0, b = 0;
+  return (t) => {
+    const x = Math.min(1, t / D);
+    const shape = Math.pow(Math.sin(Math.PI * x), 2); // campana sin bordes duros
+    const k = 0.008 + 0.05 * shape;                    // filtro paso bajo de dos polos: sonido oscuro
+    a += k * (r() - a);
+    b += k * (a - b);
+    const air = b * 2.2 * shape;
+    const tone = Math.sin(2 * Math.PI * (420 - 140 * x) * t) * 0.12 * shape;
+    return (air + tone) * 0.55;
+  };
+}
+
 // Blip ascendente: una nota más aguda por cada etapa.
 const blip = (step) => (t) => Math.sin(2 * Math.PI * [523.25, 659.25, 783.99, 1046.5][step % 4] * t) * env(t, 0.003, 0.11) * 0.55;
 
-const LENGTH = { hit: 0.6, whoosh: 0.4, pop: 0.18, scratch: 0.3, type: 0.04, tick: 0.05, stamp: 0.5, chime: 1.4, blip: 0.35 };
+const LENGTH = { hit: 0.6, whoosh: 0.5, pop: 0.18, scratch: 0.3, type: 0.04, tick: 0.05, stamp: 0.5, chime: 1.4, blip: 0.35 };
 
 export function buildSfx(events, total) {
   const n = Math.ceil((total + 0.5) * SR);
   const buf = new Float32Array(n);
   events.forEach((ev, idx) => {
     const fn = ev.type === 'blip' ? blip(ev.step ?? 0) : VOICES[ev.type];
-    if (!fn) return;
+    if (!fn && ev.type !== 'whoosh') return;
     const r = rng(idx + 7);
     const start = Math.floor(ev.t * SR);
     const len = Math.floor((LENGTH[ev.type] ?? 0.3) * SR);
-    // El whoosh guarda estado de filtro: creamos uno nuevo por evento.
-    const voice = ev.type === 'whoosh' ? (() => { let lp = 0; return (t) => { const k = 0.02 + 0.25 * Math.sin(Math.PI * Math.min(1, t / 0.38)); lp += k * (r() - lp); return lp * 1.6 * Math.sin(Math.PI * Math.min(1, t / 0.38)); }; })() : fn;
+    // La transición guarda estado de filtro: creamos una nueva por evento.
+    const voice = ev.type === 'whoosh' ? softSwoosh(r) : fn;
     for (let i = 0; i < len && start + i < n; i++) buf[start + i] += voice(i / SR, r);
   });
   // Límite suave para que nada sature

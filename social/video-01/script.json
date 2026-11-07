@@ -1,14 +1,55 @@
 {
   "title": "¿Tu hijo vive en Roblox? Que aprenda a crearlo",
-  "voice": "es-MX-JorgeNeural",
-  "rate": "+6%",
   "gapMs": 180,
   "scenes": [
-    { "id": "hook", "say": "¿Tu hijo pasa horas en Roblox?", "pitch": "+4Hz" },
-    { "id": "turn", "say": "No se lo quites… enséñale a crearlo." },
-    { "id": "proof", "say": "Estos juegos los hice yo, con código." },
-    { "id": "method", "say": "Lógica, Python, Roblox y webs. Paso a paso, en clases en línea." },
-    { "id": "trust", "say": "Más de dos mil clases dadas. Y si la primera no te convence… no te la cobro." },
-    { "id": "cta", "say": "Agenda su primera clase en el enlace de mi perfil." }
+    {
+      "id": "hook", "type": "hook",
+      "say": "¿Tu hijo pasa horas en Roblox?",
+      "tone": "con intriga, pregunta directa",
+      "image": "assets/projects/caza-de-monstruos/1.webp",
+      "text": "¿Horas en<br>Roblox?"
+    },
+    {
+      "id": "turn", "type": "turn",
+      "say": "No se lo quites… enséñale a crearlo.",
+      "tone": "con una pausa pequeña en los puntos suspensivos, y énfasis en \"crearlo\"",
+      "from": "Jugar", "to": "Crear",
+      "strikeAt": "quites", "toAt": "crearlo"
+    },
+    {
+      "id": "proof", "type": "proof",
+      "say": "Estos juegos los hice yo, con código.",
+      "tone": "con orgullo",
+      "images": ["assets/projects/caza-de-monstruos/1.webp", "assets/projects/build-a-pipe/1.webp"],
+      "at": ["juegos", "hice"],
+      "code": [
+        "<span class=\"k\">local</span> jugador = <span class=\"f\">game</span>.Players.LocalPlayer",
+        "<span class=\"k\">if</span> monstruo.Vida <= 0 <span class=\"k\">then</span>",
+        "    <span class=\"f\">darRecompensa</span>(jugador, 50)"
+      ],
+      "codeAt": "hice"
+    },
+    {
+      "id": "method", "type": "list",
+      "say": "Lógica, Python, Roblox y webs. Paso a paso, en clases en línea.",
+      "tone": "enumerando, una palabra tras otra",
+      "items": ["Lógica", "Python", "Roblox", "Webs"],
+      "at": ["logica", "python", "roblox", "webs"],
+      "badge": "100 % en línea", "badgeAt": "linea"
+    },
+    {
+      "id": "trust", "type": "counter",
+      "say": "Más de dos mil clases dadas. Y si la primera no te convence… no te la cobro.",
+      "tone": "con calma y confianza, bajando la voz en lo último",
+      "to": 2000, "label": "clases dadas",
+      "countAt": "mas", "countEndAt": "dadas",
+      "stamp": "Si no te convence,<br>no te la cobro", "stampAt": "cobro"
+    },
+    {
+      "id": "cta", "type": "cta",
+      "say": "Agenda su primera clase en el enlace de mi perfil.",
+      "tone": "invitando, con una sonrisa",
+      "title": "Primera clase", "button": "Agendar clase", "buttonAt": "enlace"
+    }
   ]
 }

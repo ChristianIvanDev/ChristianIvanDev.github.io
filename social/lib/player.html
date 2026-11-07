@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<title>Video · reproductor</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Nunito:wght@700;800;900&display=block" rel="stylesheet" />
+<link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+<div id="stage"></div>
+<script type="module">
+  import { mount } from './engine.js';
+  // render.mjs llama a setup(spec, timeline) y luego a renderAt(t) fotograma a fotograma.
+  window.setup = async (spec, timeline) => {
+    const player = await mount(document.getElementById('stage'), spec, timeline);
+    window.renderAt = player.renderAt;
+    return { total: player.total, sfx: player.sfx };
+  };
+  window.__ready = true;
+</script>
+</body>
+</html>

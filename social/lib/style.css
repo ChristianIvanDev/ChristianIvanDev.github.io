@@ -1,0 +1,58 @@
+/* Estilo estándar de los videos (dirección C de la web: bloques morados y rosa pálido). */
+:root {
+  --bg: #5b21b6; --deep: #3b0f80; --card: #6d28d9; --border: #8b5cf6;
+  --pink: #fbe1ea; --pink2: #f9c9da; --pinkShadow: #c98aa3; --ink: #3b0f80; --green: #1f8a52; --greenShadow: #0d4f2c;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; width: 1080px; height: 1920px; overflow: hidden; background: var(--bg); }
+body { font-family: 'Nunito', sans-serif; color: #fff; }
+.abs { position: absolute; }
+.display { font-family: 'Lilita One', sans-serif; text-transform: uppercase; line-height: 0.95; letter-spacing: 0.01em; }
+#stage { position: absolute; inset: 0; overflow: hidden; }
+.blk { position: absolute; border-radius: 26px; box-shadow: 0 12px 0 var(--deep); }
+.scene { position: absolute; inset: 0; opacity: 0; }
+.card { position: absolute; background: var(--card); border: 5px solid var(--border); border-radius: 44px; box-shadow: 0 16px 0 var(--deep); overflow: hidden; }
+.card img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.pinkcard { background: var(--pink); border-color: #fff; box-shadow: 0 16px 0 var(--pinkShadow); color: var(--ink); }
+.brand { position: absolute; left: 0; right: 0; top: 110px; text-align: center; font-family: 'Lilita One'; font-size: 44px; letter-spacing: .04em; opacity: .92; text-transform: uppercase; }
+
+/* hook */
+.hook-shot { left: 90px; top: 300px; width: 900px; height: 640px; }
+.hook-text { left: 60px; right: 60px; top: 930px; text-align: center; font-size: 150px; text-shadow: 0 12px 0 var(--deep); }
+
+/* turn */
+.turn-from { left: 0; right: 0; top: 420px; text-align: center; font-size: 220px; }
+.turn-strike { left: 150px; top: 520px; width: 780px; height: 34px; background: #ff4d7d; border-radius: 20px; transform-origin: left center; }
+.turn-to { left: 120px; top: 760px; width: 840px; height: 330px; display: grid; place-items: center; font-size: 220px; }
+
+/* proof */
+.proof-a { left: 70px; top: 260px; width: 560px; height: 400px; }
+.proof-b { left: 450px; top: 560px; width: 560px; height: 400px; }
+.code { position: absolute; left: 110px; top: 1010px; width: 860px; height: 250px; border-radius: 34px; background: #1b0a3d; border: 4px solid var(--border);
+        font: 800 33px/1.55 ui-monospace, Consolas, monospace; padding: 30px 34px; color: #f3eaff; white-space: pre; overflow: hidden; }
+.code .k { color: #f9c9da; } .code .f { color: #c4b5fd; }
+
+/* list */
+.chip { position: absolute; left: 140px; width: 800px; height: 150px; display: flex; align-items: center; gap: 34px; padding: 0 40px; border-radius: 40px;
+        background: var(--card); border: 5px solid var(--border); box-shadow: 0 14px 0 var(--deep); font-family: 'Lilita One'; font-size: 82px; text-transform: uppercase; }
+.chip .n { width: 96px; height: 96px; border-radius: 50%; display: grid; place-items: center; background: var(--pink); color: var(--ink); font-size: 60px; flex: none; }
+.badge { left: 220px; width: 640px; height: 110px; border-radius: 60px; background: var(--green); display: grid; place-items: center; font-size: 64px; box-shadow: 0 10px 0 var(--greenShadow); }
+
+/* counter */
+.count-num { left: 0; right: 0; top: 360px; text-align: center; font-size: 300px; color: var(--pink); text-shadow: 0 16px 0 var(--deep); }
+.count-label { left: 0; right: 0; top: 690px; text-align: center; font-size: 96px; }
+.stamp { position: absolute; left: 160px; top: 980px; width: 760px; padding: 36px 40px; border: 10px solid #fff; border-radius: 36px; background: var(--green);
+         text-align: center; font-family: 'Lilita One'; font-size: 66px; line-height: 1.02; text-transform: uppercase; box-shadow: 0 16px 0 var(--greenShadow); }
+
+/* cta */
+.cta-photo { left: 290px; top: 260px; width: 500px; height: 620px; }
+.cta-title { left: 0; right: 0; top: 930px; text-align: center; font-size: 84px; }
+.btn { position: absolute; left: 190px; top: 1080px; width: 700px; height: 160px; border-radius: 90px; background: var(--pink); color: var(--ink); display: grid; place-items: center;
+       font-family: 'Lilita One'; font-size: 78px; text-transform: uppercase; box-shadow: 0 14px 0 var(--pinkShadow); }
+.cta-link { left: 0; right: 0; top: 1270px; text-align: center; font-weight: 900; font-size: 44px; color: var(--pink); }
+
+/* subtítulos (zona segura: por encima de la interfaz de TikTok/Reels y lejos de los botones de la derecha) */
+#caption { position: absolute; left: 70px; right: 170px; top: 1360px; text-align: center; font-weight: 900; font-size: 76px; line-height: 1.18; text-shadow: 0 6px 0 rgba(59,15,128,.9); }
+#caption span { display: inline-block; padding: 0 10px; margin: 2px 0; border-radius: 16px; }
+#caption span.on { background: var(--pink); color: var(--ink); text-shadow: none; }
+#caption span.next { color: rgba(255,255,255,.55); }

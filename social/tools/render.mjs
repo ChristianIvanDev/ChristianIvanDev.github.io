@@ -1,4 +1,4 @@
-// Renderiza un video vertical a partir de scene.html + la voz en off.
+// Renderiza un video vertical con el motor estándar (social/lib) a partir de script.json + la voz en off.
 // Uso:
 //   node social/tools/render.mjs social/video-01 --stills 0.8,4,7.5,12,19,21.6,25   (capturas sueltas para revisar)
 //   node social/tools/render.mjs social/video-01                                     (video completo → social/out/<video>.mp4)
@@ -51,10 +51,11 @@ const browser = await puppeteer.launch({ executablePath: CHROME, headless: true,
 try {
   const page = await browser.newPage();
   await page.setViewport({ width: W, height: H, deviceScaleFactor: 1 });
-  const rel = videoDir.slice(root.length).replaceAll('\\', '/');
-  await page.goto(`http://127.0.0.1:${port}${rel}/scene.html`, { waitUntil: 'networkidle0' });
+  const spec = JSON.parse(await readFile(join(videoDir, 'script.json'), 'utf8'));
+  page.on('pageerror', (e) => console.error('error en la página:', e.message));
+  await page.goto(`http://127.0.0.1:${port}/social/lib/player.html`, { waitUntil: 'networkidle0' });
   await page.waitForFunction('window.__ready === true');
-  const { total, sfx } = await page.evaluate((tl) => window.setup(tl), timeline);
+  const { total, sfx } = await page.evaluate((sp, tl) => window.setup(sp, tl), spec, timeline);
 
   if (stills) {
     const outDir = join(build, 'stills');

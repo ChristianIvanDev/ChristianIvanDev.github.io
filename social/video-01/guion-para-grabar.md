@@ -1,13 +1,10 @@
-# Guion para grabar · Video 01 (unos 25 segundos)
+# Guion para grabar · ¿Tu hijo vive en Roblox? Que aprenda a crearlo (unos 23 segundos)
 
 Graba **todo en un solo archivo**, leyendo las 6 frases en orden.
-**Deja un silencio de 1 segundo entre frase y frase**: así separo cada escena sola y la sincronizo con la animación.
+**Deja 1 segundo de silencio entre frase y frase.** Si te equivocas, repite la frase entera: se usa la última toma.
 
-**Cómo grabarlo:**
-- **Lugar:** el mismo cuarto silencioso de antes. La grabación que hiciste sonaba muy bien.
-- **Celular:** a un palmo de la boca, con la grabadora de voz, no con una nota de WhatsApp.
-- **Tono:** con energía, sonriendo un poco al hablar, como si le contaras algo emocionante a un papá. Un poco más rápido que una conversación normal.
-- **Si te equivocas en una frase,** repítela entera después de una pausa. Yo me quedo con la última versión.
+- Cuarto silencioso, celular a un palmo de la boca, **grabadora de voz** (mejor que una nota de WhatsApp).
+- Con energía, sonriendo un poco, como si le contaras algo emocionante a un papá.
 
 ---
 
