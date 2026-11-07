@@ -50,6 +50,8 @@ VOICES.jump = (t) => Math.sin(2 * Math.PI * (300 + 900 * Math.min(1, t / 0.18)) 
 VOICES.splash = (() => (t, r) => { const k = Math.exp(-t * 7); return (r() * 0.6 * k + Math.sin(2 * Math.PI * (180 + 60 * Math.sin(t * 40)) * t) * 0.35 * k) * (t < 0.01 ? t / 0.01 : 1); })();
 VOICES.rewind = (t) => Math.sin(2 * Math.PI * (900 - 700 * Math.min(1, t / 0.6)) * t + Math.sin(t * 60) * 2) * env(t, 0.02, 0.35) * 0.3;
 VOICES.boing = (t) => Math.sin(2 * Math.PI * (220 + 160 * Math.sin(t * 38) * Math.exp(-t * 6)) * t) * env(t, 0.003, 0.35) * 0.6;
+// "Ñam": dos notas cortas que suben, al comer una manzana
+VOICES.eat = (t) => (Math.sin(2 * Math.PI * 660 * t) * env(t, 0.002, 0.04) + Math.sin(2 * Math.PI * 990 * Math.max(0, t - 0.06)) * (t > 0.06 ? env(t - 0.06, 0.002, 0.07) : 0)) * 0.4;
 VOICES.fanfare = (t) => [523.25, 659.25, 783.99, 1046.5].reduce((acc, f, i) => {
   const lt = t - i * 0.11; if (lt < 0) return acc;
   return acc + (Math.sin(2 * Math.PI * f * lt) + 0.3 * Math.sin(4 * Math.PI * f * lt)) * env(lt, 0.005, i === 3 ? 0.5 : 0.14) * 0.22;
@@ -58,7 +60,7 @@ VOICES.fanfare = (t) => [523.25, 659.25, 783.99, 1046.5].reduce((acc, f, i) => {
 // Blip ascendente: una nota más aguda por cada etapa.
 const blip = (step) => (t) => Math.sin(2 * Math.PI * [523.25, 659.25, 783.99, 1046.5][step % 4] * t) * env(t, 0.003, 0.11) * 0.55;
 
-const LENGTH = { jump: 0.3, splash: 0.9, rewind: 0.8, boing: 0.9, fanfare: 1.4, hit: 0.6, whoosh: 0.5, pop: 0.18, scratch: 0.3, type: 0.04, tick: 0.05, stamp: 0.5, chime: 1.4, blip: 0.35 };
+const LENGTH = { eat: 0.25, jump: 0.3, splash: 0.9, rewind: 0.8, boing: 0.9, fanfare: 1.4, hit: 0.6, whoosh: 0.5, pop: 0.18, scratch: 0.3, type: 0.04, tick: 0.05, stamp: 0.5, chime: 1.4, blip: 0.35 };
 
 export function buildSfx(events, total) {
   const n = Math.ceil((total + 0.5) * SR);

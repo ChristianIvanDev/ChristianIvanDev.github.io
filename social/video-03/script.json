@@ -1,0 +1,53 @@
+{
+  "title": "¿Python? No muerde",
+  "voice": false,
+  "worldIdle": "snakegame",
+  "musicOptions": { "bpm": 126 },
+  "scenes": [
+    {
+      "id": "hook", "type": "world", "action": "snake", "duration": 3.0,
+      "headline": "¿PYTHON?", "headlineAt": 0.3,
+      "sub": "¡No muerde!", "subAt": 1.6
+    },
+    {
+      "id": "turn", "type": "world", "action": "snakegame", "duration": 4.5,
+      "headline": "Con estas<br>líneas…", "headlineAt": 0.2,
+      "code": [
+        "serpiente = [(5, 5), (4, 5)]",
+        "<span class=\"k\">if</span> cabeza == manzana:",
+        "    puntos += 1",
+        "    serpiente.<span class=\"f\">append</span>(cola)"
+      ],
+      "codeAt": 1.0
+    },
+    {
+      "id": "wow", "type": "world", "action": "snakegame", "duration": 4.0, "from": 4.5,
+      "headline": "¡Tu primer<br>videojuego!", "headlineAt": 0.2
+    },
+    {
+      "id": "learn", "type": "list", "duration": 4.4,
+      "items": ["Juegos", "Apps", "Bots", "Arte con código"],
+      "at": [0.3, 1.05, 1.8, 2.55],
+      "badge": "Python desde cero", "badgeAt": 3.3
+    },
+    {
+      "id": "trust", "type": "counter", "duration": 4.0,
+      "to": 2000, "label": "clases dadas",
+      "countAt": 0.2, "countEndAt": 1.6,
+      "stamp": "Paso a paso,<br>a tu ritmo", "stampAt": 2.2
+    },
+    {
+      "id": "cta", "type": "cta", "duration": 4.4,
+      "title": "Toma tu clase gratis", "button": "Clase gratis", "buttonAt": 0.9,
+      "link": "👆 Link en mi perfil"
+    }
+  ],
+  "post": {
+    "hook": "¿Python? 🐍 Tranquilo, no muerde.",
+    "body": "Python es el lenguaje con el que puedes hacer tu primer videojuego: con unas pocas líneas tienes tu propio Snake. Aprende a crear juegos, apps, bots y arte con código, desde cero, paso a paso y en línea.",
+    "youtubeTitle": "¿Python? No muerde 🐍 Haz tu primer videojuego con Python",
+    "hashtags": ["python", "programacion", "aprenderaprogramar", "pygame", "gamedev", "codigo", "clasesenlinea", "programacionparaprincipiantes"],
+    "comment": "¿Qué juego harías tú con Python? 👇",
+    "coverAt": 2.2
+  }
+}

@@ -76,6 +76,97 @@ export function createWorld(canvas, { width = 1080, height = 1920 } = {}) {
     scene.add(s); return s;
   });
 
+  // Todo lo del obby (se oculta en las escenas de la serpiente)
+  const obby = [platA, platB, lava, ring, hero, lavaLight, ...bubbles, ...splash, ...trail];
+
+  // ---------- Serpiente de Python (azul y amarillo) y tablero del juego Snake ----------
+  const PY_BLUE = 0x3776ab, PY_YELLOW = 0xffd43b, APPLE = 0xff4d7d;
+  const snakeGroup = new THREE.Group(); scene.add(snakeGroup);
+  const board = new THREE.Mesh(box(18, 0.6, 18, 0.2), mat(C.deep)); board.position.set(0, -0.8, -1); snakeGroup.add(board);
+  const grid = new THREE.GridHelper(17, 17, C.border, C.border); grid.position.set(0, -0.49, -1); grid.material.transparent = true; grid.material.opacity = 0.5; snakeGroup.add(grid);
+  const SEG = 30;
+  const segs = Array.from({ length: SEG }, (_, i) => {
+    const m = new THREE.Mesh(box(0.92, 0.92, 0.92, 0.18), mat(i % 2 ? PY_YELLOW : PY_BLUE)); snakeGroup.add(m); return m;
+  });
+  const sHead = segs[0];
+  sHead.scale.setScalar(1.25);
+  const eyeL = new THREE.Mesh(box(0.2, 0.26, 0.06, 0.04), mat(C.white)); eyeL.position.set(-0.22, 0.18, 0.47); sHead.add(eyeL);
+  const eyeR = eyeL.clone(); eyeR.position.x = 0.22; sHead.add(eyeR);
+  const pupilL = new THREE.Mesh(box(0.1, 0.14, 0.04, 0.02), mat(C.deep)); pupilL.position.set(0, -0.03, 0.04); eyeL.add(pupilL); eyeR.add(pupilL.clone());
+  const tongue = new THREE.Mesh(box(0.1, 0.04, 0.5, 0.02), mat(APPLE)); tongue.position.set(0, -0.25, 0.65); sHead.add(tongue);
+  // Recorrido del juego Snake por el tablero (celdas de 1)
+  const WP = [[-7, 5], [3, 5], [3, 0], [-4, 0], [-4, -5], [6, -5], [6, 3], [0, 3], [0, -2], [5, -2]].map(([x, z]) => new THREE.Vector3(x, 0, z - 1));
+  const legs = WP.slice(1).map((p, i) => p.distanceTo(WP[i]));
+  const PATH_LEN = legs.reduce((a, b) => a + b, 0);
+  function along(d) {
+    d = Math.max(0, Math.min(PATH_LEN - 0.001, d));
+    for (let i = 0; i < legs.length; i++) { if (d <= legs[i]) return WP[i].clone().lerp(WP[i + 1], d / legs[i]); d -= legs[i]; }
+    return WP[WP.length - 1].clone();
+  }
+  const APPLE_D = [6, 13, 21, 29, 37, 44];
+  const apples = APPLE_D.map((d) => {
+    const a = new THREE.Mesh(box(0.8, 0.8, 0.8, 0.3), mat(APPLE, { emissive: APPLE, emissiveIntensity: 0.35 }));
+    const p = along(d); a.position.set(p.x, 0, p.z); snakeGroup.add(a); return a;
+  });
+  const sparks = Array.from({ length: 24 }, (_, i) => {
+    const s = new THREE.Mesh(new THREE.SphereGeometry(0.12, 8, 6), mat(PY_YELLOW, { emissive: PY_YELLOW, emissiveIntensity: 1 }));
+    s.userData = { a: rand(i + 70) * Math.PI * 2, v: 2 + rand(i + 80) * 3 }; snakeGroup.add(s); return s;
+  });
+
+  function updateSnake(t, action, local) {
+    snakeGroup.visible = true;
+    let cam, look;
+    if (action === 'snake') {
+      // Serpiente gigante que entra reptando hacia la cámara
+      board.visible = grid.visible = false; apples.forEach((a) => (a.visible = false)); sparks.forEach((s) => (s.visible = false));
+      const head = local * 6.5;
+      segs.forEach((m, i) => {
+        const s = head - i * 1.05;
+        m.visible = i < 22;
+        const z = -16 + s, x = Math.sin(s * 0.55) * 2.4;
+        m.position.set(x, Math.abs(Math.sin(s * 1.1)) * 0.15 + (i === 0 ? 0.15 : 0), z);
+        m.scale.setScalar((i === 0 ? 1.5 : 1.15) * (1 - i / 60));
+        m.rotation.y = Math.cos(s * 0.55) * 0.9;
+      });
+      tongue.scale.z = 0.5 + Math.abs(Math.sin(t * 9)) * 0.8;
+      const hp = sHead.position;
+      cam = new THREE.Vector3(hp.x * 0.3, 2.2, hp.z + 9.5);
+      look = new THREE.Vector3(hp.x * 0.6, 0.6, hp.z);
+    } else {
+      // Juego Snake en el tablero: avanza celda a celda, come manzanas y crece
+      board.visible = grid.visible = true;
+      const speed = 6.2;
+      const d = 1.5 + local * speed;
+      const eaten = APPLE_D.filter((ad) => d >= ad).length;
+      const length = 4 + eaten * 2;
+      segs.forEach((m, i) => {
+        m.visible = i < length;
+        const p = along(d - i * 1.0);
+        m.position.set(p.x, 0, p.z);
+        m.scale.setScalar(i === 0 ? 1.25 : 1);
+        const ahead = along(d - i * 1.0 + 0.1);
+        m.rotation.set(0, Math.atan2(ahead.x - p.x, ahead.z - p.z), 0);
+      });
+      apples.forEach((a, k) => { a.visible = d < APPLE_D[k]; a.rotation.y = t * 2; a.position.y = Math.sin(t * 4 + k) * 0.12; });
+      // chispas al comer la última manzana
+      const lastIdx = eaten - 1, lastD = APPLE_D[lastIdx];
+      const since = lastIdx >= 0 ? (d - lastD) / speed : -1;
+      const ap = lastIdx >= 0 ? along(lastD) : null;
+      sparks.forEach((s) => {
+        if (since < 0 || since > 0.6) { s.visible = false; return; }
+        const { a, v } = s.userData; s.visible = true;
+        s.position.set(ap.x + Math.cos(a) * v * since, 0.4 + 5 * since - 9 * since * since, ap.z + Math.sin(a) * v * since);
+      });
+      tongue.scale.z = 0.6;
+      const rise = smooth(prog(local, 0, 1.2));
+      const hp = sHead.position;
+      // Sigue a la cabeza desde arriba (en vertical el tablero entero no cabe)
+      cam = new THREE.Vector3(hp.x * 0.85, lerp(2.5, 13, rise), hp.z + lerp(7, 9.5, rise));
+      look = new THREE.Vector3(hp.x * 0.9, 0, hp.z - lerp(0, 1.5, rise));
+    }
+    return { cam, look };
+  }
+
   const ud = hero.userData;
   function pose({ run = 0, wave = 0, flail = 0, t = 0 }) {
     const sw = Math.sin(t * 14) * 0.9 * run;
@@ -109,6 +200,16 @@ export function createWorld(canvas, { width = 1080, height = 1920 } = {}) {
   }
 
   function update(t, action, local) {
+    const isSnake = action === 'snake' || action === 'snakegame';
+    obby.forEach((o) => (o.visible = !isSnake));
+    deco.forEach((m) => { m.position.y += Math.sin(t * 1.2 + m.userData.phase) * 0.004; });
+    if (isSnake) {
+      const { cam, look } = updateSnake(t, action, local);
+      camera.position.copy(cam); camera.lookAt(look);
+      renderer.render(scene, camera);
+      return;
+    }
+    snakeGroup.visible = false;
     const h = heroAt(action, local);
     hero.position.set(h.x, h.y, 0);
     hero.rotation.set(h.spin || 0, h.rotY ?? 0, 0);

@@ -30,6 +30,9 @@ function typed(html, n) {
 
 /* ---------- Tipos de escena: build(spec) → nodos; cues(spec, word) → tiempos; render(t, c, nodes); sfx(c) ---------- */
 
+// Distancias del recorrido en las que la serpiente come (deben coincidir con APPLE_D de world3d.js; velocidad 6.2, inicio 1.5).
+const SNAKE_EATS = [6, 13, 21, 29, 37, 44];
+
 const TYPES = {
   // Escena 3D: el mundo de fondo hace `action` (fall · freeze · launch · orbit · wave); encima, textos grandes y código.
   world: {
@@ -39,7 +42,7 @@ const TYPES = {
       const code = s.code ? el('div', 'code world-code') : null;
       return { root: [headline, sub, code].filter(Boolean), headline, sub, code, lines: s.code || [] };
     },
-    cues: (s, w) => ({ action: s.action, headline: w(s.headlineAt ?? 0), sub: s.sub ? w(s.subAt ?? 0) : null, code: s.code ? w(s.codeAt ?? 0) : null }),
+    cues: (s, w) => ({ action: s.action, from: s.from || 0, headline: w(s.headlineAt ?? 0), sub: s.sub ? w(s.subAt ?? 0) : null, code: s.code ? w(s.codeAt ?? 0) : null }),
     render(t, c, n) {
       if (n.headline) { const p = popIn(t, c.headline, 0.32); set(n.headline, { ...p, r: Math.sin(t * 3) * 1.5 }); }
       if (n.sub) set(n.sub, popIn(t, c.sub, 0.34));
@@ -56,7 +59,9 @@ const TYPES = {
       const base = { fall: [at(0, 'whoosh'), at(1.1, 'jump'), at(2.05, 'splash'), at(2.1, 'hit')],
         freeze: [at(0.1, 'rewind'), at(2.8, 'pop')],
         launch: [at(0.3, 'boing'), at(0.45, 'whoosh'), at(2.95, 'stamp'), at(3.0, 'fanfare')],
-        orbit: [at(0, 'whoosh')], wave: [at(0, 'whoosh')] }[c.action] || [];
+        orbit: [at(0, 'whoosh')], wave: [at(0, 'whoosh')],
+        snake: [at(0.2, 'scratch'), at(1.4, 'hit')],
+        snakegame: [at(0, 'whoosh'), ...SNAKE_EATS.map((d) => (d - 1.5) / 6.2 - c.from).filter((lt) => lt > 0 && c.start + lt < c.end).map((lt) => at(lt, 'eat'))] }[c.action] || [];
       const typing = c.code == null ? [] : Array.from({ length: 16 }, (_, i) => ({ t: c.code + i * 0.085, type: 'type' }));
       const head = c.headline == null ? [] : [{ t: c.headline, type: 'pop' }];
       return [...base, ...typing, ...head];
@@ -267,7 +272,8 @@ export async function mount(stage, spec, timeline) {
     if (world) {
       const active = scenes.find((x) => t >= x.c.start && t < x.c.end) || scenes[scenes.length - 1];
       const isWorld = active.s.type === 'world';
-      world.update(t, isWorld ? active.c.action : (spec.worldIdle || 'orbit'), t - active.c.start);
+      // `from` permite que una escena 3D continúe la acción de la anterior (segundos de adelanto).
+      world.update(t, isWorld ? active.c.action : (spec.worldIdle || 'orbit'), t - active.c.start + (isWorld ? active.s.from || 0 : 6));
       worldCanvas.style.opacity = isWorld ? 1 : 0.5;
     }
     for (const x of scenes) {
