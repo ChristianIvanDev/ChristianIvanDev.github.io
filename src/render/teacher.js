@@ -3,6 +3,7 @@ import { t, pick } from '../i18n.js';
 import { TEACHING } from '../content/experience.js';
 import { contactButtons, renderContact, guaranteeLine, CONTACT } from './contact.js';
 import { renderNeed, renderPath, renderFaq } from './persuade.js';
+import { renderPricing } from './pricing.js';
 import { cvButton } from '../cv-render.js';
 import { sectionHead, photoCard, sceneCard, studentsNote, projectsGrid } from './shared.js';
 
@@ -66,6 +67,8 @@ export function renderTeacher(lang) {
       projectsGrid(lang, { detailed: false }),
       h('div', { class: 'bento note-row' }, studentsNote(lang, 'teacher')),
     ),
+
+    renderPricing(lang),
 
     renderFaq(lang, { booking: Boolean(CONTACT.booking) }),
 

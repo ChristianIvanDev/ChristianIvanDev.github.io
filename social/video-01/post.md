@@ -14,7 +14,7 @@
 Texto corto. El enlace no es clicable: va en tu biografía.
 
 ```
-¿Tu hijo pasa horas en Roblox? 🎮 Si la primera clase no te convence, dímelo y no te la cobro. 📅 Agenda en el enlace de mi perfil. #programacionparaniños #roblox #robloxstudio #aprenderaprogramar #clasesenlinea
+¿Tu hijo pasa horas en Roblox? 🎮 La primera clase es gratis: si no te convence, no pagas nada. 📅 Agenda en el enlace de mi perfil. #programacionparaniños #roblox #robloxstudio #aprenderaprogramar #clasesenlinea
 ```
 
 - **Portada:** elige el fotograma del segundo 1, o sube la portada desde la computadora.
@@ -29,7 +29,7 @@ Se publica a la vez en Facebook si marcas "Compartir en Facebook" (Meta Business
 
 No se lo quites: enséñale a CREAR sus propios juegos. Doy clases en línea de programación, diseño y desarrollo: lógica, Python, Roblox y páginas web, paso a paso y a su ritmo. Más de 2,000 clases dadas.
 
-✅ Si la primera clase no te convence, dímelo y no te la cobro.
+✅ La primera clase es gratis: si no te convence, no pagas nada.
 
 📅 Agenda su primera clase en el enlace de mi perfil.
 
@@ -47,7 +47,7 @@ En Facebook el enlace **sí es clicable**: va directo en el texto.
 
 No se lo quites: enséñale a CREAR sus propios juegos. Doy clases en línea de programación, diseño y desarrollo: lógica, Python, Roblox y páginas web, paso a paso y a su ritmo. Más de 2,000 clases dadas.
 
-✅ Si la primera clase no te convence, dímelo y no te la cobro.
+✅ La primera clase es gratis: si no te convence, no pagas nada.
 
 📅 Agenda su primera clase aquí: https://calendar.app.google/kydiVgoRNTarLdCv6
 🌐 Mi portafolio: https://christianivandev.github.io
@@ -65,7 +65,7 @@ El título es lo que buscan los padres. El vertical de menos de 60 s se publica 
 ```
 No se lo quites: enséñale a CREAR sus propios juegos. Doy clases en línea de programación, diseño y desarrollo: lógica, Python, Roblox y páginas web, paso a paso y a su ritmo. Más de 2,000 clases dadas.
 
-✅ Si la primera clase no te convence, dímelo y no te la cobro.
+✅ La primera clase es gratis: si no te convence, no pagas nada.
 📅 Agenda su primera clase: https://calendar.app.google/kydiVgoRNTarLdCv6
 🌐 Portafolio: https://christianivandev.github.io
 

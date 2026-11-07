@@ -67,10 +67,11 @@ describe('recorrido de aprendizaje', () => {
 });
 
 describe('preguntas frecuentes', () => {
-  test('cinco preguntas cerradas, con la garantía', () => {
+  test('seis preguntas cerradas, con la garantía y el precio', () => {
     const el = renderFaq('es', { booking: true });
     const items = el.querySelectorAll('details');
-    expect(items.length).toBe(5);
+    expect(items.length).toBe(6);
+    expect(el.textContent).toContain(es['faq.price.a']);
     for (const d of items) expect(d.open).toBe(false);
     expect(el.textContent).toContain(es['guarantee.text']);
   });

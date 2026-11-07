@@ -8,7 +8,7 @@ const root = resolve(dirname(fileURLToPath(import.meta.url)), '../..');
 
 const SITE = 'https://christianivandev.github.io';
 const BOOKING = 'https://calendar.app.google/kydiVgoRNTarLdCv6';
-const GUARANTEE = '✅ Si la primera clase no te convence, dímelo y no te la cobro.';
+const GUARANTEE = '✅ La primera clase es gratis: si no te convence, no pagas nada.';
 
 export function buildPost(spec, name) {
   const p = spec.post;

@@ -16,7 +16,7 @@ const out = resolve(root, '.superpowers/screens');
 mkdirSync(out, { recursive: true });
 
 const cases = [
-  ['teacher-es', '', 1440, 6200],
+  ['teacher-es', '', 1440, 7400],
   ['developer-es', '?view=developer', 1440, 4200],
   ['teacher-en', '?lang=en', 768, 6400],
   ['teacher-es-360', '', 360, 9000],

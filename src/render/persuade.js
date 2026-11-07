@@ -109,6 +109,7 @@ export function renderFaq(lang, { booking }) {
     ['faq.need.q', t(lang, 'faq.need.a')],
     ['faq.what.q', t(lang, 'faq.what.a')],
     ['faq.guarantee.q', t(lang, 'guarantee.text')],
+    ['faq.price.q', t(lang, 'faq.price.a')],
     ['faq.start.q', t(lang, 'faq.start.a')],
     ['faq.how.q', t(lang, booking ? 'faq.how.booking' : 'faq.how.whatsapp')],
   ];

@@ -12,7 +12,7 @@ Cada video sigue el **mismo molde**: 6 escenas (hook → giro → prueba → mé
 1. **Guion.** Crea la carpeta con `npm run video:new -- video-NN` y escribe su `script.json`.
    - **Hook:** una pregunta o afirmación que un padre entienda en menos de 2 s, con la imagen más llamativa.
    - **Contenido:** solo hechos reales del portafolio (`docs/superpowers/specs/`). Sin precios, edades ni cifras nuevas, y sin mencionar IA.
-   - **Cierre:** siempre con la garantía ("Si la primera clase no te convence… no te la cobro") y "el enlace de mi perfil".
+   - **Cierre:** siempre con la garantía ("La primera clase es gratis: si no te convence, no pagas nada") y "el enlace de mi perfil". Precios: solo los de `src/content/pricing.js`.
    - **Bloque `post`:** hook, cuerpo, título de YouTube, hashtags, comentario fijado y `coverAt`.
    - **Hecho cuando:** Christian aprueba el guion en el chat.
 2. **Grabación.** Regenera `guion-para-grabar.md` (`new-video.mjs --guion`), pásaselo y espera su audio. Cópialo a `social/voz/video-NN-raw.<ext>`.

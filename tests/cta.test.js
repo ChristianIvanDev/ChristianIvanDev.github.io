@@ -32,8 +32,8 @@ describe('portada de la vista Profesor', () => {
   });
 
   test('muestra la garantía exacta', () => {
-    expect(es['guarantee.text']).toBe('Si la primera clase no te convence, dímelo y no te la cobro.');
-    expect(en['guarantee.text']).toBe("If the first lesson doesn't win you over, tell me and I won't charge you for it.");
+    expect(es['guarantee.text']).toBe('La primera clase es gratis: si no te convence, no pagas nada.');
+    expect(en['guarantee.text']).toBe("Your first lesson is free: if it doesn't win you over, you pay nothing.");
     expect(el.querySelector('.hero__main').textContent).toContain(es['guarantee.text']);
   });
 
