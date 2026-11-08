@@ -1,0 +1,92 @@
+{
+  "title": "Lo hizo en 3 días… a los 16 años",
+  "voice": false,
+  "worldIdle": "crowd",
+  "world": {
+    "crowdFrom": 4.0,
+    "crowdDur": 2.8
+  },
+  "musicOptions": {
+    "bpm": 122
+  },
+  "scenes": [
+    {
+      "id": "hook",
+      "type": "world",
+      "action": "crowd",
+      "duration": 3.6,
+      "headline": "Un chico de<br>16 años…",
+      "headlineAt": 0.2,
+      "sub": "hizo un juego<br>en 3 días",
+      "subAt": 1.6
+    },
+    {
+      "id": "reveal",
+      "type": "counter",
+      "duration": 4.6,
+      "pre": "Lo jugaron al mismo tiempo",
+      "prefix": "",
+      "to": 22.3,
+      "decimals": 1,
+      "suffix": " M",
+      "label": "jugadores",
+      "countAt": 0.4,
+      "countEndAt": 3.0,
+      "source": "Wikipedia · agosto 2025"
+    },
+    {
+      "id": "name",
+      "type": "world",
+      "action": "crowd",
+      "duration": 3.6,
+      "headline": "Ese juego es<br>Grow a Garden",
+      "headlineAt": 0.2,
+      "sub": "¿El próximo<br>lo haces tú?",
+      "subAt": 1.8
+    },
+    {
+      "id": "learn",
+      "type": "list",
+      "duration": 4.4,
+      "items": [
+        "Una idea",
+        "Roblox Studio",
+        "Luau",
+        "¡Publicarlo!"
+      ],
+      "at": [
+        0.3,
+        1.05,
+        1.8,
+        2.55
+      ],
+      "badge": "Te enseño paso a paso",
+      "badgeAt": 3.3
+    },
+    {
+      "id": "cta",
+      "type": "cta",
+      "duration": 4.4,
+      "title": "Toma tu clase gratis",
+      "button": "Clase gratis",
+      "buttonAt": 0.9,
+      "link": "👆 Link en mi perfil"
+    }
+  ],
+  "post": {
+    "hook": "Un chico de 16 años hizo un juego de Roblox en 3 días… 🌱",
+    "body": "Ese juego, Grow a Garden, llegó a 22.3 millones de jugadores conectados al mismo tiempo (agosto 2025). Todo empezó con una idea y Roblox Studio. ¿El próximo lo haces tú? Aprende a crear y publicar tu propio juego, paso a paso.",
+    "youtubeTitle": "Lo hizo en 3 días a los 16 años: 22 millones de jugadores en Roblox",
+    "hashtags": [
+      "roblox",
+      "robloxstudio",
+      "growagarden",
+      "gamedev",
+      "datoscuriosos",
+      "programacion",
+      "aprenderaprogramar"
+    ],
+    "comment": "¿Qué juego harías tú en 3 días? 👇",
+    "coverAt": 1.9
+  }
+}

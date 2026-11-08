@@ -1,0 +1,104 @@
+{
+  "title": "¿Cuánto ganan los creadores de Roblox?",
+  "voice": false,
+  "worldIdle": "coins",
+  "musicOptions": {
+    "bpm": 120
+  },
+  "scenes": [
+    {
+      "id": "hook",
+      "type": "world",
+      "action": "coins",
+      "duration": 3.4,
+      "headline": "¿Se puede ganar<br>dinero haciendo<br>juegos?",
+      "headlineAt": 0.2,
+      "sub": "En Roblox… sí",
+      "subAt": 1.9
+    },
+    {
+      "id": "top",
+      "type": "counter",
+      "duration": 4.8,
+      "pre": "Los 10 mejores creadores",
+      "prefix": "$",
+      "to": 33.9,
+      "decimals": 1,
+      "suffix": " M",
+      "label": "dólares cada uno",
+      "countAt": 0.4,
+      "countEndAt": 2.8,
+      "stamp": "Promedio<br>en 2024",
+      "stampAt": 3.3,
+      "source": "Roblox · Economic Impact Report 2025"
+    },
+    {
+      "id": "honest",
+      "type": "counter",
+      "duration": 4.6,
+      "pre": "Pero ojo: el creador típico",
+      "prefix": "$",
+      "to": 1440,
+      "decimals": 0,
+      "suffix": "",
+      "label": "dólares al año",
+      "countAt": 0.4,
+      "countEndAt": 2.0,
+      "stamp": "La mayoría gana<br>mucho menos",
+      "stampAt": 2.7,
+      "source": "Roblox · mediana del programa DevEx, 2025"
+    },
+    {
+      "id": "start",
+      "type": "world",
+      "action": "coins",
+      "duration": 3.2,
+      "headline": "Todo empieza con<br>tu primer juego",
+      "headlineAt": 0.2
+    },
+    {
+      "id": "learn",
+      "type": "list",
+      "duration": 4.4,
+      "items": [
+        "Programar en Luau",
+        "Diseñar el juego",
+        "Monetizarlo",
+        "Publicarlo"
+      ],
+      "at": [
+        0.3,
+        1.05,
+        1.8,
+        2.55
+      ],
+      "badge": "Paso a paso",
+      "badgeAt": 3.3
+    },
+    {
+      "id": "cta",
+      "type": "cta",
+      "duration": 4.4,
+      "title": "Toma tu clase gratis",
+      "button": "Clase gratis",
+      "buttonAt": 0.9,
+      "link": "👆 Link en mi perfil"
+    }
+  ],
+  "post": {
+    "hook": "¿Se puede ganar dinero haciendo juegos en Roblox? 💰",
+    "body": "Los 10 mejores creadores ganaron en promedio 33.9 millones de dólares cada uno en 2024 (Roblox). Pero ojo: el creador típico del programa DevEx ganó unos 1,440 dólares al año. Todo empieza con tu primer juego.",
+    "youtubeTitle": "¿Cuánto ganan los creadores de Roblox? Los datos reales",
+    "hashtags": [
+      "roblox",
+      "robloxstudio",
+      "datoscuriosos",
+      "gamedev",
+      "devex",
+      "programacion",
+      "aprenderaprogramar"
+    ],
+    "comment": "¿Sabías que se podía ganar dinero haciendo juegos? 👇",
+    "coverAt": 1.4
+  }
+}

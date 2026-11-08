@@ -61,6 +61,7 @@ const TYPES = {
         launch: [at(0.3, 'boing'), at(0.45, 'whoosh'), at(2.95, 'stamp'), at(3.0, 'fanfare')],
         orbit: [at(0, 'whoosh')], wave: [at(0, 'whoosh')],
         snake: [at(0.2, 'scratch'), at(1.4, 'hit')],
+        crowd: [at(0, 'whoosh')], coins: [at(0, 'whoosh'), at(0.3, 'chime')],
         snakegame: [at(0, 'whoosh'), ...SNAKE_EATS.map((d) => (d - 1.5) / 6.2 - c.from).filter((lt) => lt > 0 && c.start + lt < c.end).map((lt) => at(lt, 'eat'))] }[c.action] || [];
       const typing = c.code == null ? [] : Array.from({ length: 16 }, (_, i) => ({ t: c.code + i * 0.085, type: 'type' }));
       const head = c.headline == null ? [] : [{ t: c.headline, type: 'pop' }];
@@ -153,15 +154,18 @@ const TYPES = {
 
   counter: {
     build(s) {
+      const pre = s.pre ? el('div', 'abs display count-pre', s.pre) : null;
       const num = el('div', 'abs display count-num', `${s.prefix ?? '+'}0`);
       const label = el('div', 'abs display count-label', s.label);
       const stamp = s.stamp ? el('div', 'stamp', s.stamp) : null;
-      return { root: [num, label, stamp].filter(Boolean), num, label, stamp, to: s.to, prefix: s.prefix ?? '+' };
+      return { root: [pre, num, label, stamp].filter(Boolean), pre, num, label, stamp, to: s.to, prefix: s.prefix ?? '+', suffix: s.suffix ?? '', decimals: s.decimals ?? 0 };
     },
     cues: (s, w) => ({ count: w(s.countAt), countEnd: w(s.countEndAt), stamp: s.stampAt ? w(s.stampAt) : null }),
     render(t, c, n) {
       const cp = easeOut(prog(t, c.count, Math.max(0.3, c.countEnd - c.count)));
-      n.num.textContent = n.prefix + Math.round(n.to * cp).toLocaleString('en-US');
+      const value = n.to * cp;
+      n.num.textContent = n.prefix + value.toLocaleString('en-US', { minimumFractionDigits: n.decimals, maximumFractionDigits: n.decimals }) + n.suffix;
+      if (n.pre) set(n.pre, { o: clamp(prog(t, c.start, 0.25)), y: -30 * (1 - easeOut(prog(t, c.start, 0.3))) });
       const bump = t > c.countEnd && t < c.countEnd + 0.2 ? 1.06 : 1;
       set(n.num, { o: popIn(t, c.start, 0.3).o, s: (0.6 + 0.4 * easeBack(prog(t, c.start, 0.3))) * bump });
       set(n.label, { o: clamp(prog(t, c.count, 0.25)), y: 40 * (1 - easeOut(prog(t, c.count, 0.35))) });
@@ -172,6 +176,34 @@ const TYPES = {
       ...Array.from({ length: 16 }, (_, i) => ({ t: c.count + (i / 16) * Math.max(0.3, c.countEnd - c.count), type: 'tick' })),
       ...(c.stamp == null ? [] : [{ t: c.stamp, type: 'stamp' }]),
     ],
+  },
+
+  // Barras comparativas que crecen (p. ej. Roblox vs Steam). items: [{ label, value, text, highlight }]
+  compare: {
+    build(s) {
+      const title = s.title ? el('div', 'abs display compare-title', s.title) : null;
+      const max = Math.max(...s.items.map((i) => i.value));
+      const rows = s.items.map((item, i) => {
+        const row = el('div', 'compare-row', `<div class="compare-label">${item.label}</div><div class="compare-track"><div class="compare-bar${item.highlight ? ' is-hl' : ''}"></div></div><div class="compare-value">${item.text}</div>`);
+        row.style.top = `${470 + i * 300}px`;
+        row.dataset.ratio = item.value / max;
+        return row;
+      });
+      const verdict = s.verdict ? el('div', 'abs display world-sub compare-verdict', s.verdict) : null;
+      return { root: [title, ...rows, verdict].filter(Boolean), title, rows, verdict };
+    },
+    cues: (s, w) => ({ at: s.at.map((x) => w(x)), verdict: s.verdict ? w(s.verdictAt ?? 0) : null }),
+    render(t, c, n) {
+      if (n.title) set(n.title, popIn(t, c.start, 0.3));
+      n.rows.forEach((row, i) => {
+        const p = easeOut(prog(t, c.at[i], 0.9));
+        row.style.opacity = clamp(prog(t, c.at[i] - 0.1, 0.15));
+        row.querySelector('.compare-bar').style.transform = `scaleX(${p * +row.dataset.ratio})`;
+        row.querySelector('.compare-value').style.opacity = clamp(prog(t, c.at[i] + 0.6, 0.2));
+      });
+      if (n.verdict) set(n.verdict, popIn(t, c.verdict, 0.34));
+    },
+    sfx: (c) => [{ t: c.start, type: 'whoosh' }, ...c.at.map((t, i) => ({ t, type: 'blip', step: i + 1 })), ...(c.verdict == null ? [] : [{ t: c.verdict, type: 'stamp' }])],
   },
 
   cta: {
@@ -252,6 +284,7 @@ export async function mount(stage, spec, timeline) {
     const root = el('div', 'scene');
     const nodes = type.build(s);
     nodes.root.forEach((n) => root.append(n));
+    if (s.source) root.append(el('div', 'source', `Fuente: ${s.source}`));
     stage.append(root);
     return { s, sc, c, type, root, nodes };
   });
@@ -273,7 +306,7 @@ export async function mount(stage, spec, timeline) {
       const active = scenes.find((x) => t >= x.c.start && t < x.c.end) || scenes[scenes.length - 1];
       const isWorld = active.s.type === 'world';
       // `from` permite que una escena 3D continúe la acción de la anterior (segundos de adelanto).
-      world.update(t, isWorld ? active.c.action : (spec.worldIdle || 'orbit'), t - active.c.start + (isWorld ? active.s.from || 0 : 6));
+      world.update(t, isWorld ? active.c.action : (spec.worldIdle || 'orbit'), t - active.c.start + (isWorld ? active.s.from || 0 : 6), spec.world || {});
       worldCanvas.style.opacity = isWorld ? 1 : 0.5;
     }
     for (const x of scenes) {

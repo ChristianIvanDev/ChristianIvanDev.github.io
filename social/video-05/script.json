@@ -1,0 +1,117 @@
+{
+  "title": "¿Cuánta gente juega Roblox al mismo tiempo?",
+  "voice": false,
+  "worldIdle": "crowd",
+  "world": {
+    "crowdFrom": 1.2,
+    "crowdDur": 5.5
+  },
+  "musicOptions": {
+    "bpm": 124
+  },
+  "scenes": [
+    {
+      "id": "hook",
+      "type": "world",
+      "action": "crowd",
+      "duration": 3.4,
+      "headline": "¿Cuánta gente<br>juega Roblox<br>al mismo tiempo?",
+      "headlineAt": 0.2
+    },
+    {
+      "id": "record",
+      "type": "counter",
+      "duration": 4.4,
+      "pre": "Récord de Roblox",
+      "prefix": "",
+      "to": 47.3,
+      "decimals": 1,
+      "suffix": " M",
+      "label": "jugadores a la vez",
+      "countAt": 0.3,
+      "countEndAt": 2.6,
+      "stamp": "¡Récord<br>mundial!",
+      "stampAt": 3.0,
+      "source": "Roblox · 23 de agosto de 2025"
+    },
+    {
+      "id": "vs",
+      "type": "compare",
+      "duration": 4.6,
+      "title": "¿Más que Steam?",
+      "items": [
+        {
+          "label": "Roblox",
+          "value": 47.3,
+          "text": "47.3 millones",
+          "highlight": true
+        },
+        {
+          "label": "Steam",
+          "value": 41.2,
+          "text": "41.2 millones"
+        }
+      ],
+      "at": [
+        0.5,
+        1.5
+      ],
+      "verdict": "¡Sí! 🏆",
+      "verdictAt": 2.9,
+      "source": "Récords de jugadores simultáneos · 2025"
+    },
+    {
+      "id": "game",
+      "type": "counter",
+      "duration": 4.0,
+      "pre": "Un solo juego:<br>Steal a Brainrot",
+      "prefix": "",
+      "to": 25,
+      "decimals": 0,
+      "suffix": " M",
+      "label": "jugando a la vez",
+      "countAt": 0.3,
+      "countEndAt": 2.2,
+      "source": "PocketGamer.biz · octubre 2025"
+    },
+    {
+      "id": "concert",
+      "type": "counter",
+      "duration": 4.0,
+      "pre": "Concierto de Bruno Mars<br>en Roblox",
+      "prefix": "",
+      "to": 12.8,
+      "decimals": 1,
+      "suffix": " M",
+      "label": "viéndolo a la vez",
+      "countAt": 0.3,
+      "countEndAt": 2.2,
+      "source": "Guinness World Records · enero 2026"
+    },
+    {
+      "id": "cta",
+      "type": "cta",
+      "duration": 4.4,
+      "title": "¿El próximo récord?",
+      "button": "Clase gratis",
+      "buttonAt": 0.9,
+      "link": "👆 Link en mi perfil"
+    }
+  ],
+  "post": {
+    "hook": "¿Cuánta gente juega Roblox AL MISMO TIEMPO? 🤯",
+    "body": "47.3 millones de jugadores conectados a la vez (23 de agosto de 2025): más que el récord de Steam (41.2 millones). Un solo juego, Steal a Brainrot, llegó a 25 millones, y un concierto de Bruno Mars dentro de Roblox reunió a 12.8 millones. Los juegos de Roblox los hacen personas que aprendieron a programar.",
+    "youtubeTitle": "¿Cuánta gente juega Roblox al mismo tiempo? El récord de 47 millones",
+    "hashtags": [
+      "roblox",
+      "datoscuriosos",
+      "récord",
+      "stealabrainrot",
+      "gaming",
+      "robloxstudio",
+      "programacion"
+    ],
+    "comment": "¿Adivinaste el número antes de verlo? 👇",
+    "coverAt": 1.6
+  }
+}

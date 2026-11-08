@@ -167,6 +167,61 @@ export function createWorld(canvas, { width = 1080, height = 1920 } = {}) {
     return { cam, look };
   }
 
+  // ---------- Multitud (récords de jugadores) y lluvia de monedas ----------
+  const crowdGroup = new THREE.Group(); scene.add(crowdGroup);
+  const ground = new THREE.Mesh(new THREE.CylinderGeometry(60, 60, 0.6, 64), mat(C.deep)); ground.position.y = -0.3; crowdGroup.add(ground);
+  const CROWD = 900;
+  const bodyGeo = box(1.2, 1.5, 0.7, 0.12), headGeo = box(0.8, 0.8, 0.8, 0.14);
+  const bodies = new THREE.InstancedMesh(bodyGeo, mat(C.white), CROWD);
+  const heads = new THREE.InstancedMesh(headGeo, mat(C.skin), CROWD);
+  const palette = [C.purple, C.pink, C.border, 0x3776ab, 0xffd43b, 0x37e39a, 0xff7a59, C.white].map((c) => new THREE.Color(c));
+  const crowdPos = Array.from({ length: CROWD }, (_, i) => {
+    // espiral de Fermat: los primeros quedan cerca del centro
+    const r = 1.6 * Math.sqrt(i), a = i * 2.39996;
+    bodies.setColorAt(i, palette[i % palette.length]);
+    return { x: Math.cos(a) * r, z: Math.sin(a) * r, ph: rand(i + 300) * 6, face: rand(i + 500) * 0.8 - 0.4 };
+  });
+  bodies.instanceColor.needsUpdate = true;
+  crowdGroup.add(bodies, heads);
+  const coins = Array.from({ length: 70 }, (_, i) => {
+    const c = new THREE.Mesh(new THREE.CylinderGeometry(0.55, 0.55, 0.14, 28), mat(0xffd43b, { metalness: 0.6, roughness: 0.25, emissive: 0x7a5a00, emissiveIntensity: 0.4 }));
+    c.userData = { x: -7 + rand(i + 900) * 14, z: -5 + rand(i + 950) * 8, speed: 3 + rand(i + 1000) * 3, off: rand(i + 1100) * 20, spin: 2 + rand(i + 1200) * 5 };
+    crowdGroup.add(c); return c;
+  });
+  const dummy = new THREE.Object3D();
+
+  function updateCrowd(t, action, opts) {
+    crowdGroup.visible = true;
+    const growth = action === 'coins' ? 0 : smooth(prog(t, opts.crowdFrom ?? 0, opts.crowdDur ?? 4));
+    const visible = action === 'coins' ? 0 : Math.max(1, Math.floor(CROWD * growth));
+    for (let i = 0; i < CROWD; i++) {
+      const p = crowdPos[i];
+      const on = i < visible;
+      const born = on ? (i === 0 ? 1 : clamp((growth * CROWD - i) / 12)) : 0;   // aparece con un pequeño salto (el primero siempre está)
+      const hop = Math.abs(Math.sin(t * 4 + p.ph)) * 0.35 + (1 - born) * 1.5;
+      dummy.position.set(p.x, 0.75 + hop, p.z); dummy.rotation.set(0, p.face + Math.atan2(-p.x, 20 - p.z) * 0.6, 0);
+      dummy.scale.setScalar(on ? born : 0.0001); dummy.updateMatrix(); bodies.setMatrixAt(i, dummy.matrix);
+      dummy.position.y += 1.2; dummy.updateMatrix(); heads.setMatrixAt(i, dummy.matrix);
+    }
+    bodies.instanceMatrix.needsUpdate = true; heads.instanceMatrix.needsUpdate = true;
+    bodies.visible = heads.visible = action !== 'coins';
+    coins.forEach((c) => {
+      c.visible = action === 'coins';
+      if (!c.visible) return;
+      const { x, z, speed, off, spin } = c.userData;
+      c.position.set(x, 16 - ((t * speed + off) % 18), z);
+      c.rotation.set(Math.PI / 2 + Math.sin(t * spin) * 0.6, t * spin, 0);
+    });
+    let cam, look;
+    if (action === 'coins') {
+      cam = new THREE.Vector3(Math.sin(t * 0.2) * 2, 4, 15); look = new THREE.Vector3(0, 3.5, 0);
+    } else {
+      const d = lerp(9, 62, growth);
+      cam = new THREE.Vector3(Math.sin(t * 0.15) * d * 0.25, lerp(4, 34, growth), d); look = new THREE.Vector3(0, lerp(1.6, 0, growth), 0);
+    }
+    return { cam, look };
+  }
+
   const ud = hero.userData;
   function pose({ run = 0, wave = 0, flail = 0, t = 0 }) {
     const sw = Math.sin(t * 14) * 0.9 * run;
@@ -199,9 +254,21 @@ export function createWorld(canvas, { width = 1080, height = 1920 } = {}) {
     return { x: 5.0, y: Math.abs(Math.sin(local * (action === 'wave' ? 5 : 2))) * (action === 'wave' ? 0.6 : 0), wave: 1, rotY: -0.25 };
   }
 
-  function update(t, action, local) {
+  function update(t, action, local, opts = {}) {
     const isSnake = action === 'snake' || action === 'snakegame';
-    obby.forEach((o) => (o.visible = !isSnake));
+    const isCrowd = action === 'crowd' || action === 'coins';
+    obby.forEach((o) => (o.visible = !isSnake && !isCrowd));
+    crowdGroup.visible = false;
+    if (isCrowd) {
+      snakeGroup.visible = false;
+      // En "coins" el personaje se queda de pie celebrando bajo la lluvia de monedas
+      hero.visible = action === 'coins';
+      if (hero.visible) { hero.position.set(0, Math.abs(Math.sin(t * 5)) * 0.4, 0); hero.rotation.set(0, Math.sin(t) * 0.3, 0); pose({ wave: 1, t }); ud.armL.rotation.z = -2.6 - Math.sin(t * 10) * 0.45; }
+      const { cam, look } = updateCrowd(t, action, opts);
+      camera.position.copy(cam); camera.lookAt(look);
+      renderer.render(scene, camera);
+      return;
+    }
     deco.forEach((m) => { m.position.y += Math.sin(t * 1.2 + m.userData.phase) * 0.004; });
     if (isSnake) {
       const { cam, look } = updateSnake(t, action, local);
