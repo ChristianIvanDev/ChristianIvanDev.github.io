@@ -88,18 +88,34 @@ export function buildSfx(events, total) {
 }
 
 /**
- * Música de fondo sintetizada (sin derechos de terceros): loop alegre tipo videojuego, 120 BPM,
- * progresión C–G–Am–F con bajo, arpegio, bombo, palmas y platillos. Fundido de entrada y salida.
+ * Música de fondo sintetizada (sin derechos de terceros): loop alegre tipo videojuego.
+ * `variant` cambia poco a poco la canción entre videos (tonalidad, progresión, arpegio, timbre, platillos)
+ * sin perder el estilo. variant 0 = la canción original de los videos 02–06.
  */
-export function buildMusic(total, { bpm = 120, gain = 0.5 } = {}) {
+const PROGRESSIONS = [
+  [[0, 4, 7], [-5, -1, 2], [-3, 0, 4], [-7, -3, 0]],   // I–V–vi–IV (original)
+  [[-3, 0, 4], [-7, -3, 0], [0, 4, 7], [-5, -1, 2]],   // vi–IV–I–V
+  [[0, 4, 7], [-3, 0, 4], [-7, -3, 0], [-5, -1, 2]],   // I–vi–IV–V
+  [[-7, -3, 0], [-5, -1, 2], [-8, -5, -1], [-3, 0, 4]], // IV–V–iii–vi
+];
+const ARPS = [[0, 1, 2, 1], [0, 2, 1, 2], [0, 1, 2, 0], [2, 1, 0, 1], [0, 2, 0, 1]];
+const KEYS = [0, 2, -3, 5, -2, 3, -5, 1, 4, -1];
+
+export function buildMusic(total, { bpm = 120, gain = 0.5, variant = 0 } = {}) {
   const n = Math.ceil((total + 0.5) * SR);
   const buf = new Float32Array(n);
   const beat = 60 / bpm;
   const bar = beat * 4;
-  const chords = [[261.63, 329.63, 392.0], [196.0, 246.94, 293.66], [220.0, 261.63, 329.63], [174.61, 220.0, 261.63]];
+  const shift = KEYS[variant % KEYS.length];
+  const prog = PROGRESSIONS[variant % PROGRESSIONS.length];
+  const arpPattern = ARPS[variant % ARPS.length];
+  const squareMix = variant === 0 ? 1 : 0.35 + ((variant * 37) % 60) / 100;   // más cuadrada o más suave
+  const sixteenthHats = variant % 3 === 2;                                       // platillos más movidos
+  const hz = (semi) => 261.63 * Math.pow(2, (semi + shift) / 12);
+  const chords = prog.map((c) => c.map(hz));
   const tri = (ph) => 2 * Math.abs(2 * (ph - Math.floor(ph + 0.5))) - 1;
   const sq = (ph) => (ph % 1 < 0.5 ? 1 : -1);
-  const r = rng(99);
+  const r = rng(99 + variant);
   let lp = 0;
   for (let i = 0; i < n; i++) {
     const t = i / SR;
@@ -108,24 +124,19 @@ export function buildMusic(total, { bpm = 120, gain = 0.5 } = {}) {
     const sixteenth = beat / 4;
     const step = Math.floor(t / sixteenth);
     const inStep = t % sixteenth;
-    // bajo: raíz una octava abajo, en corcheas
     const root = chord[0] / 2;
     const bass = tri(root * t) * env(t % (beat / 2), 0.004, 0.16) * 0.32;
-    // arpegio suave (onda cuadrada filtrada)
-    const note = chord[[0, 1, 2, 1][step % 4]] * 2;
-    lp += 0.12 * (sq(note * t) - lp);
+    const note = chord[arpPattern[step % 4]] * 2;
+    const wave = sq(note * t) * squareMix + tri(note * t) * (1 - squareMix);
+    lp += 0.12 * (wave - lp);
     const arp = lp * env(inStep, 0.002, 0.07) * 0.1;
-    // bombo en cada tiempo
     const kick = Math.sin(2 * Math.PI * (50 + 110 * Math.exp(-inBeat * 35)) * inBeat) * Math.exp(-inBeat * 9) * 0.55;
-    // palmas en 2 y 4
     const beatIdx = Math.floor(t / beat) % 4;
     const clap = beatIdx % 2 === 1 ? r() * Math.exp(-inBeat * 28) * 0.22 : 0;
-    // platillo en los contratiempos
-    const off = (t + beat / 2) % beat;
-    const hat = r() * Math.exp(-off * 90) * 0.07;
+    const off = sixteenthHats ? t % sixteenth : (t + beat / 2) % beat;
+    const hat = r() * Math.exp(-off * 90) * (sixteenthHats ? 0.05 : 0.07);
     buf[i] = (bass + arp + kick + clap + hat) * gain;
   }
-  // fundidos
   const fadeIn = Math.floor(0.6 * SR), fadeOut = Math.floor(1.4 * SR), end = Math.floor(total * SR);
   for (let i = 0; i < n; i++) {
     let g = 1;

@@ -1,0 +1,94 @@
+{
+  "title": "¿Python se llama así por la serpiente?",
+  "voice": false,
+  "worldIdle": "snakegame",
+  "musicOptions": {
+    "bpm": 126,
+    "variant": 8
+  },
+  "scenes": [
+    {
+      "id": "hook",
+      "type": "world",
+      "action": "snake",
+      "duration": 3.2,
+      "headline": "¿Python se llama así<br>por la serpiente?",
+      "headlineAt": 0.2,
+      "sub": "¡NO!",
+      "subAt": 1.9
+    },
+    {
+      "id": "why",
+      "type": "world",
+      "action": "snakegame",
+      "duration": 3.8,
+      "headline": "Por un show<br>de comedia:",
+      "headlineAt": 0.2,
+      "sub": "Monty Python",
+      "subAt": 1.4
+    },
+    {
+      "id": "year",
+      "type": "counter",
+      "duration": 4.4,
+      "pre": "Python salió en",
+      "prefix": "",
+      "from": 1950,
+      "to": 1991,
+      "grouping": false,
+      "label": "Lo creó<br>Guido van Rossum",
+      "countAt": 0.4,
+      "countEndAt": 2.2,
+      "source": "Historia de Python · python.org"
+    },
+    {
+      "id": "rank",
+      "type": "counter",
+      "duration": 4.0,
+      "pre": "Hoy es el lenguaje",
+      "prefix": "Nº ",
+      "from": 10,
+      "to": 1,
+      "label": "del ranking TIOBE",
+      "countAt": 0.3,
+      "countEndAt": 1.8,
+      "stamp": "¡El más popular!",
+      "stampAt": 2.3,
+      "source": "TIOBE Index · octubre 2026"
+    },
+    {
+      "id": "games",
+      "type": "world",
+      "action": "snakegame",
+      "duration": 3.8,
+      "from": 3.8,
+      "headline": "¡Y con él haces<br>videojuegos!",
+      "headlineAt": 0.2
+    },
+    {
+      "id": "cta",
+      "type": "cta",
+      "duration": 4.4,
+      "title": "Toma tu clase gratis",
+      "button": "Clase gratis",
+      "buttonAt": 0.9,
+      "link": "👆 Link en mi perfil"
+    }
+  ],
+  "post": {
+    "hook": "¿Python se llama así por la serpiente? 🐍 ¡NO!",
+    "body": "Se llama así por el show de comedia Monty Python's Flying Circus. Lo creó Guido van Rossum y salió en 1991. Hoy es el nº 1 del ranking TIOBE (octubre 2026)… ¡y con él puedes hacer tus propios videojuegos!",
+    "youtubeTitle": "¿Python se llama así por la serpiente? El dato que no conocías",
+    "hashtags": [
+      "python",
+      "datoscuriosos",
+      "programacion",
+      "aprenderaprogramar",
+      "montypython",
+      "codigo",
+      "gamedev"
+    ],
+    "comment": "¿Lo sabías? 👇",
+    "coverAt": 1.0
+  }
+}

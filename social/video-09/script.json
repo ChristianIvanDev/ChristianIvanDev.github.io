@@ -1,0 +1,100 @@
+{
+  "title": "¿Cuánto cuesta crear un juego en Roblox?",
+  "voice": false,
+  "worldIdle": "orbit",
+  "musicOptions": {
+    "bpm": 120,
+    "variant": 9
+  },
+  "scenes": [
+    {
+      "id": "hook",
+      "type": "world",
+      "action": "wave",
+      "duration": 3.4,
+      "headline": "¿Cuánto cuesta<br>crear un juego<br>en Roblox?",
+      "headlineAt": 0.2
+    },
+    {
+      "id": "price",
+      "type": "counter",
+      "duration": 4.6,
+      "pre": "Roblox Studio cuesta…",
+      "prefix": "$",
+      "from": 999,
+      "to": 0,
+      "label": "para descargarlo y crear",
+      "countAt": 0.4,
+      "countEndAt": 2.4,
+      "stamp": "¡Gratis!",
+      "stampAt": 2.8,
+      "source": "Roblox Studio · create.roblox.com"
+    },
+    {
+      "id": "lua",
+      "type": "counter",
+      "duration": 4.6,
+      "pre": "Luau viene de Lua,<br>creado en",
+      "prefix": "",
+      "from": 1950,
+      "to": 1993,
+      "grouping": false,
+      "label": "en Brasil (PUC-Rio)",
+      "countAt": 0.4,
+      "countEndAt": 2.2,
+      "source": "lua.org · historia de Lua"
+    },
+    {
+      "id": "need",
+      "type": "list",
+      "duration": 4.4,
+      "items": [
+        "Computadora",
+        "Una idea",
+        "Aprender Luau",
+        "Práctica"
+      ],
+      "at": [
+        0.3,
+        1.05,
+        1.8,
+        2.55
+      ],
+      "badge": "Yo te enseño",
+      "badgeAt": 3.3
+    },
+    {
+      "id": "fly",
+      "type": "world",
+      "action": "launch",
+      "duration": 3.6,
+      "headline": "¡Tu juego,<br>tus reglas!",
+      "headlineAt": 1.1
+    },
+    {
+      "id": "cta",
+      "type": "cta",
+      "duration": 4.4,
+      "title": "Toma tu clase gratis",
+      "button": "Clase gratis",
+      "buttonAt": 0.9,
+      "link": "👆 Link en mi perfil"
+    }
+  ],
+  "post": {
+    "hook": "¿Cuánto cuesta crear un juego en Roblox? 💸",
+    "body": "Roblox Studio es gratis. Su lenguaje, Luau, viene de Lua, creado en Brasil en 1993. Lo que sí necesitas: una computadora, una idea y aprender a programar. ¡Yo te enseño paso a paso!",
+    "youtubeTitle": "¿Cuánto cuesta crear un juego en Roblox? (spoiler: Roblox Studio es gratis)",
+    "hashtags": [
+      "roblox",
+      "robloxstudio",
+      "luau",
+      "lua",
+      "gamedev",
+      "datoscuriosos",
+      "programacion"
+    ],
+    "comment": "¿Ya tienes Roblox Studio instalado? 👇",
+    "coverAt": 1.6
+  }
+}

@@ -158,13 +158,13 @@ const TYPES = {
       const num = el('div', 'abs display count-num', `${s.prefix ?? '+'}0`);
       const label = el('div', 'abs display count-label', s.label);
       const stamp = s.stamp ? el('div', 'stamp', s.stamp) : null;
-      return { root: [pre, num, label, stamp].filter(Boolean), pre, num, label, stamp, to: s.to, prefix: s.prefix ?? '+', suffix: s.suffix ?? '', decimals: s.decimals ?? 0 };
+      return { root: [pre, num, label, stamp].filter(Boolean), pre, num, label, stamp, from: s.from ?? 0, to: s.to, prefix: s.prefix ?? '+', suffix: s.suffix ?? '', decimals: s.decimals ?? 0, grouping: s.grouping ?? true };
     },
     cues: (s, w) => ({ count: w(s.countAt), countEnd: w(s.countEndAt), stamp: s.stampAt ? w(s.stampAt) : null }),
     render(t, c, n) {
       const cp = easeOut(prog(t, c.count, Math.max(0.3, c.countEnd - c.count)));
-      const value = n.to * cp;
-      n.num.textContent = n.prefix + value.toLocaleString('en-US', { minimumFractionDigits: n.decimals, maximumFractionDigits: n.decimals }) + n.suffix;
+      const value = n.from + (n.to - n.from) * cp;
+      n.num.textContent = n.prefix + value.toLocaleString('en-US', { minimumFractionDigits: n.decimals, maximumFractionDigits: n.decimals, useGrouping: n.grouping }) + n.suffix;
       if (n.pre) set(n.pre, { o: clamp(prog(t, c.start, 0.25)), y: -30 * (1 - easeOut(prog(t, c.start, 0.3))) });
       const bump = t > c.countEnd && t < c.countEnd + 0.2 ? 1.06 : 1;
       set(n.num, { o: popIn(t, c.start, 0.3).o, s: (0.6 + 0.4 * easeBack(prog(t, c.start, 0.3))) * bump });

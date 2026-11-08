@@ -1,0 +1,115 @@
+{
+  "title": "¿Más visitas que personas en la Tierra?",
+  "voice": false,
+  "worldIdle": "crowd",
+  "world": {
+    "crowdFrom": 3.4,
+    "crowdDur": 3.5
+  },
+  "musicOptions": {
+    "bpm": 122,
+    "variant": 7
+  },
+  "scenes": [
+    {
+      "id": "hook",
+      "type": "world",
+      "action": "crowd",
+      "duration": 3.4,
+      "headline": "¿Cuál es el juego<br>más visitado<br>de Roblox?",
+      "headlineAt": 0.2
+    },
+    {
+      "id": "reveal",
+      "type": "counter",
+      "duration": 4.6,
+      "pre": "Brookhaven RP",
+      "prefix": "",
+      "to": 88.9,
+      "decimals": 1,
+      "label": "mil millones<br>de visitas",
+      "countAt": 0.4,
+      "countEndAt": 2.8,
+      "source": "Bloxbus · octubre 2026"
+    },
+    {
+      "id": "vs",
+      "type": "compare",
+      "duration": 4.8,
+      "title": "¿Más que personas<br>en la Tierra?",
+      "items": [
+        {
+          "label": "Visitas",
+          "value": 88.9,
+          "text": "88.9 mil millones",
+          "highlight": true
+        },
+        {
+          "label": "Personas",
+          "value": 8.3,
+          "text": "8.3 mil millones"
+        }
+      ],
+      "at": [
+        0.5,
+        1.5
+      ],
+      "verdict": "¡Casi 11 veces más!",
+      "verdictAt": 2.8,
+      "source": "ONU, población mundial 2026"
+    },
+    {
+      "id": "who",
+      "type": "world",
+      "action": "crowd",
+      "duration": 3.4,
+      "headline": "Y alguien<br>lo programó",
+      "headlineAt": 0.2,
+      "sub": "¿El próximo<br>lo haces tú?",
+      "subAt": 1.7
+    },
+    {
+      "id": "learn",
+      "type": "list",
+      "duration": 4.4,
+      "items": [
+        "Casas",
+        "Vehículos",
+        "Roles",
+        "Tu mundo"
+      ],
+      "at": [
+        0.3,
+        1.05,
+        1.8,
+        2.55
+      ],
+      "badge": "En Roblox Studio",
+      "badgeAt": 3.3
+    },
+    {
+      "id": "cta",
+      "type": "cta",
+      "duration": 4.4,
+      "title": "Toma tu clase gratis",
+      "button": "Clase gratis",
+      "buttonAt": 0.9,
+      "link": "👆 Link en mi perfil"
+    }
+  ],
+  "post": {
+    "hook": "¿Cuál es el juego más visitado de Roblox? 🏠",
+    "body": "Brookhaven RP: unos 88.9 mil millones de visitas (octubre 2026). La Tierra tiene unos 8.3 mil millones de personas: ¡casi 11 visitas por cada persona del planeta! Y alguien lo programó. ¿El próximo lo haces tú?",
+    "youtubeTitle": "El juego más visitado de Roblox tiene más visitas que personas en la Tierra",
+    "hashtags": [
+      "roblox",
+      "brookhaven",
+      "datoscuriosos",
+      "robloxstudio",
+      "gamedev",
+      "programacion"
+    ],
+    "comment": "¿Juegas Brookhaven? 👇",
+    "coverAt": 1.6
+  }
+}
