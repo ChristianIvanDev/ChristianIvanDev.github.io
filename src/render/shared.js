@@ -40,8 +40,10 @@ export function studentsNote(lang, view) {
 
 /** Proyectos en bento: destacados grandes, el resto en tarjetas pequeñas. */
 export function projectsGrid(lang, { detailed }) {
+  // Las apps web son para la vista de desarrollador; la de profesor se centra en lo que aprenden los niños.
+  const list = detailed ? PROJECTS : PROJECTS.filter((p) => p.group !== 'web');
   return h('div', { class: 'bento projects' },
-    PROJECTS.map((p) => {
+    list.map((p) => {
       let size;
       if (detailed) size = p.featured ? 'span-3' : 'span-3';
       else if (p.featured) size = 'span-3 row-2';

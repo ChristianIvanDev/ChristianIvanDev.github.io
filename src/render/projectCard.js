@@ -1,7 +1,11 @@
 import { h, externalLink } from './dom.js';
 import { t, pick } from '../i18n.js';
+import { isReleased } from '../content/projects.js';
 
-const LINK_LABEL = { roblox: 'project.play.roblox', steam: 'project.view.steam' };
+const LINK_LABEL = { roblox: 'project.play.roblox', steam: 'project.view.steam', demo: 'project.view.demo' };
+
+const releaseDate = (iso, lang) =>
+  new Intl.DateTimeFormat(lang === 'en' ? 'en-US' : 'es-MX', { day: 'numeric', month: 'long' }).format(new Date(`${iso}T12:00:00`));
 
 const CUSTOMS_SNIPPET = `@router.get("/pedimentos/{folio}")
 async def consultar(folio: str, db=Depends(get_db)):
@@ -27,10 +31,13 @@ function media(project, lang, { eager }) {
   );
 }
 
-export function renderProjectCard(project, lang, { detailed = false, className = '' } = {}) {
+export function renderProjectCard(project, lang, { detailed = false, className = '', now = new Date() } = {}) {
+  // Una app web que aún se está publicando se muestra en desarrollo y sin enlaces.
+  const released = isReleased(project, now);
   const badges = h('div', { class: 'project__badges' },
     h('span', { class: 'chip' }, t(lang, `projects.group.${project.group}`)),
-    project.status === 'in-dev' ? h('span', { class: 'chip chip--warn' }, t(lang, 'project.status.indev')) : null,
+    project.status === 'in-dev' || !released ? h('span', { class: 'chip chip--warn' }, t(lang, 'project.status.indev')) : null,
+    !released ? h('span', { class: 'chip' }, `${t(lang, 'project.release')} ${releaseDate(project.release, lang)}`) : null,
   );
 
   const body = h('div', { class: 'project__body' },
@@ -44,10 +51,17 @@ export function renderProjectCard(project, lang, { detailed = false, className =
         ]
       : null,
     h('ul', { class: 'project__stack', 'aria-label': t(lang, 'project.stack') }, project.stack.map((s) => h('li', {}, s))),
-    project.link
-      ? externalLink(project.link.href, t(lang, LINK_LABEL[project.link.kind]), t(lang, 'project.link.newtab'), {
-          class: `btn btn--light project__link project__link--${project.link.kind}`,
-        })
+    project.link && released
+      ? h('div', { class: 'project__links' },
+          externalLink(project.link.href, t(lang, LINK_LABEL[project.link.kind]), t(lang, 'project.link.newtab'), {
+            class: `btn btn--light project__link project__link--${project.link.kind}`,
+          }),
+          project.code
+            ? externalLink(project.code, t(lang, 'project.view.code'), t(lang, 'project.link.newtab'), {
+                class: 'btn btn--light project__link project__link--code',
+              })
+            : null,
+        )
       : null,
   );
 

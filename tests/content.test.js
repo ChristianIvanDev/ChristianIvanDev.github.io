@@ -60,13 +60,17 @@ describe('proyectos', () => {
     'culto-del-juicio', 'armero-blender', 'agenda-docente', 'plataforma-aduanera',
   ];
 
-  test('están los 8 proyectos en orden', () => {
-    expect(PROJECTS.map((p) => p.id)).toEqual(ids);
+  test('están los 12 proyectos en orden, con las apps web primero', () => {
+    expect(PROJECTS.map((p) => p.id)).toEqual(['franja', 'sinnube', 'malla', 'ramaje', ...ids]);
   });
 
-  test('4 tienen enlace público, con sus URL', () => {
+  test('8 tienen enlace público, con sus URL', () => {
     const links = PROJECTS.filter((p) => p.link).map((p) => [p.id, p.link.href, p.link.kind]);
     expect(links).toEqual([
+      ['franja', 'https://christianivandev.github.io/franja/', 'demo'],
+      ['sinnube', 'https://christianivandev.github.io/sinnube/', 'demo'],
+      ['malla', 'https://christianivandev.github.io/malla/', 'demo'],
+      ['ramaje', 'https://christianivandev.github.io/ramaje/', 'demo'],
       ['caza-de-monstruos', 'https://www.roblox.com/es/games/134450784529527/Caza-de-mounstruos', 'roblox'],
       ['build-a-pipe', 'https://www.roblox.com/es/games/70899491861878/Build-a-Pipe', 'roblox'],
       ['haunted-obby', 'https://www.roblox.com/es/games/90518449117709/Escape-the-Haunted-Obby-HALLOWEEN', 'roblox'],

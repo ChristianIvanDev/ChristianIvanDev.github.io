@@ -141,6 +141,9 @@
 
 .project__link { margin-top: auto; align-self: flex-start; }
 .project__body > .project__link { margin-top: 10px; }
+/* Demo y código, uno al lado del otro (se apilan si no caben). */
+.project__links { display: flex; flex-wrap: wrap; gap: 8px; margin-top: auto; padding-top: 10px; }
+.project__links .project__link { margin-top: 0; }
 
 .project--wide { flex-direction: row; }
 .project--wide .project__media { width: 46%; aspect-ratio: auto; border-bottom: 0; border-right: var(--border-w) solid var(--c-border); }

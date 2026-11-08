@@ -2,7 +2,126 @@ import { asset } from '../paths.js';
 
 const img = (id, n, es, en) => ({ src: asset(`assets/projects/${id}/${n}.webp`), alt: { es, en } });
 
+const GH = 'https://github.com/ChristianIvanDev';
+const PAGES = 'https://christianivandev.github.io';
+
 export const PROJECTS = [
+  {
+    id: 'franja',
+    group: 'web',
+    featured: false,
+    release: '2026-11-07',
+    link: { href: `${PAGES}/franja/`, kind: 'demo' },
+    code: `${GH}/franja`,
+    stack: ['React', 'TypeScript', 'Intl API', 'Vitest'],
+    title: { es: 'Franja', en: 'Franja' },
+    summary: {
+      es: 'Planificador de reuniones entre zonas horarias: encuentra la hora en la que todo el equipo coincide.',
+      en: 'A meeting planner across time zones: finds the hour when the whole team overlaps.',
+    },
+    features: {
+      es: [
+        'Las 420 zonas horarias del mundo, con búsqueda por país, desfase o abreviatura',
+        'Franja común resaltada y sugerencia del mejor horario',
+        'Horario de verano, días de 23 y 25 horas y fines de semana de cada zona',
+        'Exporta a Google Calendar o .ics y se comparte con un enlace, sin cuentas',
+      ],
+      en: [
+        "All 420 of the world's time zones, searchable by country, offset or abbreviation",
+        'Highlighted overlap and a suggested best time',
+        "Daylight saving time, 23- and 25-hour days and each zone's weekends",
+        'Exports to Google Calendar or .ics and is shared with a link, no accounts',
+      ],
+    },
+    images: [img('franja', 1, 'Línea de tiempo con cinco personas en distintas ciudades y la franja común resaltada', 'Timeline with five people in different cities and the shared slot highlighted')],
+  },
+  {
+    id: 'sinnube',
+    group: 'web',
+    featured: false,
+    release: '2026-11-21',
+    link: { href: `${PAGES}/sinnube/`, kind: 'demo' },
+    code: `${GH}/sinnube`,
+    stack: ['React', 'TypeScript', 'Web Workers', 'pdf-lib'],
+    title: { es: 'Sinnube', en: 'Sinnube' },
+    summary: {
+      es: 'Herramientas de PDF e imágenes que funcionan en el navegador: tus archivos nunca se suben a un servidor.',
+      en: 'PDF and image tools that run in the browser: your files are never uploaded to a server.',
+    },
+    features: {
+      es: [
+        'Une, divide y reordena PDF; convierte fotos en un PDF',
+        'Comprime imágenes en paralelo con Web Workers',
+        'Muestra y borra la ubicación GPS de las fotos sin perder calidad',
+        'Funciona sin internet y demuestra que no envía ningún archivo',
+      ],
+      en: [
+        'Merge, split and reorder PDFs; turn photos into a PDF',
+        'Compresses images in parallel with Web Workers',
+        "Shows and removes photos' GPS location without losing quality",
+        'Works offline and proves it never sends a file',
+      ],
+    },
+    images: [img('sinnube', 1, 'Herramienta para dividir un PDF con las miniaturas de sus páginas elegidas', 'Tool to split a PDF with thumbnails of the chosen pages')],
+  },
+  {
+    id: 'malla',
+    group: 'web',
+    featured: false,
+    release: '2026-12-04',
+    link: { href: `${PAGES}/malla/`, kind: 'demo' },
+    code: `${GH}/malla`,
+    stack: ['React', 'TypeScript', 'three.js', 'glTF'],
+    title: { es: 'Malla', en: 'Malla' },
+    summary: {
+      es: 'Inspector de modelos 3D en el navegador que detecta qué los hace pesados y exporta una versión optimizada.',
+      en: 'A 3D model inspector in the browser that finds what makes models heavy and exports an optimized version.',
+    },
+    features: {
+      es: [
+        'Abre GLB, glTF, OBJ, FBX y STL con sus texturas',
+        'Informe de optimización con nota de 0 a 100',
+        'Vista de UVs, texturas, animaciones y árbol de la escena',
+        'Exporta un GLB once veces más ligero en el modelo de ejemplo',
+      ],
+      en: [
+        'Opens GLB, glTF, OBJ, FBX and STL with their textures',
+        'Optimization report with a score from 0 to 100',
+        'UV view, textures, animations and scene tree',
+        'Exports a GLB eleven times lighter on the sample model',
+      ],
+    },
+    images: [img('malla', 1, 'Faro en una isla con el informe de optimización a un lado', 'Lighthouse on an island with the optimization report beside it')],
+  },
+  {
+    id: 'ramaje',
+    group: 'web',
+    featured: false,
+    release: '2026-12-16',
+    link: { href: `${PAGES}/ramaje/`, kind: 'demo' },
+    code: `${GH}/ramaje`,
+    stack: ['React', 'TypeScript', 'Canvas', 'GitHub API'],
+    title: { es: 'Ramaje', en: 'Ramaje' },
+    summary: {
+      es: 'La historia de cualquier repositorio de GitHub como un mapa: ramas, merges y quién cambió qué.',
+      en: 'The history of any GitHub repository as a map: branches, merges and who changed what.',
+    },
+    features: {
+      es: [
+        'Grafo de commits con ramas y merges, dibujado en Canvas',
+        'Archivos que más cambian y actividad del equipo por día y hora',
+        'Repetición animada de cómo creció el repositorio',
+        'Enlaces que guardan la vista y cuidan el cupo de la API',
+      ],
+      en: [
+        'Commit graph with branches and merges, drawn on Canvas',
+        'Most-changed files and team activity by day and hour',
+        'Animated replay of how the repository grew',
+        'Links that keep the view and care for the API quota',
+      ],
+    },
+    images: [img('ramaje', 1, 'Grafo de commits con ramas de colores y el detalle de un commit', 'Commit graph with colored branches and a commit detail')],
+  },
   {
     id: 'caza-de-monstruos',
     group: 'roblox',
@@ -189,3 +308,12 @@ export const PROJECTS = [
     images: [],
   },
 ];
+
+/**
+ * Las apps web se publican de a un commit por día: hasta su fecha, la demo está a medias.
+ * Antes de `release` la tarjeta las muestra «en desarrollo» y sin enlaces; después, con todo.
+ */
+export function isReleased(project, now = new Date()) {
+  if (!project.release) return true;
+  return now >= new Date(`${project.release}T00:00:00`);
+}

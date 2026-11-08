@@ -1,4 +1,9 @@
 [
+  { "from": "_material/apps-web/franja.png", "to": "public/assets/projects/franja/1.webp" },
+  { "from": "_material/apps-web/sinnube.png", "to": "public/assets/projects/sinnube/1.webp" },
+  { "from": "_material/apps-web/malla.png", "to": "public/assets/projects/malla/1.webp" },
+  { "from": "_material/apps-web/ramaje.png", "to": "public/assets/projects/ramaje/1.webp" },
+
   { "from": "_material/capturas-sesiones/083.jpg", "to": "public/assets/projects/caza-de-monstruos/1.webp" },
   { "from": "_material/capturas-sesiones/056.jpg", "to": "public/assets/projects/caza-de-monstruos/2.webp" },
   { "from": "_material/capturas-sesiones/032.jpg", "to": "public/assets/projects/caza-de-monstruos/3.webp", "crop": { "left": 110, "top": 40, "width": 1000, "height": 650 } },

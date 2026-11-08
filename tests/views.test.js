@@ -78,7 +78,8 @@ describe('vista Desarrollador', () => {
   test('incluye formación, certificaciones, proyectos y la nota de alumnos', () => {
     expect(el.textContent).toContain('Utel Universidad');
     expect(el.textContent).toContain('Python Essentials 1');
-    expect(el.querySelectorAll('[data-project]').length).toBe(8);
+    // Los 8 de la vista de profesor más las 4 apps web.
+    expect(el.querySelectorAll('[data-project]').length).toBe(12);
     expect(el.textContent).toContain(en['students.note']);
   });
 });
