@@ -119,6 +119,10 @@ const STYLES = {
     bassPat: [1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1], arp: true,
     mel: [12, 14, 16, 19, 16, 14, 12, null, 11, 12, 14, 12, 7, null, 4, null], lead: 'square', kick: [0, 8], snare: [4, 12], hats: 8, chipDrums: true },
   // lofi: piano eléctrico suave, swing, batería tranquila y ruido de vinilo
+  // trap: 808 largo con deslizamiento, caja en el tiempo 3, redobles de platillos y campana menor
+  trap: { level: 0.86, bpm: 140, key: -5, swing: 0, prog: [[0, 3, 7], [0, 3, 7], [-4, 0, 3], [-2, 2, 5]],
+    bassPat: [1, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0], trap808: true,
+    mel: [12, null, 15, null, 14, null, 12, null, 10, null, null, 7, null, 10, null, null], lead: 'sine', kick: [0, 3, 10], snare: [8], hats: 16, rolls: true },
   lofi: { level: 1, bpm: 84, key: 5, swing: 0.18, prog: [[2, 5, 9, 12], [7, 11, 14, 17], [0, 4, 7, 11], [9, 12, 16, 19]],
     bassPat: [1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0], epiano: true,
     mel: [16, null, null, 14, null, 12, null, null, 11, null, null, null, 9, null, null, null], lead: 'sine', kick: [0, 7, 10], snare: [4, 12], hats: 8, vinyl: true },
@@ -150,7 +154,11 @@ function buildSong(total, style, gain) {
     const s16 = step % 16;
     let v = 0;
     // bajo
-    if (S.bassPat[s16]) {
+    if (S.trap808) {
+      let k = s16; while (k > 0 && !S.bassPat[k]) k--;
+      const dt = t - (Math.floor(t / bar) * bar + k * six), f = hz(chord[0] - 24) * (1 + 0.25 * Math.exp(-dt * 30));
+      v += Math.tanh(Math.sin(2 * Math.PI * f * dt) * 1.6) * Math.exp(-dt * 1.6) * 0.42;
+    } else if (S.bassPat[s16]) {
       const f = hz(chord[0] - 24) * (style === 'funk' && s16 % 4 === 3 ? 2 : 1);
       const tone = style === 'chiptune' ? osc.square(f * t) * 0.6 : style === 'synthwave' ? osc.saw(f * t) * 0.5 : osc.sine(f * t) + osc.tri(f * t) * 0.3;
       v += tone * env(inStep, 0.003, style === 'lofi' ? 0.35 : style === 'funk' ? 0.09 : 0.12) * 0.34;
@@ -180,7 +188,8 @@ function buildSong(total, style, gain) {
     const kickOn = S.kick.includes(s16), snareOn = S.snare.includes(s16);
     if (kickOn) v += Math.sin(2 * Math.PI * (S.chipDrums ? 80 : 48 + 100 * Math.exp(-inStep * 35)) * inStep) * Math.exp(-inStep * (style === 'lofi' ? 12 : 9)) * (style === 'lofi' ? 0.4 : 0.55);
     if (snareOn) v += r() * Math.exp(-inStep * (style === 'synthwave' ? 9 : 22)) * (style === 'lofi' ? 0.1 : 0.2);
-    if (S.hats === 16 || s16 % 2 === 0) v += r() * Math.exp(-inStep * 110) * (style === 'funk' ? 0.05 : 0.04);
+    if (S.rolls && (s16 === 14 || s16 === 15) && Math.floor(t / bar) % 2 === 1) v += r() * Math.exp(-(inStep % (six / 3)) * 160) * 0.05;
+    else if (S.hats === 16 || s16 % 2 === 0) v += r() * Math.exp(-inStep * 110) * (style === 'funk' ? 0.05 : 0.04);
     if (S.vinyl) v += (r() - 0.5) * 0.008 + (r() < 0.0004 ? 0.12 : 0);
     buf[i] = v * gain * S.level;
   }

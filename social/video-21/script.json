@@ -1,0 +1,84 @@
+{
+  "title": "Crea tu propia ciudad",
+  "voice": false,
+  "worldIdle": "street",
+  "musicOptions": {
+    "style": "chiptune"
+  },
+  "scenes": [
+    {
+      "id": "hook",
+      "type": "world",
+      "action": "street",
+      "duration": 3.6,
+      "headline": "¿Esperando<br>GTA VI?",
+      "headlineAt": 0.2,
+      "sub": "¡Crea tu<br>propia ciudad!",
+      "subAt": 1.7
+    },
+    {
+      "id": "what",
+      "type": "list",
+      "duration": 4.6,
+      "items": [
+        "Autos",
+        "Misiones",
+        "Tiendas",
+        "Dinero"
+      ],
+      "at": [
+        0.3,
+        1.05,
+        1.8,
+        2.55
+      ],
+      "badge": "Programados por ti",
+      "badgeAt": 3.3
+    },
+    {
+      "id": "free",
+      "type": "world",
+      "action": "city",
+      "duration": 3.8,
+      "headline": "Con Roblox Studio<br>(es gratis)",
+      "headlineAt": 0.2,
+      "sub": "y Luau",
+      "subAt": 1.6,
+      "source": "create.roblox.com"
+    },
+    {
+      "id": "rules",
+      "type": "world",
+      "action": "street",
+      "from": 5,
+      "duration": 3.6,
+      "headline": "Tu ciudad,<br>tus reglas",
+      "headlineAt": 0.2
+    },
+    {
+      "id": "cta",
+      "type": "cta",
+      "duration": 4.4,
+      "title": "Toma tu clase gratis",
+      "button": "Clase gratis",
+      "buttonAt": 0.9,
+      "link": "👆 Link en mi perfil"
+    }
+  ],
+  "post": {
+    "hook": "¿Esperando GTA VI? 🚗 ¡Crea tu propia ciudad!",
+    "body": "En Roblox Studio (gratis) puedes programar con Luau tu propia ciudad: autos, misiones, tiendas y dinero del juego. Tu ciudad, tus reglas. En mis clases aprendes a hacerlo paso a paso.",
+    "youtubeTitle": "¿Esperando GTA VI? Crea tu propia ciudad en Roblox Studio",
+    "hashtags": [
+      "gta6",
+      "roblox",
+      "robloxstudio",
+      "luau",
+      "programacion",
+      "gamedev",
+      "aprenderaprogramar"
+    ],
+    "comment": "¿Qué pondrías en tu ciudad? 👇",
+    "coverAt": 2.2
+  }
+}

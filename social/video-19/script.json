@@ -1,0 +1,82 @@
+{
+  "title": "El trailer que rompió un récord",
+  "voice": false,
+  "worldIdle": "street",
+  "musicOptions": {
+    "style": "synthwave"
+  },
+  "scenes": [
+    {
+      "id": "hook",
+      "type": "world",
+      "action": "street",
+      "duration": 3.6,
+      "headline": "Un trailer<br>rompió<br>un récord",
+      "headlineAt": 0.2
+    },
+    {
+      "id": "t1",
+      "type": "counter",
+      "duration": 4.6,
+      "pre": "Trailer 1 de GTA VI<br>en 24 horas",
+      "prefix": "",
+      "to": 90.4,
+      "decimals": 1,
+      "label": "millones de vistas<br>en YouTube",
+      "countAt": 0.3,
+      "countEndAt": 2.0,
+      "stamp": "Récord<br>Guinness",
+      "stampAt": 2.6,
+      "source": "Guinness World Records · diciembre 2023"
+    },
+    {
+      "id": "t2",
+      "type": "counter",
+      "duration": 4.2,
+      "pre": "Trailer 2 en 24 horas<br>(todas las plataformas)",
+      "prefix": "+",
+      "to": 475,
+      "label": "millones de vistas",
+      "countAt": 0.3,
+      "countEndAt": 2.0,
+      "source": "Rockstar Games · mayo 2025"
+    },
+    {
+      "id": "code",
+      "type": "world",
+      "action": "street",
+      "from": 4,
+      "duration": 3.8,
+      "headline": "Y detrás de cada<br>auto y semáforo…",
+      "headlineAt": 0.2,
+      "sub": "¡hay código!",
+      "subAt": 1.6
+    },
+    {
+      "id": "cta",
+      "type": "cta",
+      "duration": 4.4,
+      "title": "Toma tu clase gratis",
+      "button": "Clase gratis",
+      "buttonAt": 0.9,
+      "link": "👆 Link en mi perfil"
+    }
+  ],
+  "post": {
+    "hook": "El trailer de videojuego más visto 🎬",
+    "body": "El primer trailer de GTA VI logró 90.4 millones de vistas en YouTube en 24 horas: récord Guinness al trailer de videojuego más visto en su primer día (diciembre 2023). Del segundo, Rockstar reportó más de 475 millones de vistas en 24 horas sumando todas las plataformas (mayo 2025). Y detrás de cada auto, semáforo y peatón… hay código.",
+    "youtubeTitle": "GTA VI: el trailer que rompió un récord (y el código detrás)",
+    "hashtags": [
+      "gta6",
+      "gtavi",
+      "programacion",
+      "videojuegos",
+      "gamedev",
+      "aprenderaprogramar",
+      "record",
+      "datoscuriosos"
+    ],
+    "comment": "¿Viste el trailer el primer día? 👇",
+    "coverAt": 2.0
+  }
+}

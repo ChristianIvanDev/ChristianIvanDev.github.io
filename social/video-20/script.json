@@ -1,0 +1,88 @@
+{
+  "title": "230 millones de copias",
+  "voice": false,
+  "worldIdle": "city",
+  "musicOptions": {
+    "style": "funk"
+  },
+  "scenes": [
+    {
+      "id": "hook",
+      "type": "world",
+      "action": "city",
+      "duration": 3.6,
+      "headline": "¿Cuántas copias<br>vendió GTA V?",
+      "headlineAt": 0.2
+    },
+    {
+      "id": "sales",
+      "type": "counter",
+      "duration": 4.6,
+      "pre": "Más de",
+      "prefix": "",
+      "to": 230,
+      "label": "millones de copias",
+      "countAt": 0.3,
+      "countEndAt": 2.0,
+      "stamp": "¡Y salió<br>en 2013!",
+      "stampAt": 2.6,
+      "source": "Take-Two Interactive · agosto 2026"
+    },
+    {
+      "id": "next",
+      "type": "world",
+      "action": "street",
+      "duration": 3.8,
+      "headline": "GTA VI sale el<br>19 de noviembre",
+      "headlineAt": 0.2,
+      "sub": "2026",
+      "subAt": 1.4,
+      "source": "Take-Two Interactive · noviembre 2026"
+    },
+    {
+      "id": "team",
+      "type": "list",
+      "duration": 4.6,
+      "items": [
+        "Programación",
+        "Diseño",
+        "Arte 3D",
+        "Sonido"
+      ],
+      "at": [
+        0.3,
+        1.05,
+        1.8,
+        2.55
+      ],
+      "badge": "Trabajo en equipo",
+      "badgeAt": 3.3
+    },
+    {
+      "id": "cta",
+      "type": "cta",
+      "duration": 4.4,
+      "title": "Toma tu clase gratis",
+      "button": "Clase gratis",
+      "buttonAt": 0.9,
+      "link": "👆 Link en mi perfil"
+    }
+  ],
+  "post": {
+    "hook": "¿Cuántas copias vendió GTA V? 💰",
+    "body": "Más de 230 millones, según Take-Two (agosto 2026), y salió en 2013. GTA VI sale el 19 de noviembre de 2026. Un juego así lo hacen equipos de programación, diseño, arte 3D y sonido. Todo empieza aprendiendo lo básico.",
+    "youtubeTitle": "GTA V vendió más de 230 millones de copias: ¿quién programa un juego así?",
+    "hashtags": [
+      "gta6",
+      "gtavi",
+      "programacion",
+      "videojuegos",
+      "gamedev",
+      "aprenderaprogramar",
+      "gtav",
+      "datoscuriosos"
+    ],
+    "comment": "¿Qué parte de crear un juego te gustaría hacer? 👇",
+    "coverAt": 2.0
+  }
+}

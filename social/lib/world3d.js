@@ -364,6 +364,50 @@ export function createWorld(canvas, { width = 1080, height = 1920 } = {}) {
     return { cam: new THREE.Vector3(Math.sin(a) * 26, 17, Math.cos(a) * 26), look: new THREE.Vector3(0, 3, 0) };
   }
 
+  // ---------- Avenida de ciudad costera: autos de bloques, palmeras y torres neón ----------
+  const streetGroup = new THREE.Group(); scene.add(streetGroup);
+  const ROAD_LEN = 120;
+  const road = new THREE.Mesh(new THREE.BoxGeometry(12, 0.2, ROAD_LEN), mat(0x2a1450, { roughness: 0.9 })); road.position.set(0, -0.1, -ROAD_LEN / 2 + 20); streetGroup.add(road);
+  [-7.5, 7.5].forEach((x) => { const sw = new THREE.Mesh(box(3, 0.5, ROAD_LEN, 0.1), mat(C.pinkSoft)); sw.position.set(x, 0, -ROAD_LEN / 2 + 20); streetGroup.add(sw); });
+  const stripes = Array.from({ length: 24 }, (_, i) => { const s = new THREE.Mesh(box(0.35, 0.05, 2.2, 0.02), mat(0xffe08a, { emissive: 0xffe08a, emissiveIntensity: 0.5 })); s.userData.z = i * 5; streetGroup.add(s); return s; });
+  const palms = Array.from({ length: 16 }, (_, i) => {
+    const g = new THREE.Group(); const side = i % 2 ? 1 : -1;
+    const trunk = new THREE.Mesh(new THREE.CylinderGeometry(0.22, 0.32, 6, 8), mat(0xb7794a)); trunk.position.y = 3; trunk.rotation.z = side * 0.08; g.add(trunk);
+    for (let k = 0; k < 6; k++) { const leaf = new THREE.Mesh(box(3.2, 0.12, 0.8, 0.05), mat(0x37e39a)); const a = (k / 6) * Math.PI * 2; leaf.position.set(Math.cos(a) * 1.3, 6.1, Math.sin(a) * 1.3); leaf.rotation.set(0, -a, -0.45); g.add(leaf); }
+    g.userData = { x: side * 7.5, z: Math.floor(i / 2) * 15 }; streetGroup.add(g); return g;
+  });
+  const neon = [C.pink, 0x22d3ee, 0xffc23d, C.border, 0xff4d7d];
+  const towersS = Array.from({ length: 22 }, (_, i) => {
+    const h = 8 + rand(i + 4000) * 22, side = i % 2 ? 1 : -1;
+    const m = new THREE.Mesh(box(5, h, 5, 0.2), mat([C.purple, C.deep, 0x6d28d9][i % 3]));
+    const band = new THREE.Mesh(box(5.1, 0.5, 5.1, 0.05), mat(neon[i % 5], { emissive: neon[i % 5], emissiveIntensity: 1 })); band.position.y = h * 0.3; m.add(band);
+    const band2 = band.clone(); band2.position.y = -h * 0.1; m.add(band2);
+    m.position.set(side * (14 + rand(i + 4100) * 8), h / 2, -i * 6 - 10); streetGroup.add(m); return m;
+  });
+  const sunDisc = new THREE.Mesh(new THREE.CircleGeometry(16, 48), new THREE.MeshBasicMaterial({ color: 0xffa94d })); sunDisc.position.set(0, 3, -110); streetGroup.add(sunDisc);
+  const car = (color) => {
+    const g = new THREE.Group();
+    const body = new THREE.Mesh(box(2.2, 0.8, 4.4, 0.25), mat(color, { metalness: 0.3, roughness: 0.35 })); body.position.y = 0.75; g.add(body);
+    const cab = new THREE.Mesh(box(1.8, 0.7, 2.2, 0.25), mat(0x1b0a3d, { metalness: 0.5, roughness: 0.2 })); cab.position.set(0, 1.45, -0.2); g.add(cab);
+    [[-1.05, 1.4], [1.05, 1.4], [-1.05, -1.4], [1.05, -1.4]].forEach(([x, z]) => { const w = new THREE.Mesh(new THREE.CylinderGeometry(0.42, 0.42, 0.35, 16), mat(0x111111)); w.rotation.z = Math.PI / 2; w.position.set(x, 0.42, z); g.add(w); });
+    [-0.65, 0.65].forEach((x) => { const l = new THREE.Mesh(box(0.45, 0.2, 0.1, 0.04), mat(0xff3b5c, { emissive: 0xff3b5c, emissiveIntensity: 1 })); l.position.set(x, 0.85, 2.22); g.add(l); });
+    streetGroup.add(g); return g;
+  };
+  const myCar = car(C.pink);
+  const traffic = [[0x22d3ee, -2.8, 0.55], [0xffc23d, 2.8, 0.75], [C.white, -2.8, 0.35], [0x37e39a, 2.8, 0.9], [C.border, -2.8, 0.65]].map(([c, x, sp], i) => { const m = car(c); m.userData = { x, sp, off: i * 19 }; return m; });
+  function updateStreet(t, local) {
+    streetGroup.visible = true;
+    const speed = 14, travel = t * speed;
+    const sway = Math.sin(t * 0.9) * 1.2;
+    myCar.position.set(sway, Math.abs(Math.sin(t * 9)) * 0.04, 0); myCar.rotation.y = -Math.cos(t * 0.9) * 0.08;
+    stripes.forEach((s) => { s.position.set(0, 0.02, ((s.userData.z + travel) % 120) - 100); });
+    palms.forEach((p) => { p.position.set(p.userData.x, 0, ((p.userData.z + travel) % 120) - 100); });
+    towersS.forEach((m, i) => { m.position.z = ((i * 6 + travel * 0.25) % 132) - 120; });
+    traffic.forEach((m) => { const { x, sp, off } = m.userData; m.position.set(x, 0, -((off + t * speed * (1 - sp)) % 95) + 8); });
+    const cam = new THREE.Vector3(sway * 0.6 + Math.sin(t * 0.3) * 1.5, 4.2, 11.5);
+    return { cam, look: new THREE.Vector3(sway * 0.3, 2.2, -10) };
+  }
+
   const ud = hero.userData;
   function pose({ run = 0, wave = 0, flail = 0, t = 0 }) {
     const sw = Math.sin(t * 14) * 0.9 * run;
@@ -400,11 +444,11 @@ export function createWorld(canvas, { width = 1080, height = 1920 } = {}) {
     const isSnake = action === 'snake' || action === 'snakegame';
     const isCrowd = action === 'crowd' || action === 'coins';
     const isSpace = action === 'blackhole';
-    const extra = { mars: updateMars, gamepad: updatePad, city: updateCity }[action];
+    const extra = { mars: updateMars, gamepad: updatePad, city: updateCity, street: updateStreet }[action];
     obby.forEach((o) => (o.visible = !isSnake && !isCrowd && !isSpace && !extra));
     crowdGroup.visible = false;
-    spaceGroup.visible = marsGroup.visible = padGroup.visible = cityGroup.visible = false;
-    deco.forEach((m) => (m.visible = !isSpace && action !== 'mars'));
+    spaceGroup.visible = marsGroup.visible = padGroup.visible = cityGroup.visible = streetGroup.visible = false;
+    deco.forEach((m) => (m.visible = !isSpace && action !== 'mars' && action !== 'street'));
     if (extra) {
       snakeGroup.visible = false;
       const { cam, look } = extra(t, local);

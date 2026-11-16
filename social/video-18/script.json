@@ -1,0 +1,87 @@
+{
+  "title": "¿En qué lenguaje se programa GTA VI?",
+  "voice": false,
+  "worldIdle": "street",
+  "musicOptions": {
+    "style": "trap"
+  },
+  "scenes": [
+    {
+      "id": "hook",
+      "type": "world",
+      "action": "street",
+      "duration": 3.8,
+      "headline": "¿En qué lenguaje<br>se programa<br>GTA VI?",
+      "headlineAt": 0.2
+    },
+    {
+      "id": "engine",
+      "type": "world",
+      "action": "street",
+      "from": 3,
+      "duration": 4.0,
+      "headline": "Rockstar usa su<br>propio motor:",
+      "headlineAt": 0.2,
+      "sub": "RAGE",
+      "subAt": 1.4,
+      "source": "Rockstar Games"
+    },
+    {
+      "id": "langs",
+      "type": "list",
+      "duration": 4.8,
+      "items": [
+        "C++",
+        "C#",
+        "Python",
+        "Lua"
+      ],
+      "at": [
+        0.3,
+        1.05,
+        1.8,
+        2.55
+      ],
+      "badge": "Lo que piden",
+      "badgeAt": 3.3,
+      "source": "Vacantes de programador de Rockstar Games"
+    },
+    {
+      "id": "start",
+      "type": "world",
+      "action": "street",
+      "from": 6,
+      "duration": 3.8,
+      "headline": "¿Y por dónde<br>se empieza?",
+      "headlineAt": 0.2,
+      "sub": "¡Por la lógica!",
+      "subAt": 1.6
+    },
+    {
+      "id": "cta",
+      "type": "cta",
+      "duration": 4.4,
+      "title": "Toma tu clase gratis",
+      "button": "Clase gratis",
+      "buttonAt": 0.9,
+      "link": "👆 Link en mi perfil"
+    }
+  ],
+  "post": {
+    "hook": "¿En qué lenguaje se programa GTA VI? 🌴🚗",
+    "body": "Rockstar usa su propio motor, RAGE (Rockstar Advanced Game Engine). Sus vacantes de programador de motor piden sobre todo C++, y algunas también C#, Python o Lua para herramientas. ¿Por dónde se empieza? Por la lógica de programación, y Python es una gran puerta de entrada.",
+    "youtubeTitle": "¿En qué lenguaje se programa GTA VI? (y por dónde empezar)",
+    "hashtags": [
+      "gta6",
+      "gtavi",
+      "programacion",
+      "videojuegos",
+      "gamedev",
+      "aprenderaprogramar",
+      "cplusplus",
+      "python"
+    ],
+    "comment": "¿Qué te gustaría programar en un juego así? 👇",
+    "coverAt": 2.0
+  }
+}
