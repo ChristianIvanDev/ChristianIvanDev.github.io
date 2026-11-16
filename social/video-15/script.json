@@ -1,0 +1,85 @@
+{
+  "title": "¿Tu videojuego tiene Python?",
+  "voice": false,
+  "worldIdle": "gamepad",
+  "musicOptions": {
+    "style": "chiptune"
+  },
+  "scenes": [
+    {
+      "id": "hook",
+      "type": "world",
+      "action": "gamepad",
+      "duration": 3.8,
+      "headline": "¿Tu videojuego<br>tiene Python?",
+      "headlineAt": 0.2,
+      "sub": "¡Puede ser!",
+      "subAt": 2.0
+    },
+    {
+      "id": "sims",
+      "type": "world",
+      "action": "gamepad",
+      "from": 3,
+      "duration": 4.0,
+      "headline": "Los Sims 4 usa<br>Python en su<br>código de juego",
+      "headlineAt": 0.2,
+      "source": "Comunidad de mods de Los Sims 4 · Foros de EA"
+    },
+    {
+      "id": "mods",
+      "type": "world",
+      "action": "gamepad",
+      "from": 6,
+      "duration": 3.8,
+      "headline": "Y los fans crean<br>mods con Python",
+      "headlineAt": 0.2,
+      "sub": "¡Mods de script!",
+      "subAt": 1.6
+    },
+    {
+      "id": "learn",
+      "type": "list",
+      "duration": 4.4,
+      "items": [
+        "Mods",
+        "Minijuegos",
+        "Bots",
+        "Tus juegos"
+      ],
+      "at": [
+        0.3,
+        1.05,
+        1.8,
+        2.55
+      ],
+      "badge": "Todo con Python",
+      "badgeAt": 3.3
+    },
+    {
+      "id": "cta",
+      "type": "cta",
+      "duration": 4.4,
+      "title": "Toma tu clase gratis",
+      "button": "Clase gratis",
+      "buttonAt": 0.9,
+      "link": "👆 Link en mi perfil"
+    }
+  ],
+  "post": {
+    "hook": "¿Tu videojuego favorito tiene Python? 🎮",
+    "body": "Los Sims 4 usa Python en su código de juego, y por eso los mods de script que crea la comunidad se escriben en Python (así lo documentan los modders y los foros de EA). Aprender Python también es aprender a modificar y crear juegos.",
+    "youtubeTitle": "Los Sims 4 usa Python: así se crean los mods",
+    "hashtags": [
+      "python",
+      "lossims4",
+      "mods",
+      "videojuegos",
+      "gamer",
+      "programacion",
+      "aprenderaprogramar"
+    ],
+    "comment": "¿Qué mod te gustaría crear? 👇",
+    "coverAt": 2.4
+  }
+}

@@ -1,0 +1,80 @@
+{
+  "title": "¿Vale la pena aprender a programar?",
+  "voice": false,
+  "worldIdle": "city",
+  "musicOptions": {
+    "style": "lofi"
+  },
+  "scenes": [
+    {
+      "id": "hook",
+      "type": "world",
+      "action": "city",
+      "duration": 3.8,
+      "headline": "¿Vale la pena<br>aprender a<br>programar?",
+      "headlineAt": 0.2
+    },
+    {
+      "id": "growth",
+      "type": "counter",
+      "duration": 4.6,
+      "pre": "Empleos de desarrollador<br>de software en EE. UU.",
+      "prefix": "+",
+      "to": 15.8,
+      "decimals": 1,
+      "suffix": "%",
+      "label": "de 2024 a 2034",
+      "countAt": 0.3,
+      "countEndAt": 2.0,
+      "stamp": "Mucho más rápido<br>que el promedio",
+      "stampAt": 2.6,
+      "source": "Oficina de Estadísticas Laborales (BLS) de EE. UU."
+    },
+    {
+      "id": "jobs",
+      "type": "counter",
+      "duration": 4.2,
+      "pre": "Nuevos empleos proyectados",
+      "prefix": "+",
+      "to": 267,
+      "label": "mil en una década",
+      "countAt": 0.3,
+      "countEndAt": 2.0,
+      "source": "BLS · proyecciones 2024–2034"
+    },
+    {
+      "id": "start",
+      "type": "world",
+      "action": "city",
+      "from": 3,
+      "duration": 3.8,
+      "headline": "Y todo empieza<br>con una línea<br>de código",
+      "headlineAt": 0.2
+    },
+    {
+      "id": "cta",
+      "type": "cta",
+      "duration": 4.4,
+      "title": "Toma tu clase gratis",
+      "button": "Clase gratis",
+      "buttonAt": 0.9,
+      "link": "👆 Link en mi perfil"
+    }
+  ],
+  "post": {
+    "hook": "¿Vale la pena que tu hijo aprenda a programar? 🏙️",
+    "body": "En EE. UU., la Oficina de Estadísticas Laborales (BLS) proyecta que los empleos de desarrollador de software crezcan 15.8 % de 2024 a 2034: más de 267,000 empleos nuevos, mucho más rápido que el promedio. Y todo empieza con una primera línea de código.",
+    "youtubeTitle": "¿Vale la pena aprender a programar? Lo que dicen los datos",
+    "hashtags": [
+      "programacion",
+      "python",
+      "empleo",
+      "futuro",
+      "padres",
+      "educacion",
+      "aprenderaprogramar"
+    ],
+    "comment": "¿A qué edad empezaste a programar? 👇",
+    "coverAt": 2.2
+  }
+}

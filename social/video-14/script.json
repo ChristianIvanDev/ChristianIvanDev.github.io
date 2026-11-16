@@ -1,0 +1,91 @@
+{
+  "title": "Un helicóptero voló en Marte",
+  "voice": false,
+  "worldIdle": "mars",
+  "musicOptions": {
+    "style": "synthwave"
+  },
+  "scenes": [
+    {
+      "id": "hook",
+      "type": "world",
+      "action": "mars",
+      "duration": 4.0,
+      "headline": "Primer vuelo<br>en otro planeta",
+      "headlineAt": 0.2,
+      "sub": "¡En Marte!",
+      "subAt": 2.2,
+      "source": "NASA JPL · 19 de abril de 2021"
+    },
+    {
+      "id": "badge",
+      "type": "counter",
+      "duration": 4.6,
+      "pre": "Más de",
+      "prefix": "",
+      "to": 12000,
+      "label": "programadores con<br>insignia de la misión",
+      "countAt": 0.3,
+      "countEndAt": 2.0,
+      "stamp": "Python estaba<br>en la lista",
+      "stampAt": 2.6,
+      "source": "GitHub Blog · abril 2021"
+    },
+    {
+      "id": "open",
+      "type": "world",
+      "action": "mars",
+      "from": 3,
+      "duration": 3.8,
+      "headline": "Código abierto:<br>cualquiera puede<br>aportar",
+      "headlineAt": 0.2,
+      "sub": "¡Incluso tú!",
+      "subAt": 1.6
+    },
+    {
+      "id": "learn",
+      "type": "list",
+      "duration": 4.4,
+      "items": [
+        "Ciencia",
+        "Espacio",
+        "Datos",
+        "Tus ideas"
+      ],
+      "at": [
+        0.3,
+        1.05,
+        1.8,
+        2.55
+      ],
+      "badge": "Con Python",
+      "badgeAt": 3.3
+    },
+    {
+      "id": "cta",
+      "type": "cta",
+      "duration": 4.4,
+      "title": "Toma tu clase gratis",
+      "button": "Clase gratis",
+      "buttonAt": 0.9,
+      "link": "👆 Link en mi perfil"
+    }
+  ],
+  "post": {
+    "hook": "El primer vuelo en otro planeta 🚁🔴 ¡y Python estaba ahí!",
+    "body": "El 19 de abril de 2021, el helicóptero Ingenuity hizo el primer vuelo propulsado y controlado en otro planeta: Marte. GitHub y el JPL de la NASA dieron una insignia a más de 12,000 programadores que aportaron código abierto usado en la misión, y Python estaba entre esos proyectos.",
+    "youtubeTitle": "El código de 12,000 programadores voló en Marte (y Python estaba ahí)",
+    "hashtags": [
+      "python",
+      "marte",
+      "nasa",
+      "ingenuity",
+      "ciencia",
+      "programacion",
+      "aprenderaprogramar",
+      "datoscuriosos"
+    ],
+    "comment": "¿Te gustaría que tu código llegara al espacio? 🚀👇",
+    "coverAt": 2.6
+  }
+}

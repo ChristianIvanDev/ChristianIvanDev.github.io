@@ -263,6 +263,107 @@ export function createWorld(canvas, { width = 1080, height = 1920 } = {}) {
     return { cam: new THREE.Vector3(Math.sin(t * 0.25) * 2, 2.2, lerp(27, 19, zoom)), look: new THREE.Vector3(0, 2.6, 0) };
   }
 
+  // ---------- Marte: helicóptero de bloques que despega ----------
+  const marsGroup = new THREE.Group(); scene.add(marsGroup);
+  const marsGround = new THREE.Mesh(new THREE.CircleGeometry(60, 64), mat(0xc4562c, { roughness: 0.95 }));
+  marsGround.rotation.x = -Math.PI / 2; marsGroup.add(marsGround);
+  const rocks = Array.from({ length: 40 }, (_, i) => {
+    const s = 0.3 + rand(i + 2000) * 1.1;
+    const r = new THREE.Mesh(new THREE.DodecahedronGeometry(s, 0), mat(i % 3 ? 0x8f3a1c : 0xe07a45, { roughness: 1, flatShading: true }));
+    const a = rand(i + 2100) * Math.PI * 2, d = 4 + rand(i + 2200) * 30;
+    r.position.set(Math.cos(a) * d, s * 0.3, Math.sin(a) * d - 6); r.rotation.set(rand(i) * 3, rand(i + 1) * 3, 0); marsGroup.add(r); return r;
+  });
+  const hills = [[-20, -30, 9], [14, -36, 12], [30, -22, 7], [-34, -14, 8]].map(([x, z, s]) => {
+    const h = new THREE.Mesh(new THREE.SphereGeometry(s, 24, 12, 0, Math.PI * 2, 0, Math.PI / 2), mat(0xa9472a, { roughness: 1 }));
+    h.position.set(x, 0, z); h.scale.y = 0.45; marsGroup.add(h); return h;
+  });
+  const heli = new THREE.Group(); marsGroup.add(heli);
+  const heliBody = new THREE.Mesh(box(1.2, 0.9, 1.2, 0.12), mat(C.white)); heliBody.position.y = 1.3; heli.add(heliBody);
+  [[-0.9, -0.9], [0.9, -0.9], [-0.9, 0.9], [0.9, 0.9]].forEach(([x, z]) => {
+    const leg = new THREE.Mesh(new THREE.CylinderGeometry(0.06, 0.06, 1.5, 8), mat(C.pink));
+    leg.position.set(x * 0.7, 0.65, z * 0.7); leg.rotation.set(z * 0.45, 0, -x * 0.45); heli.add(leg);
+  });
+  const mast = new THREE.Mesh(new THREE.CylinderGeometry(0.09, 0.09, 1.6, 10), mat(C.border)); mast.position.y = 2.4; heli.add(mast);
+  const rotor = (y) => {
+    const g = new THREE.Group(); g.position.y = y;
+    const blade = new THREE.Mesh(box(4.6, 0.06, 0.38, 0.03), mat(C.deep)); g.add(blade); heli.add(g); return g;
+  };
+  const rotorA = rotor(2.6), rotorB = rotor(3.05);
+  const panel = new THREE.Mesh(box(1.5, 0.08, 0.9, 0.02), mat(0x3b82f6, { metalness: 0.4, roughness: 0.3 })); panel.position.y = 3.3; heli.add(panel);
+  const dust = Array.from({ length: 30 }, (_, i) => {
+    const d = new THREE.Mesh(new THREE.SphereGeometry(0.2 + rand(i + 2300) * 0.25, 8, 6), mat(0xe9a77a, { transparent: true, opacity: 0.7 }));
+    d.userData = { a: rand(i + 2400) * Math.PI * 2, off: rand(i + 2500) }; marsGroup.add(d); return d;
+  });
+  function updateMars(t, local) {
+    marsGroup.visible = true;
+    const lift = smooth(prog(local, 0.6, 2.6));
+    heli.position.set(0, lift * 4.5 + Math.sin(t * 2.4) * 0.12 * lift, 0);
+    heli.rotation.y = t * 0.25; heli.scale.setScalar(1.25);
+    rotorA.rotation.y = t * 38; rotorB.rotation.y = -t * 38;
+    dust.forEach((d) => {
+      const k = (t * 0.7 + d.userData.off) % 1;
+      d.position.set(Math.cos(d.userData.a) * (1 + k * 6), 0.3 + k * 0.8, Math.sin(d.userData.a) * (1 + k * 6));
+      d.material.opacity = (1 - k) * 0.7 * clamp(local / 0.6);
+    });
+    const look = new THREE.Vector3(0, 1.5 + lift * 3.2, 0);
+    return { cam: new THREE.Vector3(Math.sin(t * 0.2) * 3, 3.4 + lift * 3.4, 19), look: new THREE.Vector3(0, 2.4 + lift * 4.6, 0) };
+  }
+
+  // ---------- Control de videojuego de bloques ----------
+  const padGroup = new THREE.Group(); scene.add(padGroup);
+  const pad = new THREE.Group(); padGroup.add(pad);
+  pad.add(new THREE.Mesh(box(7.2, 3.2, 1.3, 0.5), mat(C.white)));
+  [-1, 1].forEach((s) => { const grip = new THREE.Mesh(box(2.1, 3.0, 1.3, 0.5), mat(C.white)); grip.position.set(s * 2.9, -1.4, 0); grip.rotation.z = s * 0.35; pad.add(grip); });
+  const dpad = new THREE.Group(); dpad.position.set(-2.2, 0.3, 0.7); pad.add(dpad);
+  dpad.add(new THREE.Mesh(box(1.6, 0.5, 0.3, 0.08), mat(C.deep)), new THREE.Mesh(box(0.5, 1.6, 0.3, 0.08), mat(C.deep)));
+  const btnColors = [0x37e39a, 0xff4d7d, 0x3b82f6, 0xffc23d];
+  const buttons = [[2.2, 0.85], [2.85, 0.3], [1.55, 0.3], [2.2, -0.25]].map(([x, y], i) => {
+    const b = new THREE.Mesh(new THREE.CylinderGeometry(0.32, 0.32, 0.3, 20), mat(btnColors[i], { emissive: btnColors[i], emissiveIntensity: 0.25 }));
+    b.rotation.x = Math.PI / 2; b.position.set(x, y, 0.7); pad.add(b); return b;
+  });
+  [-0.9, 0.9].forEach((x) => { const st = new THREE.Mesh(new THREE.CylinderGeometry(0.45, 0.5, 0.4, 20), mat(C.purple)); st.rotation.x = Math.PI / 2; st.position.set(x, -0.8, 0.75); pad.add(st); });
+  const pixels = Array.from({ length: 26 }, (_, i) => {
+    const p = new THREE.Mesh(box(0.5, 0.5, 0.5, 0.06), mat([C.pink, C.border, 0x37e39a, 0xffc23d][i % 4], { emissive: [C.pink, C.border, 0x37e39a, 0xffc23d][i % 4], emissiveIntensity: 0.3 }));
+    p.userData = { a: rand(i + 2600) * Math.PI * 2, r: 5 + rand(i + 2700) * 3, y: (rand(i + 2800) - 0.5) * 9, sp: 0.3 + rand(i + 2900) * 0.4 };
+    padGroup.add(p); return p;
+  });
+  function updatePad(t, local) {
+    padGroup.visible = true;
+    const intro = easeOut(prog(local, 0, 0.8));
+    pad.scale.setScalar(0.32 + 0.48 * intro);
+    pad.rotation.set(-0.35 + Math.sin(t * 1.3) * 0.12, Math.sin(t * 0.7) * 0.45, Math.sin(t * 1.1) * 0.08);
+    pad.position.y = 1.5 + Math.sin(t * 2) * 0.25;
+    buttons.forEach((b, i) => { const press = Math.max(0, Math.sin(t * 6 - i * 1.6)); b.position.z = 0.7 - press * 0.15; b.material.emissiveIntensity = 0.2 + press * 0.8; });
+    dpad.rotation.z = Math.sin(t * 3) * 0.1;
+    pixels.forEach((p) => { const { a, r, y, sp } = p.userData; p.position.set(Math.cos(a + t * sp) * r, y + Math.sin(t + a) * 0.4 + 1.5, Math.sin(a + t * sp) * r - 2); p.rotation.set(t + a, t * 0.7, 0); });
+    return { cam: new THREE.Vector3(0, 1.5, 15), look: new THREE.Vector3(0, 1.5, 0) };
+  }
+
+  // ---------- Ciudad de torres que crecen (empleos) ----------
+  const cityGroup = new THREE.Group(); scene.add(cityGroup);
+  const base = new THREE.Mesh(box(26, 0.6, 26, 0.2), mat(C.deep)); base.position.y = -0.3; cityGroup.add(base);
+  const towers = [];
+  for (let gx = -4; gx <= 4; gx++) for (let gz = -4; gz <= 2; gz++) {
+    const i = towers.length;
+    const h = 2 + rand(i + 3000) * 7 + (gx === 0 && gz === 0 ? 6 : 0);
+    const col = gx === 0 && gz === 0 ? C.pink : [C.purple, C.border, 0x6d28d9, C.white][i % 4];
+    const m = new THREE.Mesh(box(1.9, 1, 1.9, 0.12), mat(col));
+    const win = new THREE.Mesh(box(1.94, 1, 0.3, 0.05), mat(0xffe08a, { emissive: 0xffe08a, emissiveIntensity: 0.6 }));
+    m.add(win); win.position.z = 0.82; win.scale.set(0.7, 0.85, 1);
+    m.userData = { h, delay: (Math.abs(gx) + Math.abs(gz)) * 0.12 + rand(i + 3100) * 0.3 };
+    m.position.set(gx * 2.6, 0, gz * 2.6); cityGroup.add(m); towers.push(m);
+  }
+  function updateCity(t, local) {
+    cityGroup.visible = true;
+    towers.forEach((m) => {
+      const g = easeOut(prog(local, 0.2 + m.userData.delay, 1.4));
+      const h = Math.max(0.05, m.userData.h * g);
+      m.scale.y = h; m.position.y = h / 2;
+    });
+    const a = t * 0.18;
+    return { cam: new THREE.Vector3(Math.sin(a) * 26, 17, Math.cos(a) * 26), look: new THREE.Vector3(0, 3, 0) };
+  }
+
   const ud = hero.userData;
   function pose({ run = 0, wave = 0, flail = 0, t = 0 }) {
     const sw = Math.sin(t * 14) * 0.9 * run;
@@ -299,10 +400,18 @@ export function createWorld(canvas, { width = 1080, height = 1920 } = {}) {
     const isSnake = action === 'snake' || action === 'snakegame';
     const isCrowd = action === 'crowd' || action === 'coins';
     const isSpace = action === 'blackhole';
-    obby.forEach((o) => (o.visible = !isSnake && !isCrowd && !isSpace));
+    const extra = { mars: updateMars, gamepad: updatePad, city: updateCity }[action];
+    obby.forEach((o) => (o.visible = !isSnake && !isCrowd && !isSpace && !extra));
     crowdGroup.visible = false;
-    spaceGroup.visible = false;
-    deco.forEach((m) => (m.visible = !isSpace));
+    spaceGroup.visible = marsGroup.visible = padGroup.visible = cityGroup.visible = false;
+    deco.forEach((m) => (m.visible = !isSpace && action !== 'mars'));
+    if (extra) {
+      snakeGroup.visible = false;
+      const { cam, look } = extra(t, local);
+      camera.position.copy(cam); camera.lookAt(look);
+      renderer.render(scene, camera);
+      return;
+    }
     if (isSpace) {
       snakeGroup.visible = false;
       const { cam, look } = updateSpace(t, local);

@@ -101,7 +101,101 @@ const PROGRESSIONS = [
 const ARPS = [[0, 1, 2, 1], [0, 2, 1, 2], [0, 1, 2, 0], [2, 1, 0, 1], [0, 2, 0, 1]];
 const KEYS = [0, 2, -3, 5, -2, 3, -5, 1, 4, -1];
 
-export function buildMusic(total, { bpm = 120, gain = 0.5, variant = 0 } = {}) {
+/**
+ * Canciones distintas (no variantes): `style` = 'funk' | 'synthwave' | 'chiptune' | 'lofi'.
+ * Cada una tiene su propio ritmo, acordes, bajo, timbre y una melodía fija que se repite cada 2 compases.
+ */
+const STYLES = {
+  // funk: bajo sincopado con slap, acordes m7 en contratiempo, platillos de semicorchea
+  funk: { level: 1.28, bpm: 112, key: -3, swing: 0, prog: [[0, 3, 7, 10], [5, 8, 12, 15], [3, 7, 10, 14], [-2, 2, 5, 9]],
+    bassPat: [1, 0, 0, 1, 0, 0, 1, 0, 1, 0, 1, 0, 0, 1, 0, 1], stabPat: [0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 0, 0],
+    mel: [7, null, 10, 12, null, 10, 7, null, 5, null, 7, null, 3, null, null, null], lead: 'tri', kick: [0, 6, 10], snare: [4, 12], hats: 16 },
+  // synthwave: acordes largos de sierra, bajo en corcheas, caja grande
+  synthwave: { level: 1.7, bpm: 100, key: 2, swing: 0, prog: [[0, 3, 7], [-4, 0, 3], [-7, -4, 0], [-2, 2, 5]],
+    bassPat: [1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0], pad: true,
+    mel: [12, null, null, 15, null, null, 14, null, 12, null, 10, null, 7, null, null, null], lead: 'saw', kick: [0, 8], snare: [4, 12], hats: 8 },
+  // chiptune: todo onda cuadrada, melodía rápida, ruido como batería
+  chiptune: { level: 1.18, bpm: 150, key: 0, swing: 0, prog: [[0, 4, 7], [5, 9, 12], [7, 11, 14], [0, 4, 7]],
+    bassPat: [1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1], arp: true,
+    mel: [12, 14, 16, 19, 16, 14, 12, null, 11, 12, 14, 12, 7, null, 4, null], lead: 'square', kick: [0, 8], snare: [4, 12], hats: 8, chipDrums: true },
+  // lofi: piano eléctrico suave, swing, batería tranquila y ruido de vinilo
+  lofi: { level: 1, bpm: 84, key: 5, swing: 0.18, prog: [[2, 5, 9, 12], [7, 11, 14, 17], [0, 4, 7, 11], [9, 12, 16, 19]],
+    bassPat: [1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0], epiano: true,
+    mel: [16, null, null, 14, null, 12, null, null, 11, null, null, null, 9, null, null, null], lead: 'sine', kick: [0, 7, 10], snare: [4, 12], hats: 8, vinyl: true },
+};
+
+function buildSong(total, style, gain) {
+  const S = STYLES[style];
+  const n = Math.ceil((total + 0.5) * SR);
+  const buf = new Float32Array(n);
+  const beat = 60 / S.bpm, six = beat / 4, bar = beat * 4;
+  const hz = (semi) => 261.63 * Math.pow(2, (semi + S.key) / 12);
+  const osc = {
+    sine: (ph) => Math.sin(2 * Math.PI * ph),
+    tri: (ph) => 2 * Math.abs(2 * (ph - Math.floor(ph + 0.5))) - 1,
+    square: (ph) => (ph % 1 < 0.5 ? 0.7 : -0.7),
+    saw: (ph) => 2 * (ph % 1) - 1,
+  };
+  const r = rng(7 + style.length);
+  let lpLead = 0, lpPad = 0;
+  // posición dentro del paso de semicorchea, con swing en los pasos impares
+  const stepAt = (t) => {
+    const pair = Math.floor(t / (six * 2)), inPair = t - pair * six * 2, split = six * (1 + S.swing);
+    return inPair < split ? { step: pair * 2, inStep: inPair } : { step: pair * 2 + 1, inStep: inPair - split };
+  };
+  for (let i = 0; i < n; i++) {
+    const t = i / SR;
+    const chord = S.prog[Math.floor(t / bar) % 4];
+    const { step, inStep } = stepAt(t);
+    const s16 = step % 16;
+    let v = 0;
+    // bajo
+    if (S.bassPat[s16]) {
+      const f = hz(chord[0] - 24) * (style === 'funk' && s16 % 4 === 3 ? 2 : 1);
+      const tone = style === 'chiptune' ? osc.square(f * t) * 0.6 : style === 'synthwave' ? osc.saw(f * t) * 0.5 : osc.sine(f * t) + osc.tri(f * t) * 0.3;
+      v += tone * env(inStep, 0.003, style === 'lofi' ? 0.35 : style === 'funk' ? 0.09 : 0.12) * 0.34;
+    }
+    // acordes
+    if (S.pad) {
+      let pad = 0; chord.forEach((c) => { pad += osc.saw(hz(c) * t * 1.003) + osc.saw(hz(c) * t * 0.997); });
+      lpPad += 0.03 * (pad - lpPad);
+      v += lpPad * 0.045 * (0.75 + 0.25 * Math.sin(2 * Math.PI * t / bar));
+    } else if (S.epiano && s16 % 8 === 0) {
+      chord.forEach((c, k) => { v += osc.sine(hz(c) * t) * env(inStep + (s16 % 16 === 8 ? 0 : 0), 0.01, 0.9) * 0.05 * (1 - k * 0.1); });
+    } else if (S.stabPat && S.stabPat[s16]) {
+      chord.forEach((c) => { v += osc.tri(hz(c + 12) * t) * env(inStep, 0.002, 0.06) * 0.06; });
+    } else if (S.arp) {
+      v += osc.square(hz(chord[s16 % 3] + 12) * t) * env(inStep, 0.001, 0.05) * 0.05;
+    }
+    // melodía (2 compases: el segundo repite el primero una octava abajo en lofi y synthwave)
+    const mStep = Math.floor(t / (beat / 2)) % 16, mNote = S.mel[mStep];
+    if (mNote !== null && t > bar * 2) {
+      const inNote = t % (beat / 2);
+      const f = hz(mNote) * (S.lead === 'square' ? 2 : 1);
+      const vib = 1 + (S.lead === 'saw' || S.lead === 'sine' ? Math.sin(t * 30) * 0.004 : 0);
+      lpLead += 0.2 * (osc[S.lead](f * vib * t) - lpLead);
+      v += lpLead * env(inNote, 0.006, S.lead === 'square' ? 0.12 : 0.3) * 0.085;
+    }
+    // batería
+    const kickOn = S.kick.includes(s16), snareOn = S.snare.includes(s16);
+    if (kickOn) v += Math.sin(2 * Math.PI * (S.chipDrums ? 80 : 48 + 100 * Math.exp(-inStep * 35)) * inStep) * Math.exp(-inStep * (style === 'lofi' ? 12 : 9)) * (style === 'lofi' ? 0.4 : 0.55);
+    if (snareOn) v += r() * Math.exp(-inStep * (style === 'synthwave' ? 9 : 22)) * (style === 'lofi' ? 0.1 : 0.2);
+    if (S.hats === 16 || s16 % 2 === 0) v += r() * Math.exp(-inStep * 110) * (style === 'funk' ? 0.05 : 0.04);
+    if (S.vinyl) v += (r() - 0.5) * 0.008 + (r() < 0.0004 ? 0.12 : 0);
+    buf[i] = v * gain * S.level;
+  }
+  const fadeIn = Math.floor(0.6 * SR), fadeOut = Math.floor(1.4 * SR), end = Math.floor(total * SR);
+  for (let i = 0; i < n; i++) {
+    let g = 1;
+    if (i < fadeIn) g = i / fadeIn;
+    if (i > end - fadeOut) g = Math.max(0, (end - i) / fadeOut);
+    buf[i] = Math.tanh(buf[i] * g * 1.1) * 0.9;
+  }
+  return toWav(buf);
+}
+
+export function buildMusic(total, { bpm = 120, gain = 0.5, variant = 0, style } = {}) {
+  if (style && STYLES[style]) return buildSong(total, style, gain);
   const n = Math.ceil((total + 0.5) * SR);
   const buf = new Float32Array(n);
   const beat = 60 / bpm;

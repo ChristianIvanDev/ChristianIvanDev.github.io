@@ -1,0 +1,83 @@
+{
+  "title": "Programar en Minecraft con Python",
+  "voice": false,
+  "worldIdle": "orbit",
+  "musicOptions": {
+    "style": "funk"
+  },
+  "scenes": [
+    {
+      "id": "hook",
+      "type": "world",
+      "action": "wave",
+      "duration": 3.6,
+      "headline": "¿Programar en<br>Minecraft?",
+      "headlineAt": 0.2,
+      "sub": "¡Sí se puede!",
+      "subAt": 1.9
+    },
+    {
+      "id": "fact",
+      "type": "world",
+      "action": "freeze",
+      "duration": 3.8,
+      "headline": "Minecraft<br>Education<br>trae Python",
+      "headlineAt": 0.2,
+      "source": "Minecraft Education · Code Builder (MakeCode)"
+    },
+    {
+      "id": "what",
+      "type": "list",
+      "duration": 4.6,
+      "items": [
+        "Construir",
+        "Minar",
+        "Explorar",
+        "Automatizar"
+      ],
+      "at": [
+        0.3,
+        1.05,
+        1.8,
+        2.55
+      ],
+      "badge": "Con Python",
+      "badgeAt": 3.3
+    },
+    {
+      "id": "game",
+      "type": "world",
+      "action": "orbit",
+      "duration": 3.6,
+      "headline": "Aprender Python<br>puede ser<br>un juego",
+      "headlineAt": 0.2,
+      "sub": "¡Literal!",
+      "subAt": 1.6
+    },
+    {
+      "id": "cta",
+      "type": "cta",
+      "duration": 4.4,
+      "title": "Toma tu clase gratis",
+      "button": "Clase gratis",
+      "buttonAt": 0.9,
+      "link": "👆 Link en mi perfil"
+    }
+  ],
+  "post": {
+    "hook": "¿Programar dentro de Minecraft? ⛏️ ¡Sí se puede!",
+    "body": "Minecraft Education tiene Code Builder, donde puedes programar con bloques, JavaScript o Python (MakeCode) para construir, minar, explorar y automatizar cosas dentro del juego. Aprender Python también puede ser un juego.",
+    "youtubeTitle": "Así se programa en Minecraft con Python",
+    "hashtags": [
+      "python",
+      "minecraft",
+      "minecrafteducation",
+      "programacion",
+      "aprenderaprogramar",
+      "niños",
+      "gamer"
+    ],
+    "comment": "¿Qué construirías con código en Minecraft? 👇",
+    "coverAt": 2.2
+  }
+}
