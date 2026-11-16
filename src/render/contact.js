@@ -1,5 +1,6 @@
 import { h, externalLink } from './dom.js';
 import { t } from '../i18n.js';
+import { socialLinks } from './proof.js';
 
 export const CONTACT = {
   phoneDisplay: '+52 753 150 1861',
@@ -57,6 +58,8 @@ export function renderContact(lang, view) {
         externalLink(CONTACT.superprof, t(lang, 'cta.superprof'), t(lang, 'project.link.newtab'), { class: 'text-link' }),
         h('p', { class: 'card__label contact__gap' }, t(lang, 'contact.linkedin')),
         externalLink(CONTACT.linkedin, 'linkedin.com/in/christianieg', t(lang, 'project.link.newtab'), { class: 'text-link' }),
+        h('p', { class: 'card__label contact__gap' }, t(lang, 'social.follow')),
+        socialLinks(lang, 'social--compact'),
       ),
     ),
   );

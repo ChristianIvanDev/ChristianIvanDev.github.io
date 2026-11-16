@@ -23,3 +23,22 @@ Cada video sigue el **mismo molde**: 6 escenas (hook → giro → prueba → mé
 6. **Entrega.** Envía a Christian el MP4, la portada y `post.md` con `SendUserFile`, y recuérdale la subida única en Metricool a Facebook, Instagram, TikTok y YouTube. Él publica desde sus cuentas: tú no inicias sesión en ellas.
 
 Los comandos que bajan modelos o usan la red (`pip`, Whisper la primera vez, Google Fonts al renderizar) necesitan salir del sandbox.
+
+## Pautas de mejora (noviembre 2026)
+
+Aplícalas en cada video nuevo:
+
+- **Duración:** 12–15 s. Con 2 o 3 escenas de dato más el CTA basta; el video que se ve completo (o dos veces) es el que más alcance gana.
+- **Primer segundo con movimiento:** el video arranca con acción (auto acelerando, moneda cayendo, número contando), nunca con la cámara quieta.
+- **Dos públicos:**
+  - *Niños* (TikTok, Instagram): temas que ya conocen (Roblox, Minecraft, GTA) y CTA "Toma tu clase gratis".
+  - *Papás* (Facebook, YouTube): CTA tipo "Tu hijo puede crear esto en su primera clase".
+- **Cara de Christian en 1 de cada 4 videos:** su voz grabada, unos 15 s (un dato o "esto aprende tu hijo en la clase 1").
+- **Series con nombre**, por ejemplo "¿En qué se programó…?" o "Datos de Roblox".
+- **Palabra clave en 1 de cada 3 videos:** "Comenta ROBLOX y te mando…", para abrir conversaciones privadas.
+- **Fuentes:** todo dato lleva su fuente y fecha en pantalla. Nada inventado ni inflado.
+- **Publicación en Metricool** (marca `7932409`, hora de Guatemala/CDMX): 3 publicaciones por video.
+  - *Instagram Reel:* texto largo y primer comentario.
+  - *TikTok + Threads:* texto corto; TikTok exige título.
+  - *Facebook Reel + YouTube Short:* con el enlace de reserva; YouTube con "No es para niños".
+  - *Videos:* Metricool los toma de una release pública de GitHub.

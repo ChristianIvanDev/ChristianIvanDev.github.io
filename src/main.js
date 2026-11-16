@@ -10,6 +10,7 @@ import { mountApp } from './app.js';
 import { renderTeacher } from './render/teacher.js';
 import { renderDeveloper } from './render/developer.js';
 import { createEffects } from './effects.js';
+import { initAnalytics } from './analytics.js';
 
 const { onRender, onViewChange } = createEffects();
 
@@ -29,3 +30,5 @@ mountApp(document.getElementById('app'), {
   onRender,
   onViewChange,
 });
+
+initAnalytics();

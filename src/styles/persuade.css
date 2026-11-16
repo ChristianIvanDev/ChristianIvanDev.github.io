@@ -219,3 +219,26 @@
 @media (max-width: 640px) {
   .price__compare { grid-template-columns: minmax(0, 1fr); }
 }
+
+/* Reseñas reales de Superprof */
+.reviews__rating { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px; margin: -6px 0 16px; font-weight: 700; }
+.reviews__score { font-family: var(--font-display); font-size: 28px; color: var(--c-pink); }
+.review { display: flex; flex-direction: column; gap: 10px; margin: 0; }
+.review__stars { color: var(--c-ink); letter-spacing: .12em; font-size: 18px; }
+.review__text { margin: 0; font-size: 17px; line-height: 1.5; }
+.review__who { margin-top: auto; font-size: 14px; color: var(--c-text-soft); }
+.review--parent .review__who { color: inherit; opacity: .8; }
+.reviews__note { margin-top: 10px; font-size: 14px; color: var(--c-text-soft); }
+
+/* Videos cortos */
+.short { display: flex; flex-direction: column; overflow: hidden; margin: 0; }
+.short__video { display: block; width: 100%; height: auto; aspect-ratio: 9 / 16; object-fit: cover; background: var(--c-shadow); }
+.short__title { padding: 12px 16px 16px; font-weight: 800; }
+.videos__follow { margin-top: 18px; display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; }
+
+/* Redes sociales */
+.social { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+.social__link { display: inline-flex; align-items: center; min-height: 40px; padding: 8px 16px; border-radius: 999px; border: 2px solid var(--c-pink); color: var(--c-pink); font-weight: 800; text-decoration: none; transition: background-color .15s ease, color .15s ease; }
+.social__link:hover, .social__link:focus-visible { background: var(--c-pink); color: var(--c-ink); }
+.social--compact .social__link { min-height: 34px; padding: 4px 12px; font-size: 14px; }
+@media (prefers-reduced-motion: reduce) { .social__link { transition: none; } }

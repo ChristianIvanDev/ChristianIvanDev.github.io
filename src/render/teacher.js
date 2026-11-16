@@ -4,6 +4,7 @@ import { TEACHING } from '../content/experience.js';
 import { contactButtons, renderContact, guaranteeLine, CONTACT } from './contact.js';
 import { renderNeed, renderPath, renderFaq } from './persuade.js';
 import { renderPricing } from './pricing.js';
+import { renderReviews, renderVideos } from './proof.js';
 import { cvButton } from '../cv-render.js';
 import { sectionHead, photoCard, sceneCard, studentsNote, projectsGrid } from './shared.js';
 
@@ -49,6 +50,8 @@ export function renderTeacher(lang) {
 
     renderNeed(lang),
 
+    renderReviews(lang),
+
     // Experiencia docente
     h('section', { class: 'section', 'data-section': 'teach', 'data-reveal': '', 'aria-labelledby': 'teach-title' },
       sectionHead(lang, { id: 'teach-title', titleKey: 'teach.title', leadKey: 'teach.lead' }),
@@ -60,6 +63,8 @@ export function renderTeacher(lang) {
     ),
 
     renderPath(lang),
+
+    renderVideos(lang),
 
     // Proyectos
     h('section', { class: 'section', id: 'projects-teacher', 'data-section': 'projects', 'data-reveal': '', 'aria-labelledby': 'projects-teacher-title' },
