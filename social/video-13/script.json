@@ -1,0 +1,88 @@
+{
+  "title": "Netflix y Python",
+  "voice": false,
+  "worldIdle": "snakegame",
+  "musicOptions": {
+    "bpm": 126,
+    "variant": 13
+  },
+  "scenes": [
+    {
+      "id": "hook",
+      "type": "world",
+      "action": "snake",
+      "duration": 3.4,
+      "headline": "¿Qué tiene que ver<br>Netflix con Python?",
+      "headlineAt": 0.2,
+      "sub": "¡Mucho!",
+      "subAt": 1.9
+    },
+    {
+      "id": "uses",
+      "type": "list",
+      "duration": 4.8,
+      "items": [
+        "Qué crear",
+        "Recomendaciones",
+        "Seguridad",
+        "Entregar video"
+      ],
+      "at": [
+        0.3,
+        1.1,
+        1.9,
+        2.7
+      ],
+      "badge": "De principio a fin",
+      "badgeAt": 3.5,
+      "source": "Netflix Tech Blog · 2019"
+    },
+    {
+      "id": "same",
+      "type": "world",
+      "action": "snakegame",
+      "duration": 3.8,
+      "headline": "El mismo lenguaje<br>que puedes aprender tú",
+      "headlineAt": 0.2
+    },
+    {
+      "id": "rank",
+      "type": "counter",
+      "duration": 4.0,
+      "pre": "Hoy Python es el",
+      "prefix": "Nº ",
+      "from": 10,
+      "to": 1,
+      "label": "del ranking TIOBE",
+      "countAt": 0.3,
+      "countEndAt": 1.8,
+      "stamp": "¡El más popular!",
+      "stampAt": 2.3,
+      "source": "TIOBE Index · octubre 2026"
+    },
+    {
+      "id": "cta",
+      "type": "cta",
+      "duration": 4.4,
+      "title": "Toma tu clase gratis",
+      "button": "Clase gratis",
+      "buttonAt": 0.9,
+      "link": "👆 Link en mi perfil"
+    }
+  ],
+  "post": {
+    "hook": "¿Qué tiene que ver Netflix con Python? 🎬 ¡Mucho!",
+    "body": "Netflix usa Python en todo el camino: desde decidir qué contenido crear hasta entregar el video, pasando por recomendaciones y seguridad (Netflix Tech Blog, 2019). Y hoy Python es el nº 1 del ranking TIOBE (octubre 2026).",
+    "youtubeTitle": "Netflix usa Python de principio a fin (y tú puedes aprenderlo)",
+    "hashtags": [
+      "python",
+      "netflix",
+      "historiasdeexito",
+      "programacion",
+      "aprenderaprogramar",
+      "datoscuriosos"
+    ],
+    "comment": "¿Qué serie te recomendó Netflix últimamente? 👇",
+    "coverAt": 2.2
+  }
+}

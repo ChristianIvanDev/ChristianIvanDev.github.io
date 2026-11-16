@@ -1,0 +1,99 @@
+{
+  "title": "La primera foto de un agujero negro",
+  "voice": false,
+  "worldIdle": "blackhole",
+  "musicOptions": {
+    "bpm": 116,
+    "variant": 12
+  },
+  "scenes": [
+    {
+      "id": "hook",
+      "type": "world",
+      "action": "blackhole",
+      "duration": 3.8,
+      "headline": "¿Cómo se tomó<br>la primera foto de<br>un agujero negro?",
+      "headlineAt": 0.2
+    },
+    {
+      "id": "dishes",
+      "type": "counter",
+      "duration": 4.2,
+      "pre": "Se unieron",
+      "prefix": "",
+      "to": 8,
+      "label": "radiotelescopios",
+      "countAt": 0.3,
+      "countEndAt": 1.6,
+      "stamp": "Abril<br>2019",
+      "stampAt": 2.2,
+      "source": "Event Horizon Telescope · 2019"
+    },
+    {
+      "id": "drives",
+      "type": "world",
+      "action": "blackhole",
+      "duration": 3.8,
+      "from": 3,
+      "headline": "Los datos viajaron<br>en media tonelada<br>de discos duros",
+      "headlineAt": 0.2,
+      "source": "Harvard CfA / PBS · 2019"
+    },
+    {
+      "id": "python",
+      "type": "world",
+      "action": "blackhole",
+      "duration": 3.8,
+      "from": 3,
+      "headline": "Y Python ayudó<br>a armar la imagen",
+      "headlineAt": 0.2,
+      "sub": "NumPy",
+      "subAt": 1.5,
+      "source": "numpy.org · caso de estudio"
+    },
+    {
+      "id": "learn",
+      "type": "list",
+      "duration": 4.4,
+      "items": [
+        "Ciencia",
+        "Datos",
+        "Juegos",
+        "Robots"
+      ],
+      "at": [
+        0.3,
+        1.05,
+        1.8,
+        2.55
+      ],
+      "badge": "Con Python",
+      "badgeAt": 3.3
+    },
+    {
+      "id": "cta",
+      "type": "cta",
+      "duration": 4.4,
+      "title": "Toma tu clase gratis",
+      "button": "Clase gratis",
+      "buttonAt": 0.9,
+      "link": "👆 Link en mi perfil"
+    }
+  ],
+  "post": {
+    "hook": "¿Cómo se tomó la primera foto de un agujero negro? 🕳️",
+    "body": "En abril de 2019, el Event Horizon Telescope unió 8 radiotelescopios. Los datos viajaron en media tonelada de discos duros, y NumPy (Python) está en el núcleo del software con el que se reconstruyó la imagen. Con Python se hace ciencia de verdad.",
+    "youtubeTitle": "La primera foto de un agujero negro se armó con ayuda de Python",
+    "hashtags": [
+      "python",
+      "numpy",
+      "agujeronegro",
+      "ciencia",
+      "datoscuriosos",
+      "programacion",
+      "astronomia"
+    ],
+    "comment": "¿Qué te gustaría descubrir con Python? 👇",
+    "coverAt": 2.0
+  }
+}

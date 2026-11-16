@@ -1,0 +1,88 @@
+{
+  "title": "Dropbox empezó con Python",
+  "voice": false,
+  "worldIdle": "snakegame",
+  "musicOptions": {
+    "bpm": 124,
+    "variant": 11
+  },
+  "scenes": [
+    {
+      "id": "hook",
+      "type": "world",
+      "action": "snake",
+      "duration": 3.4,
+      "headline": "¿En qué se<br>programó Dropbox?",
+      "headlineAt": 0.2,
+      "sub": "¡En Python!",
+      "subAt": 1.8
+    },
+    {
+      "id": "first",
+      "type": "world",
+      "action": "snakegame",
+      "duration": 3.8,
+      "headline": "Sus primeras líneas<br>de código: Python",
+      "headlineAt": 0.2,
+      "source": "Blog de Dropbox"
+    },
+    {
+      "id": "guido",
+      "type": "counter",
+      "duration": 4.6,
+      "pre": "Y el creador de Python<br>trabajó ahí",
+      "prefix": "",
+      "to": 6.5,
+      "decimals": 1,
+      "label": "años",
+      "countAt": 0.4,
+      "countEndAt": 2.0,
+      "stamp": "2013 – 2019",
+      "stampAt": 2.5,
+      "source": "Blog de Dropbox · 2019"
+    },
+    {
+      "id": "learn",
+      "type": "list",
+      "duration": 4.4,
+      "items": [
+        "Apps",
+        "Servidores",
+        "Herramientas",
+        "Tu proyecto"
+      ],
+      "at": [
+        0.3,
+        1.05,
+        1.8,
+        2.55
+      ],
+      "badge": "Con Python",
+      "badgeAt": 3.3
+    },
+    {
+      "id": "cta",
+      "type": "cta",
+      "duration": 4.4,
+      "title": "Toma tu clase gratis",
+      "button": "Clase gratis",
+      "buttonAt": 0.9,
+      "link": "👆 Link en mi perfil"
+    }
+  ],
+  "post": {
+    "hook": "¿En qué se programó Dropbox? 📦 ¡En Python!",
+    "body": "Las primeras líneas de código de Dropbox fueron en Python, y en 2011 su servidor y su app de escritorio estaban escritos casi solo en Python. Hasta Guido van Rossum, el creador de Python, trabajó ahí 6 años y medio (2013–2019).",
+    "youtubeTitle": "Dropbox empezó con Python (y contrató al creador de Python)",
+    "hashtags": [
+      "python",
+      "dropbox",
+      "historiasdeexito",
+      "programacion",
+      "aprenderaprogramar",
+      "guidovanrossum"
+    ],
+    "comment": "¿Qué app te gustaría crear con Python? 👇",
+    "coverAt": 2.2
+  }
+}

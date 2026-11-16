@@ -193,11 +193,12 @@ export function createWorld(canvas, { width = 1080, height = 1920 } = {}) {
   function updateCrowd(t, action, opts) {
     crowdGroup.visible = true;
     const growth = action === 'coins' ? 0 : smooth(prog(t, opts.crowdFrom ?? 0, opts.crowdDur ?? 4));
-    const visible = action === 'coins' ? 0 : Math.max(1, Math.floor(CROWD * growth));
+    const cap = Math.min(CROWD, opts.crowdMax ?? CROWD);
+    const visible = action === 'coins' ? 0 : Math.max(1, Math.floor(cap * growth));
     for (let i = 0; i < CROWD; i++) {
       const p = crowdPos[i];
       const on = i < visible;
-      const born = on ? (i === 0 ? 1 : clamp((growth * CROWD - i) / 12)) : 0;   // aparece con un pequeño salto (el primero siempre está)
+      const born = on ? (i === 0 ? 1 : clamp((growth * cap - i) / Math.min(12, Math.max(1, cap / 3)))) : 0;   // aparece con un pequeño salto (el primero siempre está)
       const hop = Math.abs(Math.sin(t * 4 + p.ph)) * 0.35 + (1 - born) * 1.5;
       dummy.position.set(p.x, 0.75 + hop, p.z); dummy.rotation.set(0, p.face + Math.atan2(-p.x, 20 - p.z) * 0.6, 0);
       dummy.scale.setScalar(on ? born : 0.0001); dummy.updateMatrix(); bodies.setMatrixAt(i, dummy.matrix);
@@ -216,10 +217,50 @@ export function createWorld(canvas, { width = 1080, height = 1920 } = {}) {
     if (action === 'coins') {
       cam = new THREE.Vector3(Math.sin(t * 0.2) * 2, 4, 15); look = new THREE.Vector3(0, 3.5, 0);
     } else {
-      const d = lerp(9, 62, growth);
-      cam = new THREE.Vector3(Math.sin(t * 0.15) * d * 0.25, lerp(4, 34, growth), d); look = new THREE.Vector3(0, lerp(1.6, 0, growth), 0);
+      const spread = growth * Math.sqrt(cap / CROWD);   // con pocos personajes la cámara se queda cerca
+      const d = lerp(9, 62, spread);
+      cam = new THREE.Vector3(Math.sin(t * 0.15) * d * 0.25, lerp(4, 34, spread), d); look = new THREE.Vector3(0, lerp(1.6, 0, spread), 0);
     }
     return { cam, look };
+  }
+
+  // ---------- Agujero negro (anillo brillante + estrellas) ----------
+  const spaceGroup = new THREE.Group(); scene.add(spaceGroup);
+  const hole = new THREE.Mesh(new THREE.SphereGeometry(2.2, 48, 32), new THREE.MeshBasicMaterial({ color: 0x000000 }));
+  spaceGroup.add(hole);
+  const ringCore = new THREE.Mesh(new THREE.TorusGeometry(3.2, 0.55, 24, 96), new THREE.MeshBasicMaterial({ color: 0xffb547 }));
+  const ringGlow = new THREE.Mesh(new THREE.TorusGeometry(3.4, 1.3, 24, 96), new THREE.MeshBasicMaterial({ color: 0xff6a1f, transparent: true, opacity: 0.35 }));
+  ringCore.rotation.x = ringGlow.rotation.x = 1.15;
+  spaceGroup.add(ringGlow, ringCore);
+  const halo = new THREE.Mesh(new THREE.TorusGeometry(2.45, 0.22, 16, 96), new THREE.MeshBasicMaterial({ color: 0xffe2a8 }));
+  spaceGroup.add(halo);
+  const stars = Array.from({ length: 160 }, (_, i) => {
+    const s = new THREE.Mesh(new THREE.SphereGeometry(0.04 + rand(i + 1500) * 0.06, 6, 4), new THREE.MeshBasicMaterial({ color: i % 5 ? 0xffffff : C.pink }));
+    s.position.set((rand(i + 1600) - 0.5) * 60, (rand(i + 1700) - 0.5) * 90, -20 - rand(i + 1800) * 30);
+    spaceGroup.add(s); return s;
+  });
+  const dishes = Array.from({ length: 8 }, (_, i) => {
+    const g = new THREE.Group();
+    const dish = new THREE.Mesh(new THREE.SphereGeometry(0.7, 20, 10, 0, Math.PI * 2, 0, Math.PI / 2.6), mat(C.white, { side: THREE.DoubleSide }));
+    dish.rotation.x = Math.PI; dish.position.y = 0.9;
+    const leg = new THREE.Mesh(box(0.25, 0.9, 0.25, 0.05), mat(C.border)); leg.position.y = 0.45;
+    g.add(dish, leg); spaceGroup.add(g); return g;
+  });
+  function updateSpace(t, local) {
+    spaceGroup.visible = true;
+    const pulse = 1 + Math.sin(t * 3) * 0.04;
+    ringCore.rotation.z = t * 0.6; ringGlow.rotation.z = -t * 0.3; ringGlow.scale.setScalar(pulse);
+    halo.scale.setScalar(1 + Math.sin(t * 2) * 0.03);
+    stars.forEach((s, i) => { s.scale.setScalar(0.6 + Math.abs(Math.sin(t * 2 + i)) * 0.8); });
+    // 8 radiotelescopios en un arco bajo el agujero negro
+    dishes.forEach((g, i) => {
+      const a = -0.9 + (i / 7) * 1.8;
+      g.position.set(Math.sin(a) * 7, -5.8 + Math.cos(a) * 0.6, Math.cos(a) * 2 - 1);
+      g.rotation.set(-0.5, -a, 0);
+      g.visible = local > 0.2 + i * 0.12;
+    });
+    const zoom = smooth(prog(local, 0, 3));
+    return { cam: new THREE.Vector3(Math.sin(t * 0.25) * 2, 2.2, lerp(27, 19, zoom)), look: new THREE.Vector3(0, 2.6, 0) };
   }
 
   const ud = hero.userData;
@@ -257,8 +298,18 @@ export function createWorld(canvas, { width = 1080, height = 1920 } = {}) {
   function update(t, action, local, opts = {}) {
     const isSnake = action === 'snake' || action === 'snakegame';
     const isCrowd = action === 'crowd' || action === 'coins';
-    obby.forEach((o) => (o.visible = !isSnake && !isCrowd));
+    const isSpace = action === 'blackhole';
+    obby.forEach((o) => (o.visible = !isSnake && !isCrowd && !isSpace));
     crowdGroup.visible = false;
+    spaceGroup.visible = false;
+    deco.forEach((m) => (m.visible = !isSpace));
+    if (isSpace) {
+      snakeGroup.visible = false;
+      const { cam, look } = updateSpace(t, local);
+      camera.position.copy(cam); camera.lookAt(look);
+      renderer.render(scene, camera);
+      return;
+    }
     if (isCrowd) {
       snakeGroup.visible = false;
       // En "coins" el personaje se queda de pie celebrando bajo la lluvia de monedas

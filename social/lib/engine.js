@@ -62,6 +62,7 @@ const TYPES = {
         orbit: [at(0, 'whoosh')], wave: [at(0, 'whoosh')],
         snake: [at(0.2, 'scratch'), at(1.4, 'hit')],
         crowd: [at(0, 'whoosh')], coins: [at(0, 'whoosh'), at(0.3, 'chime')],
+        blackhole: [at(0, 'rewind'), at(1.2, 'hit')],
         snakegame: [at(0, 'whoosh'), ...SNAKE_EATS.map((d) => (d - 1.5) / 6.2 - c.from).filter((lt) => lt > 0 && c.start + lt < c.end).map((lt) => at(lt, 'eat'))] }[c.action] || [];
       const typing = c.code == null ? [] : Array.from({ length: 16 }, (_, i) => ({ t: c.code + i * 0.085, type: 'type' }));
       const head = c.headline == null ? [] : [{ t: c.headline, type: 'pop' }];
