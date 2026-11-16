@@ -3,7 +3,7 @@
  * Está apagada mientras `GOATCOUNTER_CODE` esté vacío. Para activarla, crea una cuenta en
  * https://www.goatcounter.com y pon aquí el código de tu sitio (lo que va antes de .goatcounter.com).
  */
-export const GOATCOUNTER_CODE = '';
+export const GOATCOUNTER_CODE = 'sadchris';
 
 /** Nombre del evento para un clic en un enlace de interés, o null si no se mide. */
 export function clickEventName(link) {
